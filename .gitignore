@@ -1,0 +1,28 @@
+.Rproj.user
+.Rhistory
+.RData
+Rplots.pdf
+
+.DS_Store
+
+code/mothur/*
+code/sina/*
+data/*/*
+data/summary.txt
+!data/process/*
+!README.md
+!data/raw/primer.oligos
+!data/raw/metadata.csv
+!data/raw/group_colors.csv
+
+# Sequences taxonomy data
+!data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
+# OTU/sample data
+!data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared
+# Sequencing error summary data
+!data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.error.summary
+
+*.qsub*
+mothur*logfile
+*temp*
+*.docx
