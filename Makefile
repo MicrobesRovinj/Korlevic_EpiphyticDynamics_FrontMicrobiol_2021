@@ -187,41 +187,27 @@ $(FIGS)community_bar_plot.jpg : code/plot_community_bar_plot.R\
                                 $(RAW)group_colors.csv
 	R -e "source('code/plot_community_bar_plot.R')"
 
-# Generate rarefaction data
-$(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
-                                                           code/get_rarefaction_data.batch\
-                                                           $(MOTHUR)
-	$(MOTHUR) code/get_rarefaction_data.batch
-
 # Construct a rarefaction plot
-$(FIGS)rarefaction.jpg : code/plot_rarefaction.R\
-                         $(RAW)metadata.csv\
-                         $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction
+$(FIGS)rarefaction.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+                         code/get_rarefaction_data.batch\
+                         $(MOTHUR)\
+                         code/plot_rarefaction.R\
+                         $(RAW)metadata.csv
+	$(MOTHUR) code/get_rarefaction_data.batch
 	R -e "source('code/plot_rarefaction.R')"
 
-# Determine community richness and diversity calculators   
-$(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
-                                                               code/get_calculators.batch\
-                                                               $(MOTHUR)
-	$(MOTHUR) code/get_calculators.batch
-
 # Plot richness and diversity calculators
-$(FIGS)calculators.jpg : code/plot_calculators.R\
-                          $(RAW)metadata.csv\
-                          $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary
+$(FIGS)calculators.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+                         code/get_calculators.batch\
+                         $(MOTHUR)\
+                         code/plot_calculators.R\
+                         $(RAW)metadata.csv
+	$(MOTHUR) code/get_calculators.batch
 	R -e "source('code/plot_calculators.R')"
 
-# Generate data to plot PCoA ordination
-$(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa%axes\
-$(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa%loadings : code/get_pcoa_data.batch\
-                                                                             $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
-                                                                             $(MOTHUR)
-	$(MOTHUR) code/get_pcoa_data.batch
-
-# Construct a PCoA plot
-$(FIGS)pcoa_figure.jpg : code/plot_pcoa.R\
-                         $(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.axes\
-                         $(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.loadings\
+# Construct PCoA plots
+$(FIGS)pcoa_figure.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+                         code/plot_pcoa.R\
                          $(RAW)metadata.csv
 	R -e "source('code/plot_pcoa.R')"
 
