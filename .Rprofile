@@ -7,6 +7,9 @@ library("knitr")
 library("rmarkdown")
 library("tinytex")
 library("tidyverse")
+library("vegan")
+library("gridExtra")
+library("lime")
 
 ############################################################
 # Options for knitr and Rmarkdown rendering
