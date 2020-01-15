@@ -84,7 +84,7 @@ $(REFS)silva.nr_v132.pcr.unique%align : $(REFS)silva.nr_v132.align\
 #########################################################################################
 
 $(RAW)raw.files : $(RAW)metadata.csv
-	cut -f 1,5,6 data/raw/metadata.csv | tail -n +2 > $(RAW)raw.files
+	cut -f 1,2,3 data/raw/metadata.csv | tail -n +2 > $(RAW)raw.files
 
 $(RAW)*.fastq : $(RAW)raw.files\
                 ~/raw/together/*.fastq
@@ -198,11 +198,8 @@ $(FIGS)rarefaction.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
 
 # Plot richness and diversity calculators
 $(FIGS)calculators.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
-                         code/get_calculators.batch\
-                         $(MOTHUR)\
                          code/plot_calculators.R\
                          $(RAW)metadata.csv
-	$(MOTHUR) code/get_calculators.batch
 	R -e "source('code/plot_calculators.R')"
 
 # Construct PCoA plots

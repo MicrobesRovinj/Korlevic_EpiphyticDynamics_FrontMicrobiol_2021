@@ -16,7 +16,8 @@ rarefied <- shared %>%
   select(-label, -Group, -numOtus) %>%
   rrarefy(., min(rowSums(.))) %>%
   as.tibble() %>%
-  add_column("Group"=shared$Group, .before=TRUE)
+  add_column("Group"=shared$Group, .before=TRUE) %>%
+  select_if(funs(!is.numeric(.) || sum(.)!=0))
 
 # Loading metadata 
 metadata <- read_tsv("data/raw/metadata.csv")
@@ -24,10 +25,23 @@ metadata <- read_tsv("data/raw/metadata.csv")
 # Joining metadata and point coordiantes
 rarefied_metadata <- inner_join(metadata, rarefied, by=c("ID"="Group"))
 
-########################################
-# All samples
-########################################
+# Function for setting the number of decimal places
+scaleFUN <- function(x) sprintf("%.2f", x)
 
+# Generating a common theme for plots
+theme <- theme(text=element_text(family="Times"), line=element_line(color="black"),
+         panel.border=element_rect(fill=NA), panel.background=element_blank(),
+         panel.grid=element_blank(), axis.line=element_blank(),
+         axis.text=element_text(size=12, color="black"), axis.title=element_text(size=14, color="black"),
+         plot.margin=unit(c(5.5, 16.5, 16.5, 16.5), "pt"),
+         legend.text=element_text(size=10, margin=margin(r=0.2, unit="cm")), 
+         legend.key.width=unit(0, "cm"), legend.key.height=unit(0.5, "cm"),
+         legend.key=element_rect(fill="white"), legend.text.align=0, 
+         legend.margin=margin(-5, 0, 0, 0), legend.position=c(0.01, 0.99),
+         legend.justification=c("left", "top"), plot.title=element_text(size=14, hjust=0.5))
+
+# Plots generation
+# All samlples
 # Filter all sampels
 rarefied_metadata_select <- rarefied_metadata
 
@@ -37,25 +51,29 @@ spe.b.pcoa <- cmdscale(spe.bray, k=(nrow(rarefied_metadata_select)-1), eig=TRUE)
 coordinates <- spe.b.pcoa$points[,1:2] %>%
   as.tibble() %>%
   add_column("Group"=rarefied_metadata_select$label, .before=TRUE)
+coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 
 # PCoA plot generation
-p1 <- ggplot(coordinates, aes(x=V1, y=V2, label=Group)) +
-  geom_point() +
-  geom_text(aes(label=Group), nudge_x=0.07) +
+p1 <- ggplot() +
+  geom_point(data=coordinates, aes(x=V1, y=V2, fill=station), shape=21, size=3, stroke=0.5) +
+  scale_fill_manual(name=NULL,
+                      values=c("#66A61E", "#E6AB02", "#A6761D", "#666666"),
+                      breaks=c("F", "FCyM", "FCaM", "FCa"),
+                      labels=c("Seawater",
+                               parse(text="italic('Cymodocea nodosa')~'(Invaded)'"),
+                               parse(text="italic('Caulerpa cylindracea')~'(Invaded)'"),
+                               parse(text="italic('Caulerpa cylindracea')~'(Noninvaded)'"))) +
   labs(x=paste0("PCoA I (",format(round(spe.b.pcoa$eig[1]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)"), 
        y=paste0("PCoA II (",format(round(spe.b.pcoa$eig[2]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)")) +
-  theme(text=element_text(family="Times"), line=element_line(color="black"),
-        panel.border=element_rect(fill=NA), panel.background=element_blank(),
-        panel.grid=element_blank(), axis.line=element_blank(),
-        axis.text=element_text(size=14, color="black"), axis.title=element_text(size=18, color="black"),
-        plot.margin = unit(c(22, 22, 22, 22), "pt"))
+  ggtitle(parse(text="bold('Seawater and Epiphytes')")) +
+  scale_x_continuous(labels=scaleFUN) +
+  scale_y_continuous(labels=scaleFUN) +
+  theme
 
-########################################
-# Water column samples
-########################################
-
+# Seawater samples
 # Filter samples from the water column
-rarefied_metadata_select <- filter(rarefied_metadata, station=="F")
+rarefied_metadata_select <- filter(rarefied_metadata, station=="F") %>%
+  select_if(funs(!is.numeric(.) || sum(.)!=0))
 
 # Generation of PCoA data
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
@@ -63,25 +81,25 @@ spe.b.pcoa <- cmdscale(spe.bray, k=(nrow(rarefied_metadata_select)-1), eig=TRUE)
 coordinates <- spe.b.pcoa$points[,1:2] %>%
   as.tibble() %>%
   add_column("Group"=rarefied_metadata_select$label, .before=TRUE)
+coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 
 # PCoA plot generation
-p2 <- ggplot(coordinates, aes(x=V1, y=V2, label=Group)) +
-  geom_point() +
-  geom_text(aes(label=Group), nudge_x=0.07) +
+p2 <- ggplot() +
+  geom_point(data=coordinates, aes(x=V1, y=V2, fill=season), shape=21, size=3, stroke=0.5) +
+  scale_fill_manual(name=NULL,
+                    breaks=c("Spring", "Summer", "Autumn", "Winter"),
+                    values=brewer.pal(n=4, name="Set1")) +
   labs(x=paste0("PCoA I (",format(round(spe.b.pcoa$eig[1]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)"), 
        y=paste0("PCoA II (",format(round(spe.b.pcoa$eig[2]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)")) +
-  theme(text=element_text(family="Times"), line=element_line(color="black"),
-        panel.border=element_rect(fill=NA), panel.background=element_blank(),
-        panel.grid=element_blank(), axis.line=element_blank(),
-        axis.text=element_text(size=14, color="black"), axis.title=element_text(size=18, color="black"),
-        plot.margin = unit(c(22, 22, 22, 22), "pt"))
+  ggtitle(parse(text="bold('Seawater')")) +
+  scale_x_continuous(labels=scaleFUN) +
+  scale_y_continuous(labels=scaleFUN) +
+  theme
 
-########################################
 # Cymodocea nodosa samples
-########################################
-
 # Filter samples from the water column
-rarefied_metadata_select <- filter(rarefied_metadata, station=="FCyM")
+rarefied_metadata_select <- filter(rarefied_metadata, station=="FCyM") %>%
+  select_if(funs(!is.numeric(.) || sum(.)!=0))
 
 # Generation of PCoA data
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
@@ -89,25 +107,25 @@ spe.b.pcoa <- cmdscale(spe.bray, k=(nrow(rarefied_metadata_select)-1), eig=TRUE)
 coordinates <- spe.b.pcoa$points[,1:2] %>%
   as.tibble() %>%
   add_column("Group"=rarefied_metadata_select$label, .before=TRUE)
+coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 
 # PCoA plot generation
-p3 <- ggplot(coordinates, aes(x=V1, y=V2, label=Group)) +
-  geom_point() +
-  geom_text(aes(label=Group), nudge_x=0.07) +
+p3 <- ggplot() +
+  geom_point(data=coordinates, aes(x=V1, y=V2, fill=season), shape=21, size=3, stroke=0.5) +
+  scale_fill_manual(name=NULL,
+                    breaks=c("Spring", "Summer", "Autumn", "Winter"),
+                    values=brewer.pal(n=4, name="Set1")) +
   labs(x=paste0("PCoA I (",format(round(spe.b.pcoa$eig[1]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)"), 
        y=paste0("PCoA II (",format(round(spe.b.pcoa$eig[2]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)")) +
-  theme(text=element_text(family="Times"), line=element_line(color="black"),
-        panel.border=element_rect(fill=NA), panel.background=element_blank(),
-        panel.grid=element_blank(), axis.line=element_blank(),
-        axis.text=element_text(size=14, color="black"), axis.title=element_text(size=18, color="black"),
-        plot.margin = unit(c(22, 22, 22, 22), "pt"))
+  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Invaded)')")) +
+  scale_x_continuous(labels=scaleFUN) +
+  scale_y_continuous(labels=scaleFUN) +
+  theme
 
-########################################
 # Caulerpa cylindracea samples
-########################################
-
 # Filter samples from the water column
-rarefied_metadata_select <- filter(rarefied_metadata, str_detect(station, "^FCa"))
+rarefied_metadata_select <- filter(rarefied_metadata, str_detect(station, "^FCa")) %>%
+  select_if(funs(!is.numeric(.) || sum(.)!=0))
 
 # Generation of PCoA data
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
@@ -115,19 +133,29 @@ spe.b.pcoa <- cmdscale(spe.bray, k=(nrow(rarefied_metadata_select)-1), eig=TRUE)
 coordinates <- spe.b.pcoa$points[,1:2] %>%
   as.tibble() %>%
   add_column("Group"=rarefied_metadata_select$label, .before=TRUE)
+coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 
 # PCoA plot generation
-p4 <- ggplot(coordinates, aes(x=V1, y=V2, label=Group)) +
-  geom_point() +
-  geom_text(aes(label=Group), nudge_x=0.07) +
+p4 <- ggplot() +
+  geom_point(data=coordinates, aes(x=V1, y=V2, fill=season, shape=station), size=3, stroke=0.5) +
+  scale_fill_manual(name=NULL,
+                    breaks=c("Spring", "Summer", "Autumn", "Winter"),
+                    values=brewer.pal(n=4, name="Set1")) +
+  scale_shape_manual(name=NULL,
+                     values=c(21, 23),
+                     breaks=c("FCaM", "FCa"),
+                     labels=c(parse(text="italic('Caulerpa cylindracea')~'(Invaded)'"),
+                              parse(text="italic('Caulerpa cylindracea')~'(Noninvaded)'"))) +
   labs(x=paste0("PCoA I (",format(round(spe.b.pcoa$eig[1]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)"), 
        y=paste0("PCoA II (",format(round(spe.b.pcoa$eig[2]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)")) +
-  theme(text=element_text(family="Times"), line=element_line(color="black"),
-        panel.border=element_rect(fill=NA), panel.background=element_blank(),
-        panel.grid=element_blank(), axis.line=element_blank(),
-        axis.text=element_text(size=14, color="black"), axis.title=element_text(size=18, color="black"),
-        plot.margin = unit(c(22, 22, 22, 22), "pt"))
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Invaded and Noninvaded)')")) +
+  scale_x_continuous(labels=scaleFUN) +
+  scale_y_continuous(labels=scaleFUN) +
+  theme +
+  theme(legend.position=c(0.01, 0.01), legend.justification=c("left", "bottom"),
+        legend.spacing.y=unit(0.1, "cm")) +
+  guides(fill=guide_legend(override.aes=list(shape=21)))
 
 # Combining plots together and save
-p <- grid.arrange(p1, p2, p3, p4, nrow=2, ncol=2)
+p <- cowplot::plot_grid(p1, p2, p3, p4, align="h")
 ggsave("results/figures/pcoa_figure.jpg", p, width=297, height=210, units="mm")

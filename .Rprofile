@@ -8,8 +8,7 @@ library("rmarkdown")
 library("tinytex")
 library("tidyverse")
 library("vegan")
-library("gridExtra")
-library("lime")
+library("RColorBrewer")
 
 ############################################################
 # Options for knitr and Rmarkdown rendering

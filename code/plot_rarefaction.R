@@ -53,9 +53,9 @@ color_type <- tribble(~date, ~color, ~line_type,
 theme <- theme(text=element_text(family="Times"), line=element_line(color="black"),
                panel.border=element_rect(fill=NA), panel.background=element_blank(),
                panel.grid=element_blank(), axis.line=element_blank(),
-               axis.text=element_text(size=14, color="black"), axis.title=element_text(size=18, color="black"),
+               axis.text=element_text(size=12, color="black"), axis.title=element_text(size=14, color="black"),
                plot.margin=unit(c(5.5, 16.5, 5.5, 5.5), "pt"), legend.position="none",
-               plot.title=element_text(size=16, hjust = 0.5))
+               plot.title=element_text(size=16, hjust=0.5))
 
 # Plots generation
 p1 <- filter(metadata_rarefaction, station=="F") %>%
@@ -75,7 +75,7 @@ p2 <- filter(metadata_rarefaction, str_detect(label, "FCyM$")) %>%
   scale_colour_manual(values=set_names(color_type$color, color_type$date)) +
   scale_linetype_manual(values=set_names(color_type$line_type, color_type$date)) +
   labs(x="", y="") +
-  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold(' (Invaded)')")) +
+  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Invaded)')")) +
   theme
 
 p3 <- filter(metadata_rarefaction, str_detect(label, "FCaM$")) %>%
@@ -87,7 +87,7 @@ p3 <- filter(metadata_rarefaction, str_detect(label, "FCaM$")) %>%
   scale_x_continuous(limits=c(0, 40000)) +
   scale_y_continuous(limits=c(0, 4000)) +
   labs(x="Number of Sequences", y="Number of OTUs") +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold(' (Invaded)')")) +
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Invaded)')")) +
   theme
 
 p4 <- filter(metadata_rarefaction, str_detect(label, "FCa$")) %>%
@@ -96,7 +96,7 @@ p4 <- filter(metadata_rarefaction, str_detect(label, "FCa$")) %>%
   geom_line(size=1.5) +
   scale_colour_manual(values=set_names(color_type$color, color_type$date)) +
   scale_linetype_manual(values=set_names(color_type$line_type, color_type$date)) +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold(' (Noninvaded)')")) +
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Noninvaded)')")) +
   labs(x="Number of Sequences", y="") +
   theme
 
@@ -111,17 +111,15 @@ p <- ggplot(metadata_rarefaction, aes(x=numsampled, y=sobs, group=ID,
   labs(x="Number of Sequences", y="") +
   theme +
   theme(legend.position="bottom", legend.title=element_blank(),
-        legend.text=element_text(size=10, margin=margin(r=0.2, unit="cm")), 
-        legend.spacing.x=unit(0, "cm"), legend.spacing.y=unit(0, 'cm'),
+        legend.text=element_text(size=10, margin=margin(r=0.2, unit="cm")),
         legend.key.width=unit(1.4, "cm"), legend.key.height=unit(0.5, "cm"),
-        legend.key.size=unit(1.2, "cm"), legend.key=element_rect(fill="white"),
-        legend.justification=c("top"), legend.text.align=0)
+        legend.key=element_rect(fill="white"), legend.justification=c("top"),
+        legend.text.align=0)
 
 # Common legend extraction
-legend <- g_legend(p)
+legend <- cowplot::get_legend(p)
 
 # Combining plots together and save
-p <- grid.arrange(p1, p2, p3, p4, legend, layout_matrix=matrix(c(1,3,5,2,4,5), ncol=2),
-                  heights=c(2.3, 2.3, 0.4))
+plots <- cowplot::plot_grid(p1, p2, p3, p4, ncol=2, nrow=2, align="h")
+p <- cowplot::plot_grid(plots, legend, ncol=1, nrow=2, rel_heights=c(4.6, 0.4))
 ggsave("results/figures/rarefaction.jpg", p, width=210, height=297, units="mm")
-
