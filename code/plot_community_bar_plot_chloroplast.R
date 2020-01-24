@@ -1,9 +1,9 @@
 #################################################################################################################
-# plot_community_bar_plot.R
+# plot_community_bar_plot_chloroplast.R
 # 
-# A script to plot the community structure of each sample.
+# A script to plot chloroplast sequence abundances of each sample.
 # Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
-# Produces: results/figures/community_bar_plot.jpg
+# Produces: results/figures/chloroplast_bar_plot.jpg
 #
 #################################################################################################################
 
@@ -12,17 +12,10 @@ community <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.uniq
   filter(!str_detect(taxon, "^Eukaryota")) %>%
   filter(taxon!="Root")
 
-# Remove Chloroplast and Mitochondria sequences and subtract their number from higher taxonomic levels to which
+# Remove and Mitochondria sequences and subtract their number from higher taxonomic levels to which
 # they belong
-chloroplast <- filter(community, str_detect(taxon, "^Chloroplast$"))$rankID
 mitochondria <- filter(community, str_detect(taxon, "^Mitochondria$"))$rankID
 community <- mutate_at(community, 5:ncol(community), funs(case_when(
-    rankID==str_extract(chloroplast, "(\\d+\\.){3}\\d+") ~ . - .[taxon=="Chloroplast"],
-    rankID==str_extract(chloroplast, "(\\d+\\.){2}\\d+") ~ . - .[taxon=="Chloroplast"],
-    rankID==str_extract(chloroplast, "(\\d+\\.){1}\\d+") ~ . - .[taxon=="Chloroplast"],
-  TRUE ~ .))) %>%
-  filter(!str_detect(taxon, "^Chloroplast")) %>%
-  mutate_at(5:ncol(.), funs(case_when(
     rankID==str_extract(mitochondria, "(\\d+\\.){4}\\d+") ~ . - .[taxon=="Mitochondria"],
     rankID==str_extract(mitochondria, "(\\d+\\.){3}\\d+") ~ . - .[taxon=="Mitochondria"],
     rankID==str_extract(mitochondria, "(\\d+\\.){2}\\d+") ~ . - .[taxon=="Mitochondria"],
@@ -37,17 +30,9 @@ community <- mutate_at(community, 5:ncol(community), funs(case_when(
   ungroup()
 
 # Selection of groups for plotting
-plot <- filter(community, taxlevel==2 |
-                 (taxlevel==4 & str_detect(taxon, "^Chloroplast$")) |
-                 (taxlevel==3 & str_detect(rankID, filter(community, str_detect(taxon, "^Proteobacteria$"))$rankID))) %>%
-  filter_at(6:ncol(.), any_vars(. >= 1)) %>%
-  mutate_at(5:ncol(.), funs(case_when(taxon=="Proteobacteria" ~ . - sum(.[taxlevel==3 &
-    str_detect(rankID, filter(community, str_detect(taxon, "^Proteobacteria$"))$rankID)]), TRUE ~ .))) %>%
-  mutate(taxon=str_replace(taxon, "Proteobacteria", "Other Proteobacteria")) %>%
-  mutate(taxon=str_replace_all(taxon, c("unknown_unclassified"="No_Relative", "unknown"="No_Relative"))) %>%
-  filter_at(6:ncol(.), any_vars(. >= 1)) %>%
-  bind_rows(summarise_all(., funs(ifelse(is.numeric(.), 100-sum(.), paste("Other"))))) %>%
-  arrange(taxon %in% "No_Relative")
+plot <- community %>%
+  filter(taxon=="Chloroplast") %>%
+  bind_rows(summarise_all(., funs(ifelse(is.numeric(.), 100-sum(.), paste("Other")))))
 
 # Loading colors for each group on the plot
 color <- read_tsv("data/raw/group_colors.csv", col_types=list(Taxlevel=col_skip())) %>%
@@ -58,7 +43,7 @@ names <- parse(text=case_when(plot$taxon=="Chloroplast" ~ paste0("plain('", plot
                               plot$taxon=="Bacteria_unclassified" ~ "italic('Bacteria')~plain('(No Relative)')",
                               plot$taxon=="Marinimicrobia_(SAR406_clade)" ~ "italic('Marinimicrobia')",
                               plot$taxon=="Other" ~ paste0("plain('", plot$taxon, "')"),
-                              plot$taxon=="No_Relative" ~ "plain('No Relative')",
+                              plot$taxon=="No Relative" ~ paste0("plain('", plot$taxon, "')"),
                               TRUE ~ paste0("italic('", plot$taxon, "')")))
 
 # Tidying the sequence abundance data
@@ -73,7 +58,7 @@ metadata <- read_tsv("data/raw/metadata.csv") %>%
 # Joining sequence abundances data and metadata
 Sys.setlocale(locale="en_GB.utf8")
 plot <- inner_join(metadata, plot, by=c("ID"="Group")) %>%
-  mutate(taxon=factor(taxon, levels=unique(plot$taxon))) %>%
+  mutate(taxon=factor(taxon, levels=rev(unique(plot$taxon)))) %>%
   mutate(label=factor(label, levels=metadata$label)) %>%
   mutate(date=as.Date(date, "%d.%m.%Y"))
 
@@ -140,6 +125,7 @@ fca <- filter(plot, station=="FCa") %>%
         axis.title.x=element_text(size=14, color="black", margin=margin(t=11, unit="pt")))
 
 # Generating a plot to extract a common legend
+plot <- mutate(plot, taxon=factor(taxon, levels=unique(plot$taxon)))
 p1 <- ggplot(plot) +
   geom_bar(aes(x=date, y=abundance, fill=taxon), stat="identity", colour="black", size=0.3, width=8) +
   scale_fill_manual(values=color, labels=names) + 
@@ -162,4 +148,4 @@ p <- cowplot::ggdraw() +
   cowplot::draw_plot(fcam, x=0.267, y=0.317, width=0.733, height=0.228) +
   cowplot::draw_plot(fca, x=0.267, y=0, width=0.733, height=0.317) +
   cowplot::draw_plot(legend, x=0.1, y=0.28, width=0.1, height=0.2)
-ggsave("results/figures/community_bar_plot.jpg", p, width=210, height=297, units="mm")
+ggsave("results/figures/chloroplast_bar_plot.jpg", p, width=210, height=297, units="mm")

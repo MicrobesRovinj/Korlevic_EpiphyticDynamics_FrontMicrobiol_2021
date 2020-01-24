@@ -58,7 +58,7 @@ estimators_indices_metadata <- inner_join(metadata, estimators_indices, by=c("ID
 theme <- theme(text=element_text(family="Times"), line=element_line(color="black"),
                panel.border=element_rect(fill=NA), panel.background=element_blank(),
                panel.grid=element_blank(), axis.line=element_blank(),
-               axis.text=element_text(size=12, color="black"), axis.text.x=element_text(angle=90),
+               axis.text=element_text(size=12, color="black"), axis.text.x=element_text(angle=90, hjust=0.95, vjust=0.5),
                axis.title=element_text(size=14, color="black"),
                plot.margin=unit(c(5.5, 5.5, 5.5, 5.5), "pt"), legend.position="none",
                plot.title=element_text(size=16, hjust=0.5))
@@ -104,7 +104,7 @@ p2 <- filter(estimators_indices_metadata, station=="F") %>%
   scale_shape_manual(values=shapes_p2) +
   scale_fill_manual(values=fill_p2) +
   scale_y_continuous(limits=c(0, 150)) +
-  scale_x_date(date_break ="months" , date_labels="%b-%Y") +
+  scale_x_date(date_break ="months" , date_labels="%b %Y") +
   labs(x="", y="") +
   theme
 
@@ -138,7 +138,7 @@ p2 <- filter(estimators_indices_metadata, station=="FCyM") %>%
   scale_shape_manual(values=shapes_p2) +
   scale_fill_manual(values=fill_p2) +
   scale_y_continuous(limits=c(0, 450)) +
-  scale_x_date(date_break ="months" , date_labels="%b-%Y") +
+  scale_x_date(date_break="months" , date_labels="%b %Y") +
   labs(x="", y="") +
   theme
 
@@ -171,7 +171,7 @@ p2 <- filter(estimators_indices_metadata, station=="FCaM") %>%
   scale_shape_manual(values=shapes_p2) +
   scale_fill_manual(values=fill_p2) +
   scale_y_continuous(limits=c(0, 700)) +
-  scale_x_date(date_break ="months" , date_labels="%b-%Y") +
+  scale_x_date(date_break ="months" , date_labels="%b %Y") +
   labs(x="Date", y="") +
   theme
 
@@ -205,7 +205,7 @@ p2 <- filter(estimators_indices_metadata, station=="FCa") %>%
   scale_shape_manual(values=shapes_p2) +
   scale_fill_manual(values=fill_p2) +
   scale_y_continuous(limits=c(0, 700)) +
-  scale_x_date(date_break ="months" , date_labels="%b-%Y") +
+  scale_x_date(date_break ="months" , date_labels="%b %Y") +
   labs(x="Date", y="") +
   theme
 
