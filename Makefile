@@ -139,26 +139,18 @@ data/summary.txt : $(REFS)silva.nr_v132.pcr.align\
 	$(MOTHUR) code/get_summary.batch
 
 # Here we go from the good sequences and generate a shared file and a
-# cons.taxonomy file based on OTU data. In addition, we are binning
-# the sequences in to phylotypes according to their taxonomic classification.
+# cons.taxonomy file based on OTU data.
 
 # Edit code/get_shared_otus.batch to include the proper root name of your files file.
 # Edit code/get_shared_otus.batch to include the proper group names to remove.
 $(BASIC_STEM).pick.pick.pick.opti_mcc%shared\
 $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons%taxonomy\
-$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx%shared\
-$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.1.cons%taxonomy\
-$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.2.cons%taxonomy\
-$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.3.cons%taxonomy\
-$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.4.cons%taxonomy\
-$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.5.cons%taxonomy\
-$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.6.cons%taxonomy : code/get_shared_otus.batch\
-                                                                          $(BASIC_STEM).pick.pick.fasta\
-                                                                          $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
-                                                                          $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
-                                                                          $(MOTHUR)
+$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx%shared : code/get_shared_otus.batch\
+                                                                 $(BASIC_STEM).pick.pick.fasta\
+                                                                 $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
+                                                                 $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
+                                                                 $(MOTHUR)
 	$(MOTHUR) code/get_shared_otus.batch
-	$(MOTHUR) code/get_shared_phylotypes.batch
 	rm $(BASIC_STEM).denovo.vsearch.pick.pick.pick.count_table
 	rm $(BASIC_STEM).pick.pick.pick.fasta
 	rm $(BASIC_STEM).pick.nr_v132.wang.pick.pick.taxonomy

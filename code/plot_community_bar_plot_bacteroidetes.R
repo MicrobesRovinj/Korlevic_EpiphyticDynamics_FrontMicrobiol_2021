@@ -3,6 +3,7 @@
 # 
 # A script to plot sequence abundances of groups from the phylum Bacteoidetes of each sample.
 # Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
+#               data/raw/metadata.csv
 # Produces: results/figures/bacteroidetes_bar_plot.jpg
 #
 #################################################################################################################

@@ -49,7 +49,7 @@ estimators_indices <- inner_join(estimators, shannon, by="Group") %>%
 # Loading metadata 
 metadata <- read_tsv("data/raw/metadata.csv")
 
-# Joining metada with estimators and indices
+# Joining metadata with estimators and indices
 Sys.setlocale(locale="en_GB.utf8")
 estimators_indices_metadata <- inner_join(metadata, estimators_indices, by=c("ID"="Group")) %>%
   mutate(date=as.Date(date, "%d.%m.%Y"))
@@ -69,13 +69,13 @@ estimators_indices_metadata <- estimators_indices_metadata %>%
   gather("S.obs", "S.chao1", "S.ACE", "eshannon", "invsimpson", key="estimator_index", value="value")
 
 # Defining line types, dot shapes and fill dot colors
-lines_p1 <- c(c("S.obs"="dotted", "S.chao1"="solid", "S.ACE"="dotted"))
+lines_p1 <- c("S.obs"="dotted", "S.chao1"="solid", "S.ACE"="dotted")
 shapes_p1 <- c("S.obs"=21, "S.chao1"=23, "S.ACE"=25)
-fill_p1 <- c("S.obs"="white", "S.chao1"="black", "S.ACE"="white")
+fills_p1 <- c("S.obs"="white", "S.chao1"="black", "S.ACE"="white")
 
 lines_p2 <- c(c("eshannon"="solid", "invsimpson"="dotted"))
 shapes_p2 <- c("eshannon"=21, "invsimpson"=24)
-fill_p2 <- c("eshannon"="black", "invsimpson"="white")
+fills_p2 <- c("eshannon"="black", "invsimpson"="white")
 
 # Plots generation
 # Seawater samples
@@ -87,7 +87,7 @@ p1 <- filter(estimators_indices_metadata, station=="F") %>%
   geom_point(size=3) +
   scale_linetype_manual(values=lines_p1) +
   scale_shape_manual(values=shapes_p1) +
-  scale_fill_manual(values=fill_p1) +
+  scale_fill_manual(values=fills_p1) +
   scale_y_continuous(limits=c(300, 3000)) +
   labs(x="", y="") +
   ggtitle(parse(text="bold('Seawater')")) +
@@ -102,7 +102,7 @@ p2 <- filter(estimators_indices_metadata, station=="F") %>%
   geom_point(size=3) +
   scale_linetype_manual(values=lines_p2) +
   scale_shape_manual(values=shapes_p2) +
-  scale_fill_manual(values=fill_p2) +
+  scale_fill_manual(values=fills_p2) +
   scale_y_continuous(limits=c(0, 150)) +
   scale_x_date(date_break ="months" , date_labels="%b %Y") +
   labs(x="", y="") +
@@ -121,7 +121,7 @@ p1 <- filter(estimators_indices_metadata, station=="FCyM") %>%
   geom_point(size=3) +
   scale_linetype_manual(values=lines_p1) +
   scale_shape_manual(values=shapes_p1) +
-  scale_fill_manual(values=fill_p1) +
+  scale_fill_manual(values=fills_p1) +
   scale_y_continuous(limits=c(300, 2500)) +
   labs(x="", y="") +
   ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Invaded)')")) +
@@ -136,7 +136,7 @@ p2 <- filter(estimators_indices_metadata, station=="FCyM") %>%
   geom_point(size=3) +
   scale_linetype_manual(values=lines_p2) +
   scale_shape_manual(values=shapes_p2) +
-  scale_fill_manual(values=fill_p2) +
+  scale_fill_manual(values=fills_p2) +
   scale_y_continuous(limits=c(0, 450)) +
   scale_x_date(date_break="months" , date_labels="%b %Y") +
   labs(x="", y="") +
@@ -154,7 +154,7 @@ p1 <- filter(estimators_indices_metadata, station=="FCaM") %>%
   geom_point(size=3) +
   scale_linetype_manual(values=lines_p1) +
   scale_shape_manual(values=shapes_p1) +
-  scale_fill_manual(values=fill_p1) +
+  scale_fill_manual(values=fills_p1) +
   scale_y_continuous(limits=c(1300, 4300)) +
   labs(x="", y="") +
   ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Invaded)')")) +
@@ -169,7 +169,7 @@ p2 <- filter(estimators_indices_metadata, station=="FCaM") %>%
   geom_point(size=3) +
   scale_linetype_manual(values=lines_p2) +
   scale_shape_manual(values=shapes_p2) +
-  scale_fill_manual(values=fill_p2) +
+  scale_fill_manual(values=fills_p2) +
   scale_y_continuous(limits=c(0, 700)) +
   scale_x_date(date_break ="months" , date_labels="%b %Y") +
   labs(x="Date", y="") +
@@ -188,7 +188,7 @@ p1 <- filter(estimators_indices_metadata, station=="FCa") %>%
   geom_point(size=3) +
   scale_linetype_manual(values=lines_p1) +
   scale_shape_manual(values=shapes_p1) +
-  scale_fill_manual(values=fill_p1) +
+  scale_fill_manual(values=fills_p1) +
   scale_y_continuous(limits=c(1300, 4300)) +
   labs(x="", y="") +
   ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Noninvaded)')")) +
@@ -203,7 +203,7 @@ p2 <- filter(estimators_indices_metadata, station=="FCa") %>%
   geom_point(size=3) +
   scale_linetype_manual(values=lines_p2) +
   scale_shape_manual(values=shapes_p2) +
-  scale_fill_manual(values=fill_p2) +
+  scale_fill_manual(values=fills_p2) +
   scale_y_continuous(limits=c(0, 700)) +
   scale_x_date(date_break ="months" , date_labels="%b %Y") +
   labs(x="Date", y="") +
@@ -224,7 +224,7 @@ p1 <- filter(estimators_indices_metadata, station=="F") %>%
   scale_shape_manual(values=c(shapes_p1, shapes_p2),
                      breaks=c(names(lines_p1), names(lines_p2)),
                      labels=labels) +
-  scale_fill_manual(values=c(fill_p1, fill_p2),
+  scale_fill_manual(values=c(fills_p1, fills_p2),
                     breaks=c(names(lines_p1), names(lines_p2)),
                     labels=labels) +
   labs(x="", y="") +
