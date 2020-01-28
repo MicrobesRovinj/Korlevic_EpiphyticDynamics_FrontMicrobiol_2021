@@ -28,19 +28,19 @@ $(MOTHUR) :
 #########################################################################################
 
 # We want the latest greatest reference alignment and the SILVA reference
-# alignment is the best reference alignment on the market. We will use the 
-# version 132. The curation of the reference files to make them compatible with 
+# alignment is the best reference alignment on the market. We will use the
+# version 132. The curation of the reference files to make them compatible with
 # mothur is described at http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/
 # As we are using the primers from the Earth Microbiome Project that are targeting
 # both Bacteria and Archaea (http://www.earthmicrobiome.org/protocols-and-standards/16s/)
 # we need to modify the procedure described at
 # http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/
 # as this approach is removing shorter archeal sequences.
-# 
-# The SILVA Release 132 was downloaded from 
+#
+# The SILVA Release 132 was downloaded from
 # https://www.arb-silva.de/fileadmin/arb_web_db/release_132/ARB_files/SILVA_132_SSURef_NR99_13_12_17_opt.arb.gz
 # opened with ARB and exported to silva.full_v132.fasta file as described at
-# http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/ uder the 
+# http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/ uder the
 # section Getting the data in and out of the ARB database. A total of 629,211
 # sequences were exported.
 
@@ -89,7 +89,7 @@ $(RAW)raw.files : $(RAW)metadata.csv
 $(RAW)*.fastq : $(RAW)raw.files\
                 ~/raw/together/*.fastq
 	(cut -f 2 $(RAW)raw.files; cut -f 3 $(RAW)raw.files) | cat > $(RAW)names_file.txt
-	xargs -I % --arg-file=$(RAW)names_file.txt cp ~/raw/together/% -t $(RAW)	
+	xargs -I % --arg-file=$(RAW)names_file.txt cp ~/raw/together/% -t $(RAW)
 
 # Here we go from the raw fastq files and the files file to generate a fasta,
 # taxonomy, and count_table file that has had the chimeras removed as well as
@@ -123,19 +123,19 @@ $(MOTH)chloroplast%taxonomy : code/get_good_seqs.batch\
 	rm data/mothur/*.map
 
 # Create a summary.txt file to check that all went alright throughout the code/get_good_seqs.batch
-data/summary.txt : $(REFS)silva.nr_v132.pcr.align\
-                   $(REFS)silva.nr_v132.pcr.unique.align\
-                   $(MOTH)raw.trim.contigs.fasta\
-                   $(MOTH)raw.trim.contigs.good.unique.fasta\
-                   $(MOTH)raw.trim.contigs.good.count_table\
-                   $(MOTH)raw.trim.contigs.good.unique.align\
-                   $(MOTH)raw.trim.contigs.good.unique.good.align\
-                   $(MOTH)raw.trim.contigs.good.good.count_table\
-                   $(BASIC_STEM).pick.fasta\
-                   $(BASIC_STEM).denovo.vsearch.pick.count_table\
-                   $(BASIC_STEM).pick.pick.fasta\
-                   $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
-                   $(MOTHUR)
+$(MOTHUR)summary.txt : $(REFS)silva.nr_v132.pcr.align\
+                       $(REFS)silva.nr_v132.pcr.unique.align\
+                       $(MOTH)raw.trim.contigs.fasta\
+                       $(MOTH)raw.trim.contigs.good.unique.fasta\
+                       $(MOTH)raw.trim.contigs.good.count_table\
+                       $(MOTH)raw.trim.contigs.good.unique.align\
+                       $(MOTH)raw.trim.contigs.good.unique.good.align\
+                       $(MOTH)raw.trim.contigs.good.good.count_table\
+                       $(BASIC_STEM).pick.fasta\
+                       $(BASIC_STEM).denovo.vsearch.pick.count_table\
+                       $(BASIC_STEM).pick.pick.fasta\
+                       $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
+                       $(MOTHUR)
 	$(MOTHUR) code/get_summary.batch
 
 # Here we go from the good sequences and generate a shared file and a
@@ -144,12 +144,11 @@ data/summary.txt : $(REFS)silva.nr_v132.pcr.align\
 # Edit code/get_shared_otus.batch to include the proper root name of your files file.
 # Edit code/get_shared_otus.batch to include the proper group names to remove.
 $(BASIC_STEM).pick.pick.pick.opti_mcc%shared\
-$(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons%taxonomy\
-$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx%shared : code/get_shared_otus.batch\
-                                                                 $(BASIC_STEM).pick.pick.fasta\
-                                                                 $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
-                                                                 $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
-                                                                 $(MOTHUR)
+$(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons%taxonomy : code/get_shared_otus.batch\
+                                                                       $(BASIC_STEM).pick.pick.fasta\
+                                                                       $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
+                                                                       $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
+                                                                       $(MOTHUR)
 	$(MOTHUR) code/get_shared_otus.batch
 	rm $(BASIC_STEM).denovo.vsearch.pick.pick.pick.count_table
 	rm $(BASIC_STEM).pick.pick.pick.fasta
@@ -172,12 +171,30 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 #
 #########################################################################################
 
-# Generate a community composition bar plot
-$(FIGS)community_bar_plot.jpg : code/plot_community_bar_plot.R\
-                                $(BASIC_STEM).pick.nr_v132.wang.tax.summary\
-                                $(RAW)metadata.csv\
-                                $(RAW)group_colors.csv
+# Generate community composition bar plots
+$(FIGS)community_bar_plot%jpg\
+$(FIGS)chloroplast_bar_plot%jpg\
+$(FIGS)cyanobacteria_bar_plot%jpg\
+$(FIGS)bacteroidetes_bar_plot%jpg\
+$(FIGS)alphaproteobacteria_bar_plot%jpg\
+$(FIGS)gammaproteobacteria_bar_plot%jpg\
+$(FIGS)deltaproteobacteria_bar_plot%jpg : code/plot_community_bar_plot.R\
+                                          code/plot_community_bar_plot_chloroplast.R\
+                                          code/plot_community_bar_plot_cyanobacteria.R\
+                                          code/plot_community_bar_plot_bacteroidetes.R\
+                                          code/plot_community_bar_plot_alphaproteobacteria.R\
+                                          code/plot_community_bar_plot_gammaproteobacteria.R\
+                                          code/plot_community_bar_plot_deltaproteobacteria.R\
+                                          $(BASIC_STEM).pick.nr_v132.wang.tax.summary\
+                                          $(RAW)metadata.csv\
+                                          $(RAW)group_colors.csv
 	R -e "source('code/plot_community_bar_plot.R')"
+	R -e "source('code/plot_community_bar_plot_chloroplast.R')"
+	R -e "source('code/plot_community_bar_plot_cyanobacteria.R')"
+	R -e "source('code/plot_community_bar_plot_bacteroidetes.R')"
+	R -e "source('code/plot_community_bar_plot_alphaproteobacteria.R')"
+	R -e "source('code/plot_community_bar_plot_gammaproteobacteria.R')"
+	R -e "source('code/plot_community_bar_plot_deltaproteobacteria.R')"
 
 # Construct a rarefaction plot
 $(FIGS)rarefaction.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
@@ -188,11 +205,14 @@ $(FIGS)rarefaction.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
 	$(MOTHUR) code/get_rarefaction_data.batch
 	R -e "source('code/plot_rarefaction.R')"
 
-# Plot richness and diversity calculators
-$(FIGS)calculators.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
-                         code/plot_calculators.R\
-                         $(RAW)metadata.csv
+# Plot richness, diversity calculators and similarity coefficients
+$(FIGS)calculators%jpg\
+$(FIGS)seasonal_shared%jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+                             code/plot_calculators.R\
+                             code/plot_seasonal_shared.R\
+                             $(RAW)metadata.csv
 	R -e "source('code/plot_calculators.R')"
+	R -e "source('code/plot_seasonal_shared.R')"
 
 # Construct PCoA plots
 $(FIGS)pcoa_figure.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
@@ -210,9 +230,16 @@ $(FIGS)pcoa_figure.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
 
 $(FINAL)manuscript.pdf : data/summary.txt\
                          $(BASIC_STEM).pick.pick.pick.error.summary\
-                         $(FIGS)community_barplot_phylum.jpg\
+                         $(FIGS)community_bar_plot.jpg\
+                         $(FIGS)chloroplast_bar_plot.jpg\
+                         $(FIGS)cyanobacteria_bar_plot.jpg\
+                         $(FIGS)bacteroidetes_bar_plot.jpg\
+                         $(FIGS)alphaproteobacteria_bar_plot.jpg\
+                         $(FIGS)gammaproteobacteria_bar_plot.jpg\
+                         $(FIGS)deltaproteobacteria_bar_plot.jpg\
                          $(FIGS)rarefaction.jpg\
                          $(FIGS)calculators.jpg\
+                         $(FIGS)seasonal_shared.jpg\
                          $(FIGS)pcoa_figure.jpg\
                          $(FINAL)manuscript.Rmd\
                          $(FINAL)header.tex\
