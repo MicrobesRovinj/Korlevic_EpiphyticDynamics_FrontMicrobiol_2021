@@ -81,7 +81,7 @@ Host leaves and thalli from DNA and protein isolation steps were washed seven ti
 \newpage
 \begin{figure}[ht]
 
-{\centering \includegraphics[width=1\linewidth]{../results/figures/community_barplot_phylum} 
+{\centering \includegraphics[width=1\linewidth]{../results/figures/community_bar_plot} 
 
 }
 

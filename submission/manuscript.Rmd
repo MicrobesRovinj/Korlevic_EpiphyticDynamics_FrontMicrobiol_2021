@@ -82,7 +82,7 @@ error <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.p
   mutate(total_weight=weight*total)
 error <- sum(error$mismatches_weight)/sum(error$total_weight)*100
 # Calculation of the number of sequences in the negative control
-nc <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary") %>%
+nc <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v138.wang.tax.summary") %>%
   filter(taxon=="Root") %>%
   select(NC_1)
 ```
@@ -117,5 +117,5 @@ Host leaves and thalli from DNA and protein isolation steps were washed seven ti
 ## Figures
 \newpage
 ```{r out.width="100%", fig.align="center", fig.cap="Taxonomic classification and relative contribution of the most abundant bacterial sequences.\\label{community}", fig.pos="ht"}
-include_graphics("../results/figures/community_barplot_phylum.jpg")
+include_graphics("../results/figures/community_bar_plot.jpg")
 ```

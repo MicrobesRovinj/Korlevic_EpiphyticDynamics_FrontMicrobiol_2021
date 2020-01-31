@@ -5,16 +5,16 @@ Bacteria_unclassified	goldenrod1
 No_Relative	gray	
 Other	ivory	
 Other_Cyanobacteria	ivory	
-Other_Bacteroidetes	ivory	
+Other_Bacteroidota	ivory	
 Other_Alphaproteobacteria	ivory	
 Other_Gammaproteobacteria	ivory	
 Other_Deltaproteobacteria	ivory	
 Crenarchaeota	slateblue4	PHYLUM
 Euryarchaeota	turquoise3	
-Nanoarchaeaeota	yellow	
-Thaumarchaeota	tan	
-Actinobacteria	tomato2	
-Bacteroidetes	dodgerblue3	
+Nanoarchaeota	yellow	
+Thermoplasmatota	tan	
+Actinobacteriota	tomato2	
+Bacteroidota	dodgerblue3	
 Calditrichaeota	bisque1	
 Chloroflexi	aquamarine4	
 Cyanobacteria	lightgreen	
@@ -25,22 +25,24 @@ Kiritimatiellaeota	violetred
 Latescibacteria	skyblue4	
 Fusobacteria	peru	
 Marinimicrobia_(SAR406_clade)	red	
-Planctomycetes	darkseagreen	
+Planctomycetota	darkseagreen	
 Proteobacteria	lightblue	
-Spirochaetes	cyan	
-Verrucomicrobia	darkorange	
+Spirochaetota	cyan	
+Verrucomicrobiota	darkorange	
 Acidobacteria	red4	
+Desulfobacterota	tan3	
+Myxococcota	darkmagenta	
+Bdellovibrionota	violet	
 Woesearchaeia	yellow	CLASS
 Alphaproteobacteria	lightblue	
 Alphaproteobacteria_unclassified	gray40	
 Gammaproteobacteria	khaki1	
 Gammaproteobacteria_unclassified	khaki1	
-Deltaproteobacteria	tan3	
 Proteobacteria_unclassified	gray	
 Bacteroidia	dodgerblue3	
 Anaerolineae	aquamarine4	
-Oxyphotobacteria	lightgreen	
-Oxyphotobacteria_unclassified	lightgreen	
+Cyanobacteriia	lightgreen	
+Cyanobacteriia_unclassified	lightgreen	
 Campylobacteria	violet	
 Bacilli	saddlebrown	
 Clostridia	darkmagenta	
@@ -51,8 +53,7 @@ Chitinophagales	mediumpurple
 Flavobacteriales	lightcyan	
 Chloroplast	forestgreen	
 Nostocales	darkolivegreen3	
-Nostocales_unclassified	darkolivegreen3	
-Oxyphotobacteria_unclassified	lightgreen	
+Cyanobacteriales_unclassified	darkolivegreen3	
 Campylobacterales	violet	
 Bacillales	saddlebrown	
 Lactobacillales	wheat3	
@@ -65,6 +66,7 @@ Cellvibrionales	yellowgreen
 Enterobacteriales	sandybrown	
 Pseudomonadales	darkkhaki	
 Betaproteobacteriales_unclassified	turquoise3	
+Thermosynechococcales_unclassified	violet	
 Bifidobacteriaceae	tomato2	FAMILY
 Bacteroidaceae	dodgerblue3	
 Porphyromonadaceae	cornflowerblue	
@@ -87,7 +89,7 @@ Halieaceae	yellowgreen
 Enterobacteriaceae	sandybrown	
 Moraxellaceae	darkkhaki	
 Phormidesmiaceae	cornflowerblue	
-Phormidesmiaceae_unclassified	cornflowerblue	
+Nodosilineaceae_unclassified	cornflowerblue	
 Hyphomonadaceae_unclassified	orange	
 Cellvibrionaceae_unclassified	darkolivegreen3	
 Spongiibacteraceae_unclassified	sienna	

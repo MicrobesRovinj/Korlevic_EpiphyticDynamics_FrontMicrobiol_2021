@@ -1,15 +1,15 @@
 #################################################################################################################
-# plot_community_bar_plot_bacteroidetes.R
+# plot_community_bar_plot_bacteroidota.R
 # 
 # A script to plot sequence abundances of groups from the phylum Bacteoidetes of each sample.
-# Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
+# Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v138.wang.tax.summary
 #               data/raw/metadata.csv
-# Produces: results/figures/bacteroidetes_bar_plot.jpg
+# Produces: results/figures/bacteroidota_bar_plot.jpg
 #
 #################################################################################################################
 
 # Loading input data containing sequence abundances and subsequent input data customization
-community <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary") %>%
+community <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v138.wang.tax.summary") %>%
   filter(!str_detect(taxon, "^Eukaryota")) %>%
   filter(taxon!="Root")
 
@@ -17,13 +17,13 @@ community <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.uniq
 # they belong
 chloroplast <- filter(community, str_detect(taxon, "^Chloroplast$"))$rankID
 mitochondria <- filter(community, str_detect(taxon, "^Mitochondria$"))$rankID
-community <- mutate_at(community, 5:ncol(community), funs(case_when(
+community <- mutate_at(community, 5:ncol(community), list(~case_when(
   rankID==str_extract(chloroplast, "(\\d+\\.){3}\\d+") ~ . - .[taxon=="Chloroplast"],
   rankID==str_extract(chloroplast, "(\\d+\\.){2}\\d+") ~ . - .[taxon=="Chloroplast"],
   rankID==str_extract(chloroplast, "(\\d+\\.){1}\\d+") ~ . - .[taxon=="Chloroplast"],
   TRUE ~ .))) %>%
   filter(!str_detect(taxon, "^Chloroplast")) %>%
-  mutate_at(5:ncol(.), funs(case_when(
+  mutate_at(5:ncol(.), list(~case_when(
     rankID==str_extract(mitochondria, "(\\d+\\.){4}\\d+") ~ . - .[taxon=="Mitochondria"],
     rankID==str_extract(mitochondria, "(\\d+\\.){3}\\d+") ~ . - .[taxon=="Mitochondria"],
     rankID==str_extract(mitochondria, "(\\d+\\.){2}\\d+") ~ . - .[taxon=="Mitochondria"],
@@ -34,22 +34,22 @@ community <- mutate_at(community, 5:ncol(community), funs(case_when(
   mutate(`23`=`23_1`+`23_2`) %>%
   select(-`23_1`, -`23_2`) %>%
   group_by(taxlevel) %>%
-  mutate_at(5:ncol(.), funs(. / sum(.) * 100)) %>%
+  mutate_at(5:ncol(.), list(~. / sum(.) * 100)) %>%
   ungroup()
 
 # Selection of groups for plotting
 select <- filter(community,
                taxlevel==6 &
-               str_detect(rankID, filter(community, str_detect(taxon, "^Bacteroidetes$"))$rankID)) %>%
+               str_detect(rankID, filter(community, str_detect(taxon, "^Bacteroidota$"))$rankID)) %>%
   filter_at(6:ncol(.), any_vars(. >= 2))
 
 plot <- filter(community,
                taxlevel==6 &
-               str_detect(rankID, filter(community, str_detect(taxon, "^Bacteroidetes$"))$rankID)) %>%
-  mutate_at(5:ncol(.), funs(. / sum(.) * 100)) %>%
+               str_detect(rankID, filter(community, str_detect(taxon, "^Bacteroidota$"))$rankID)) %>%
+  mutate_at(5:ncol(.), list(~. / sum(.) * 100)) %>%
   ungroup() %>%
   filter(rankID %in% select$rankID) %>%
-  bind_rows(summarise_all(., funs(ifelse(is.numeric(.), 100-sum(.), paste("Other_Bacteroidetes"))))) %>%
+  bind_rows(summarise_all(., list(~ifelse(is.numeric(.), 100-sum(.), paste("Other_Bacteroidota"))))) %>%
 # Remove last digit from rankID so for the next step
   mutate(rankID=if_else(taxon=="uncultured", str_replace(rankID, "\\.\\d+$", ""), rankID))
 
@@ -62,7 +62,8 @@ plot <- left_join(plot, uncultured, by=c("rankID"="rankID_uncultured")) %>%
   select(-taxon_uncultured)
 
 # Loading colors for each group on the plot
-color <- read_tsv("data/raw/group_colors.csv", col_types=list(Taxlevel=col_skip())) %>%
+color <- read_tsv("data/raw/group_colors.csv") %>%
+  select(-Taxlevel) %>%
   deframe()
 
 # Generation of italic names for taxonomic groups
@@ -72,7 +73,7 @@ names <- parse(text=case_when(str_detect(plot$taxon, "uncultured") ~ paste0("pla
                               plot$taxon=="NS11-12_marine_group_ge" ~ "plain('NS11-12 Marine Group')",
                               plot$taxon=="Saprospiraceae_unclassified" ~ "italic('Saprospiraceae')~plain('(NR)')",
                               plot$taxon=="Flavobacteriaceae_unclassified" ~ "italic('Flavobacteriaceae')~plain('(NR)')",
-                              plot$taxon=="Other_Bacteroidetes" ~ "plain('Other')~italic('Bacteroidetes')",
+                              plot$taxon=="Other_Bacteroidota" ~ "plain('Other')~italic('Bacteroidota')",
                               TRUE ~ paste0("italic('", plot$taxon, "')")))
 
 # Tidying the sequence abundance data
@@ -96,7 +97,7 @@ plot <- inner_join(metadata, plot, by=c("ID"="Group")) %>%
 whole <- filter(community,
                 taxlevel==2) %>%
   gather(key="Group", value="abundance", 6:ncol(.)) %>%
-  filter(taxon=="Bacteroidetes")
+  filter(taxon=="Bacteroidota")
 
 whole <- inner_join(metadata, whole, by=c("ID"="Group")) %>%
   mutate(date=as.Date(date, "%d.%m.%Y"))
@@ -199,4 +200,4 @@ p <- cowplot::ggdraw() +
   cowplot::draw_plot(fcam, x=0.317, y=0.317, width=0.683, height=0.228) +
   cowplot::draw_plot(fca, x=0.317, y=0, width=0.683, height=0.317) +
   cowplot::draw_plot(legend, x=0.12, y=0.28, width=0.1, height=0.2)
-ggsave("results/figures/bacteroidetes_bar_plot.jpg", p, width=210, height=297, units="mm")
+ggsave("results/figures/bacteroidota_bar_plot.jpg", p, width=210, height=297, units="mm")

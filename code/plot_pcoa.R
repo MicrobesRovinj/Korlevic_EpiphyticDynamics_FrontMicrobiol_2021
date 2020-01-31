@@ -17,7 +17,7 @@ rarefied <- shared %>%
   rrarefy(., min(rowSums(.))) %>%
   as.tibble() %>%
   add_column("Group"=shared$Group, .before=TRUE) %>%
-  select_if(funs(!is.numeric(.) || sum(.)!=0))
+  select_if(list(~!is.numeric(.) || sum(.)!=0))
 
 # Loading metadata 
 metadata <- read_tsv("data/raw/metadata.csv")
@@ -73,7 +73,7 @@ p1 <- ggplot() +
 # Seawater samples
 # Filter samples from the water column
 rarefied_metadata_select <- filter(rarefied_metadata, station=="F") %>%
-  select_if(funs(!is.numeric(.) || sum(.)!=0))
+  select_if(list(~!is.numeric(.) || sum(.)!=0))
 
 # Generation of PCoA data
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
@@ -99,7 +99,7 @@ p2 <- ggplot() +
 # Cymodocea nodosa samples
 # Filter samples from the water column
 rarefied_metadata_select <- filter(rarefied_metadata, station=="FCyM") %>%
-  select_if(funs(!is.numeric(.) || sum(.)!=0))
+  select_if(list(~!is.numeric(.) || sum(.)!=0))
 
 # Generation of PCoA data
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
@@ -125,7 +125,7 @@ p3 <- ggplot() +
 # Caulerpa cylindracea samples
 # Filter samples from the water column
 rarefied_metadata_select <- filter(rarefied_metadata, str_detect(station, "^FCa")) %>%
-  select_if(funs(!is.numeric(.) || sum(.)!=0))
+  select_if(list(~!is.numeric(.) || sum(.)!=0))
 
 # Generation of PCoA data
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))

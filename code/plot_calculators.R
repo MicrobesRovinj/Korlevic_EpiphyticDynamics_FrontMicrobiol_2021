@@ -17,7 +17,7 @@ rarefied <- shared %>%
   rrarefy(., min(rowSums(.))) %>%
   as.tibble() %>%
   add_column("Group"=shared$Group, .before=TRUE) %>%
-  select_if(funs(!is.numeric(.) || sum(.)!=0))
+  select_if(list(~!is.numeric(.) || sum(.)!=0))
 
 # Copying the sample labels to the rows (input for library vegan)
 row.names(rarefied) <- rarefied$Group

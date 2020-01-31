@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.11.25)  18 DEC 2019 13:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.11.25)  31 JAN 2020 11:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -987,19 +987,18 @@ T1/ptm/m/it/12 Ap-plied and en-vi-ron-men-tal
  []
 
 [11] [12] [13] [14] [15]
-<"../results/figures/""community_barplot_phylum".jpg, id=191, 597.432pt x 844.8
-363pt>
-File: "../results/figures/""community_barplot_phylum".jpg Graphic file (type jp
-g)
-<use "../results/figures/""community_barplot_phylum".jpg>
-Package pdftex.def Info: "../results/figures/""community_barplot_phylum".jpg  u
-sed on input line 520.
+<"../results/figures/""community_bar_plot".jpg, id=191, 597.432pt x 844.8363pt>
+
+File: "../results/figures/""community_bar_plot".jpg Graphic file (type jpg)
+<use "../results/figures/""community_bar_plot".jpg>
+Package pdftex.def Info: "../results/figures/""community_bar_plot".jpg  used on
+ input line 520.
 (pdftex.def)             Requested size: 459.96025pt x 650.43573pt.
 
 LaTeX Warning: Float too large for page by 39.0057pt on input line 525.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 528.
-[16 <../results/figures/community_barplot_phylum.jpg>]
+[16 <../results/figures/community_bar_plot.jpg>]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 528.
 (./manuscript.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 528.
@@ -1010,7 +1009,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 528.
  ) 
 Here is how much of TeX's memory you used:
  25412 strings out of 494110
- 454058 string characters out of 6172775
+ 454028 string characters out of 6172775
  485723 words of memory out of 5000000
  29214 multiletter control sequences out of 15000+600000
  594125 words of font info for 78 fonts, out of 8000000 for 9000
@@ -1026,7 +1025,7 @@ korlevi/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></storage/home/
 mkorlevi/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></storage/home/mk
 orlevi/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></storage/home/mkor
 levi/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on manuscript.pdf (16 pages, 809600 bytes).
+Output written on manuscript.pdf (16 pages, 730652 bytes).
 PDF statistics:
  243 PDF objects out of 1000 (max. 8388607)
  214 compressed objects within 3 object streams
