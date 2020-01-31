@@ -70,6 +70,7 @@ color <- read_tsv("data/raw/group_colors.csv") %>%
 # Generation of italic names for taxonomic groups
 names <- parse(text=case_when(str_detect(plot$taxon, "uncultured") ~ paste0("plain('Uncultured')~italic('", str_remove(plot$taxon, "uncultured_"), "')"),
                               str_detect(plot$taxon, "unclassified") ~ paste0("italic('", str_remove(plot$taxon, "_unclassified"), "')~plain('(NR)')"),
+                              plot$taxon=="SEEP-SRB4" ~ "plain('SEEP-SRB4')",
                               plot$taxon=="P3OB-42_ge" ~ "plain('P3OB-42')",
                               plot$taxon=="Other_Desulfobacterota" ~ "plain('Other')~italic('Desulfobacterota')",
                               TRUE ~ paste0("italic('", plot$taxon, "')")))
@@ -106,7 +107,7 @@ theme <- theme(text=element_text(family="Times"), line=element_line(color="black
                axis.line.x=element_line(), axis.line.y=element_blank(),
                axis.ticks.x=element_line(), axis.ticks.y.left=element_line(),
                axis.text.y=element_text(size=12, color="black"),
-               axis.text.x=element_blank(), axis.title.y=element_text(size=14, color="black", vjust=-0.75),
+               axis.text.x=element_blank(), axis.title.y=element_text(size=14, color="black", vjust=-0.75, hjust=0.365),
                panel.background=element_blank(), plot.margin=unit(c(5.5, 5.5, 5.5, -11), "pt"), legend.position="none",
                plot.title=element_text(size=16, hjust=0.13))
 

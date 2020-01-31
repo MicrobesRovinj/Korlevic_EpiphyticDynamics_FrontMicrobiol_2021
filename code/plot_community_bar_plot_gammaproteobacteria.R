@@ -109,7 +109,7 @@ theme <- theme(text=element_text(family="Times"), line=element_line(color="black
                axis.line.x=element_line(), axis.line.y=element_blank(),
                axis.ticks.x=element_line(), axis.ticks.y.left=element_line(),
                axis.text.y=element_text(size=12, color="black"),
-               axis.text.x=element_blank(), axis.title.y=element_text(size=14, color="black", vjust=-0.75),
+               axis.text.x=element_blank(), axis.title.y=element_text(size=14, color="black", vjust=-0.75, hjust=0.365),
                panel.background=element_blank(), plot.margin=unit(c(5.5, 5.5, 5.5, -11), "pt"), legend.position="none",
                plot.title=element_text(size=16, hjust=0.13))
 

@@ -68,11 +68,12 @@ color <- read_tsv("data/raw/group_colors.csv") %>%
   deframe()
 
 # Generation of italic names for taxonomic groups
-names <- parse(text=case_when(plot$taxon=="SAR116_clade_unclassified" ~ "plain('SAR116 Clade (NR)')",
-                              str_detect(plot$taxon, "uncultured") ~ paste0("plain('Uncultured')~italic('", str_remove(plot$taxon, "uncultured_"), "')"),
+names <- parse(text=case_when(str_detect(plot$taxon, "uncultured") ~ paste0("plain('Uncultured')~italic('", str_remove(plot$taxon, "uncultured_"), "')"),
                               str_detect(plot$taxon, "unclassified") ~ paste0("italic('", str_remove(plot$taxon, "_unclassified"), "')~plain('(NR)')"),
                               plot$taxon=="OCS116_clade_ge" ~ "plain('OCS116 Clade')",
+                              plot$taxon=="Candidatus_Puniceispirillum" ~ "italic('\"Candidatus')~plain('Puniceispirillum\"')",
                               plot$taxon=="SAR116_clade_ge" ~ "plain('SAR116 Clade')",
+                              plot$taxon=="Stappiaceae_ge" ~ "italic('Stappiaceae')",
                               plot$taxon=="HIMB11" ~ "plain('HIMB11')",
                               plot$taxon=="AEGEAN-169_marine_group_ge" ~ "plain('AEGEAN-169 Marine Group')",
                               plot$taxon=="Clade_Ia" ~ "plain('Clade Ia')",
@@ -114,7 +115,7 @@ theme <- theme(text=element_text(family="Times"), line=element_line(color="black
                axis.line.x=element_line(), axis.line.y=element_blank(),
                axis.ticks.x=element_line(), axis.ticks.y.left=element_line(),
                axis.text.y=element_text(size=12, color="black"),
-               axis.text.x=element_blank(), axis.title.y=element_text(size=14, color="black", vjust=-0.75),
+               axis.text.x=element_blank(), axis.title.y=element_text(size=14, color="black", vjust=-0.75, hjust=0.365),
                panel.background=element_blank(), plot.margin=unit(c(5.5, 5.5, 5.5, -11), "pt"), legend.position="none",
                plot.title=element_text(size=16, hjust=0.13))
 
@@ -206,6 +207,6 @@ p <- cowplot::ggdraw() +
   cowplot::draw_plot(fcam, x=0.317, y=0.317, width=0.683, height=0.228) +
   cowplot::draw_plot(fca, x=0.317, y=0, width=0.683, height=0.317) +
   cowplot::draw_plot(legend, x=0.12, y=0.28, width=0.1, height=0.2) +
-  cowplot::draw_line(x=c(0.135, 0.135), y=c(0.304, 0.364), size=0.5) +
-  cowplot::draw_label("SAR11 clade", x=0.145, y=0.334, hjust=0,  fontfamily="Times", size=12)
+  cowplot::draw_line(x=c(0.135, 0.135), y=c(0.288, 0.347), size=0.5) +
+  cowplot::draw_label("SAR11 Clade", x=0.145, y=0.317, hjust=0,  fontfamily="Times", size=12)
 ggsave("results/figures/alphaproteobacteria_bar_plot.jpg", p, width=210, height=297, units="mm")

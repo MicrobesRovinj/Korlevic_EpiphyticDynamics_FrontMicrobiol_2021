@@ -67,6 +67,7 @@ Enterobacteriales	sandybrown
 Pseudomonadales	darkkhaki	
 Betaproteobacteriales_unclassified	turquoise3	
 Thermosynechococcales_unclassified	violet	
+Desulfobacterales_unclassified	orange	
 Bifidobacteriaceae	tomato2	FAMILY
 Bacteroidaceae	dodgerblue3	
 Porphyromonadaceae	cornflowerblue	
@@ -94,7 +95,8 @@ Hyphomonadaceae_unclassified	orange
 Cellvibrionaceae_unclassified	darkolivegreen3	
 Spongiibacteraceae_unclassified	sienna	
 Desulfobacteraceae_unclassified	bisque1	
-Desulfobulbaceae_unclassified	khaki3	
+Desulfobulbaceae_unclassified	sienna	
+Desulfocapsaceae_unclassified	khaki3	
 Bifidobacterium	tomato2	GENUS
 Bacteroides	dodgerblue3	
 Porphyromonas	cornflowerblue	
@@ -147,6 +149,7 @@ Algitalea	gray
 OCS116_clade_ge	darkmagenta	
 SAR116_clade_ge	violet	
 SAR116_clade_unclassified	mistyrose	
+Candidatus_Puniceispirillum	mistyrose	
 Pseudahrensia	darkorange4	
 Amylibacter	yellow	
 Ascidiaceihabitans	firebrick1	
@@ -171,9 +174,13 @@ Granulosicoccus	gold2
 SUP05_cluster	forestgreen	
 Leucothrix	darksalmon	
 Vibrio	gray	
-Desulfatitalea	orange	
-Desulfobulbus	sienna	
+Desulfatitalea	firebrick1	
+Desulfobulbus	orange3	
 Desulfopila	yellow2	
 Desulforhopalus	forestgreen	
 Desulfotalea	darkolivegreen3	
 P3OB-42_ge	darksalmon	
+Stappiaceae_ge	darkkhaki	
+Tateyamaria	darkolivegreen3	
+uncultured_Desulfocapsaceae	darksalmon	
+SEEP-SRB4	gray40	
