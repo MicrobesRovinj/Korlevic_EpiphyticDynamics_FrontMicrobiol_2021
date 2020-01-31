@@ -111,10 +111,10 @@ p <- ggplot(metadata_rarefaction, aes(x=numsampled, y=sobs, group=ID,
   labs(x="Number of Sequences", y="") +
   theme +
   theme(legend.position="bottom", legend.title=element_blank(),
-        legend.text=element_text(size=10, margin=margin(r=0.1, unit="cm")),
+        legend.text=element_text(size=10, margin=margin(r=0.2, unit="cm")),
         legend.key.width=unit(1.4, "cm"), legend.key.height=unit(0.5, "cm"),
         legend.key=element_rect(fill="white"), legend.justification=c("top"),
-        legend.text.align=0)
+        legend.text.align=0, legend.spacing.x=unit(0, "cm"))
 
 # Common legend extraction
 legend <- cowplot::get_legend(p)
