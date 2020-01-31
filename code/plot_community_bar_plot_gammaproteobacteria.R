@@ -4,6 +4,7 @@
 # A script to plot sequence abundances of groups from the class Gammaproteobacteria of each sample.
 # Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v138.wang.tax.summary
 #               data/raw/metadata.csv
+#               data/raw/group_colors.csv
 # Produces: results/figures/gammaproteobacteria_bar_plot.jpg
 #
 #################################################################################################################
