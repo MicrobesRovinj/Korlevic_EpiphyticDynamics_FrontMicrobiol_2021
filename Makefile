@@ -47,7 +47,7 @@ $(MOTHUR) :
 # Screening the sequences
 $(REFS)silva.nr_v138.align : $(MOTHUR)\
                              ~/silva.full_v138/silva.full_v138.fasta
-	cp ~/silva.full_v138/silva.full_v138.fasta $(REFS)silva.full_v138.fasta
+	cp ~/references/silva.full_v138/silva.full_v138.fasta $(REFS)silva.full_v138.fasta
 	$(MOTHUR) "#set.dir(input=$(REFS), output=$(REFS));\
 	            screen.seqs(fasta=$(REFS)silva.full_v138.fasta, start=11894, end=25319, maxambig=5, processors=16)"
 	# Generate alignment file
