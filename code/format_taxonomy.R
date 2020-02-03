@@ -43,15 +43,6 @@ tax.in <- read.table("data/references/silva.nr_v138.full", header=F, stringsAsFa
 colnames(tax.in) <- c("taxid", "taxlabel")
 
 # Problem corrections observed in the SILVA ARB file (silva.nr_v138.full)
-# Following line corrects the Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Flavobacteriaceae;Polaribacter;Polaribacter; problem
-tax.in$taxlabel <- gsub("Polaribacter;Polaribacter", "Polaribacter", tax.in$taxlabel)
-# Following line corrects the Bacteria;RsaHf231; problem
-# tax.in$taxlabel <- gsub("RsaHf231;", "RsaHF231;", tax.in$taxlabel)
-# Following line corrects the Bacteria;GBS-1;; problem
-# tax.in$taxlabel <- gsub("Bacteria;GBS-1;;", "Bacteria;GBS-1;", tax.in$taxlabel)
-# Following line corrects the Eukaryota;Opisthokonta;Nucletmycea;Fungi;Dikarya;Basidiomycota;Agaricomycotina;Tremellomycetes;Tremellales;Incertae sedis;Sterigmatosporidium; problem
-# tax.in$taxlabel <- gsub(";Incertae sedis;", ";Incertae Sedis;", tax.in$taxlabel)
-# tax.in$taxlabel <- gsub(";[[:space:]]+$", ";", tax.in$taxlabel)
 # Following line corrects the Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;Mesorhizobium;Mesorhizobium; problem
 tax.in$taxlabel <- gsub("Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;Mesorhizobium;Mesorhizobium;", "Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;Mesorhizobium;", tax.in$taxlabel)
 
