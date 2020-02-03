@@ -206,7 +206,7 @@ p <- cowplot::ggdraw() +
   cowplot::draw_plot(fcym, x=0.317, y=0.545, width=0.683, height=0.228) +
   cowplot::draw_plot(fcam, x=0.317, y=0.317, width=0.683, height=0.228) +
   cowplot::draw_plot(fca, x=0.317, y=0, width=0.683, height=0.317) +
-  cowplot::draw_plot(legend, x=0.12, y=0.28, width=0.1, height=0.2) +
+  cowplot::draw_plot(legend, x=0.120, y=0.280, width=0.100, height=0.200) +
   cowplot::draw_line(x=c(0.135, 0.135), y=c(0.288, 0.347), size=0.5) +
   cowplot::draw_label("SAR11 Clade", x=0.145, y=0.317, hjust=0,  fontfamily="Times", size=12)
 ggsave("results/figures/alphaproteobacteria_bar_plot.jpg", p, width=210, height=297, units="mm")
