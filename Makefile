@@ -177,15 +177,15 @@ $(FIGS)bacteroidota_bar_plot%jpg\
 $(FIGS)alphaproteobacteria_bar_plot%jpg\
 $(FIGS)gammaproteobacteria_bar_plot%jpg\
 $(FIGS)desulfobacterota_bar_plot%jpg : code/plot_community_bar_plot.R\
-                                          code/plot_community_bar_plot_chloroplast.R\
-                                          code/plot_community_bar_plot_cyanobacteria.R\
-                                          code/plot_community_bar_plot_bacteroidota.R\
-                                          code/plot_community_bar_plot_alphaproteobacteria.R\
-                                          code/plot_community_bar_plot_gammaproteobacteria.R\
-                                          code/plot_community_bar_plot_desulfobacterota.R\
-                                          $(BASIC_STEM).pick.nr_v138.wang.tax.summary\
-                                          $(RAW)metadata.csv\
-                                          $(RAW)group_colors.csv
+                                       code/plot_community_bar_plot_chloroplast.R\
+                                       code/plot_community_bar_plot_cyanobacteria.R\
+                                       code/plot_community_bar_plot_bacteroidota.R\
+                                       code/plot_community_bar_plot_alphaproteobacteria.R\
+                                       code/plot_community_bar_plot_gammaproteobacteria.R\
+                                       code/plot_community_bar_plot_desulfobacterota.R\
+                                       $(BASIC_STEM).pick.nr_v138.wang.tax.summary\
+                                       $(RAW)metadata.csv\
+                                       $(RAW)group_colors.csv
 	R -e "source('code/plot_community_bar_plot.R')"
 	R -e "source('code/plot_community_bar_plot_chloroplast.R')"
 	R -e "source('code/plot_community_bar_plot_cyanobacteria.R')"
