@@ -46,7 +46,7 @@ $(MOTHUR) :
 
 # Screening the sequences
 $(REFS)silva.nr_v138.align : $(MOTHUR)\
-                             ~/silva.full_v138/silva.full_v138.fasta
+                             ~/references/silva.full_v138/silva.full_v138.fasta
 	cp ~/references/silva.full_v138/silva.full_v138.fasta $(REFS)silva.full_v138.fasta
 	$(MOTHUR) "#set.dir(input=$(REFS), output=$(REFS));\
 	            screen.seqs(fasta=$(REFS)silva.full_v138.fasta, start=11894, end=25319, maxambig=5, processors=16)"
@@ -109,17 +109,14 @@ $(BASIC_STEM).denovo.vsearch.pick%count_table\
 $(BASIC_STEM).pick.pick%fasta\
 $(BASIC_STEM).denovo.vsearch.pick.pick%count_table\
 $(BASIC_STEM).pick.nr_v138.wang.pick%taxonomy\
-$(BASIC_STEM).pick.nr_v138.wang.tax%summary\
-$(MOTH)chloroplast%fasta\
-$(MOTH)chloroplast%count_table\
-$(MOTH)chloroplast%taxonomy : code/get_good_seqs.batch\
-                              $(RAW)raw.files\
-                              $(RAW)primer.oligos\
-                              $(RAW)*.fastq\
-                              $(REFS)silva.nr_v138.pcr.align\
-                              $(REFS)silva.nr_v138.pcr.unique.align\
-                              $(REFS)silva.nr_v138.tax\
-                              $(MOTHUR)
+$(BASIC_STEM).pick.nr_v138.wang.tax%summary : code/get_good_seqs.batch\
+                                              $(RAW)raw.files\
+                                              $(RAW)primer.oligos\
+                                              $(RAW)*.fastq\
+                                              $(REFS)silva.nr_v138.pcr.align\
+                                              $(REFS)silva.nr_v138.pcr.unique.align\
+                                              $(REFS)silva.nr_v138.tax\
+                                              $(MOTHUR)
 	$(MOTHUR) code/get_good_seqs.batch
 	rm data/mothur/*.map
 
