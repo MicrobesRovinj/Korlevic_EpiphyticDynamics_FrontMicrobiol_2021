@@ -108,14 +108,20 @@ Surfaces}}
 \usepackage{siunitx}
 \DeclareSIUnit\molar{\mole\per\cubic\deci\metre}
 \DeclareSIUnit\Molar{\textsc{m}}
+\DeclareSIUnit\cells{\text{cells}}
 
 \usepackage{caption}
 \captionsetup{justification=justified}
 
+\usepackage{float}
+
+\usepackage{xr}
+\externaldocument[supp-]{supplementary}
+
 \begin{document}
 \maketitle
 
-\vspace{80mm}
+\vspace{70mm}
 
 \textsuperscript{1\(\dagger\)}
 
@@ -139,6 +145,82 @@ Althanstraße 14, Vienna, Austria \newpage \linenumbers
 \hypertarget{introduction}{%
 \subsection{Introduction}\label{introduction}}
 
+Marine macrophytes (seagrasses and macroalgae) are important ecosystem
+engineers that form close associations with microorganism belonging to
+all three domains of life (Egan \emph{et al.}, 2013; Tarquinio \emph{et
+al.}, 2019). Microbes can live within macrophyte tissue as endophytes or
+can form epiphytic communities on surfaces of leaves and thalli (Egan
+\emph{et al.}, 2013; Hollants \emph{et al.}, 2013; Tarquinio \emph{et
+al.}, 2019). Epiphytic and endophytic microbial communities form a close
+functional relationship with the macrophyte host. It was proposed that
+this close relationship constitutes a holobiont, an integrated community
+where the macrophyte organism and its symbiotic partners support each
+other (Margulis, 1991; Egan \emph{et al.}, 2013; Tarquinio \emph{et
+al.}, 2019).
+
+Biofilms formed from microbial epiphytes can contain diverse taxonomic
+groups and harbor cell densities from 10\textsuperscript{2} to
+10\textsuperscript{7} \si{\cells\per\cm\squared} (Armstrong \emph{et
+al.}, 2000; Bengtsson \emph{et al.}, 2010; Burke \emph{et al.}, 2011b).
+In such an environment a number of positive and negative interactions
+between the macrophyte and colonizing microorganisms have been described
+(Egan \emph{et al.}, 2013; Hollants \emph{et al.}, 2013; Tarquinio
+\emph{et al.}, 2019). Macrophytes can promote growth of associated
+microbes by nutrient exudation, while in return microorganisms may
+support macrophyte performance through improved nutrient availability,
+phytohormone production and protection form toxic compounds, oxidative
+stress, biofouling organisms and pathogens (Egan \emph{et al.}, 2013;
+Hollants \emph{et al.}, 2013; Tarquinio \emph{et al.}, 2019). Beside
+this positive interactions, macrophytes can negatively impact the
+associated microbes such as pathogenic bacteria by producing reactive
+oxygen species and secondary metabolites (Egan \emph{et al.}, 2013;
+Hollants \emph{et al.}, 2013; Tarquinio \emph{et al.}, 2019).
+
+All these ecological roles are carried out by a taxonomically diverse
+community of microorganisms. At higher taxonomic ranks a core set of
+macrophyte epiphytic taxa was described consisting mainly of
+\emph{Alphaproteobacteria}, \emph{Gammaproteobacteria},
+\emph{Desulfobacterota}, \emph{Bacteroidota}, \emph{Cyanobacteria},
+\emph{Actinobacteriota}, \emph{Firmicutes}, \emph{Planctomycetota},
+\emph{Chloroflexi} and \emph{Verrucomicrobiota} (Crump and Koch, 2008;
+Tujula \emph{et al.}, 2010; Lachnit \emph{et al.}, 2011). In contrast,
+at lower taxonomic ranks host specific microbial communities were
+described (Lachnit \emph{et al.}, 2011; Roth-Schulze \emph{et al.},
+2016). Recently, it was shown that even different morphological niches
+within the same alga had a higher influence on bacterial community
+variation than biogeography or environmental factors (Morrissey \emph{et
+al.}, 2019). While there is high community variation between host
+species is was observed that the majority of metagenomes determined
+functions were conserved both between host species and individuals
+(Burke \emph{et al.}, 2011a; Roth-Schulze \emph{et al.}, 2016). This
+discrepancy between taxonomic and functional composition could be
+explained by the lottery hypothesis. It postulates that an initial
+random colonization step is performed from a set of functionally
+equivalent taxonomic groups resulting in taxonomically different
+epiphytic communities sharing a core set of functional genes (Burke
+\emph{et al.}, 2011a; Roth-Schulze \emph{et al.}, 2016). In addition,
+some of the variation in the observed data could be attributed to
+different techniques used in various studies, such as different
+protocols for epiphytic cell detachment and/or DNA isolation, as no
+standard protocol to study epiphytic communities was established
+(Ugarelli \emph{et al.}, 2019; Korlević \emph{et al.}, submitted).
+
+The majority of studies describing macrophyte epiphytic communities did
+not encompass seasonal changes (Crump and Koch, 2008; Lachnit \emph{et
+al.}, 2009; Burke \emph{et al.}, 2011b; Roth-Schulze \emph{et al.},
+2016; Ugarelli \emph{et al.}, 2019). In addition, if seasonal changes
+were taken into account low temporal frequency and/or methodologies that
+do not allow for high taxonomic resolution were used (Tujula \emph{et
+al.}, 2010; Lachnit \emph{et al.}, 2011; Miranda \emph{et al.}, 2013).
+In the present study we describe the seasonal dynamics of bacterial and
+archaeal communities on the surfaces of the seagrass \emph{Cymodocea
+nodosa} and siphonous macroalgae \emph{Caulerpa cylindracea} determined
+on a mostly monthly scale. Bacterial and archaeal epiphytes were sampled
+in a meadow of \emph{Cymodocea nodosa} invaded by the invasive
+\emph{Caulerpa cylindracea} and in a locality of only \emph{Caulerpa
+cylindracea} located in the proximity of the meadow. In addition, for
+comparison the community of the surrounding seawater was characterized.
+
 \newpage
 
 \hypertarget{materials-and-methods}{%
@@ -148,101 +230,76 @@ Althanstraße 14, Vienna, Austria \newpage \linenumbers
 \subsubsection{Sampling}\label{sampling}}
 
 Leaves of \emph{Cymodocea nodosa} were sampled in a \emph{Cymodocea
-nodosa} meadow in the Bay of Saline (45°7´5˝N, 13°37´20˝E) and in a
-\emph{Cymodocea nodosa} meadow invaded by \emph{Caulerpa cylindracea} in
-the proximity of the village of Funtana (45°10´39˝N, 13°35´42˝E). Thalli
-of \emph{Caulerpa cylindracea} were sampled in the same \emph{Cymodocea
-nodosa} invaded meadow in Funtana and on a locality of only
-\emph{Caulerpa cylindracea} located in the proximity of the invaded
-meadow. Leaves and thalli were collected on the same day in two
-contrasting seasons, on 4 December 2017 and 18 June 2018. During spring
-2018 the \emph{Cymodocea nodosa} meadow in the Bay of Saline decayed to
-an extent that no leaves could be retrieved (Najdek \emph{et al.},
-unpublished data). Leaves and thalli were collected by diving and
-transported to the laboratory in containers placed on ice and filled
-with site seawater. Upon arrival to the laboratory, \emph{Cymodocea
-nodosa} leaves were cut into sections of 1 -- 2 \si{\cm}, while
-\emph{Caulerpa cylindracea} thalli were cut into 5 -- 8 \si{\cm} long
-sections. Leaves and thalli were washed three times with sterile
-artificial seawater (ASW) to remove loosely attached microbial cells.
+nodosa} meadow located in the proximity of the village of Funtana
+(\ang{45;10;39} N, \ang{13;35;42} E). Thalli of \emph{Caulerpa
+cylindracea} were sampled in the same \emph{Cymodocea nodosa} invaded
+meadow in Funtana and on a locality of only \emph{Caulerpa cylindracea}
+located close to the invaded meadow. Sampling of leaves and thalli was
+performed approximately monthly from December 2017 to October 2018.
+Leaves and thalli were collected by diving and transported to the
+laboratory in containers placed on ice and filled with site seawater.
+Upon arrival to the laboratory, \emph{Cymodocea nodosa} leaves were cut
+into sections of 1 -- 2 \si{\cm}, while \emph{Caulerpa cylindracea}
+thalli were cut into 5 -- 8 \si{\cm} long sections. Leaves and thalli
+were washed three times with sterile artificial seawater (ASW) to remove
+loosely attached microbial cells. Surrounding seawater was collected in
+10 \si{\l} containers by diving and transported to the laboratory where
+the whole container volume was filtered through a 20 \si{\um} net. The
+filtrate was further sequentially filtered through 3 \si{\um} and 0.2
+\si{\um} polycarbonate membrane filters (Whatman, United Kingdom) using
+a peristaltic pump. Filters were briefly dried at room temperature and
+stored at \num{-80} \si{\degreeCelsius}. Seawater samples were also
+collected approximately monthly from July 2017 to October 2018.
 
 \hypertarget{dna-isolation}{%
 \subsubsection{DNA Isolation}\label{dna-isolation}}
 
-The DNA was isolated according to the protocol for isolation from
-filters described in Massana \emph{et al.} (1997). This protocol was
-modified and adapted for DNA isolation from microbial communities from
-macrophyte surfaces as described below. 5 \si{\ml} of lysis buffer (40
-\si{\milli\Molar} EDTA, 50 \si{\milli\Molar} Tris-HCl, 0.75 \si{\Molar}
-sucrose; pH 8.3) was added to 1 \si{\g} wet weight of leaves or \si{\g}
-wet-weight of thalli. Lysozyme was added (final concentration 1
-\si{\mg\per\ml}) and the mixture was incubated at 37 \si{\degreeCelsius}
-for 30 \si{\minute}. Subsequently, proteinase K (final concentration 0.5
-\si{\mg\per\ml}) and SDS (final concentration 1 \si{\percent}) were
-added and the samples were incubated at 55 \si{\degreeCelsius} for 2
-\si{\hour}. Following the incubation, tubes were vortexed for 10
-\si{\minute} and the mixture containing lyzed epiphytic cells was
-separated from host leaves or thalli by transferring the solution into a
-clean tube. The lysate was extracted twice with a mixture of
-phenol:chloroform:isoamyl alcohol (25:24:1; pH 8) and once with
-chloroform:isoamyl alcohol (24:1). After each organic solvent mixture
-addition tubes were slightly vortexed and centrifuged at 4,500 × g for
-10 \si{\minute}. Following each centrifugation aqueous phases were
-retrieved. After the final extraction 1/10 of chilled 3 \si{\Molar}
-sodium acetate (pH 5.2) was added. DNA was precipitated by adding 1
-volume of chilled isopropanol, incubating the mixtures overnight at
-\num{-20} °C and centrifuging at 16,000 × g and 4 \si{\degreeCelsius}
-for 20 \si{\minute}. The pellet was washed twice with 1 \si{\ml} of
-chilled isopropanol and centrifuged after each washing step at 20,000 ×
-g and 4 \si{\degreeCelsius} for 10 \si{\minute}. After the first washing
-step duplicate pellets form the same sample were pooled and transferred
-to a clean 1.5 \si{\ml} tube. The dried pellet was resuspended in 100
-\si{\ul} of deionized water.
+DNA from surfaces of \emph{Cymodocea nodosa} and \emph{Caulerpa
+cylindracea} was isolated using a previously modified and adapted
+protocol that allows a selective epiphytic DNA isolation (Massana
+\emph{et al.}, 1997; Korlević \emph{et al.}, submitted). Briefly, leaves
+and thalli are incubated in a lysis buffer and treated with lysozyme and
+proteinase K. Following the incubations, the mixture containing lyzed
+epiphytic cells is separated from leaves and thalli and extracted using
+a phenol-chloroform procedure. Finally, the extracted DNA is
+precipitated using isopropanol. DNA from seawater picoplankton was
+isolated from 0.2 \si{\um} polycarbonate filters according to (Massana
+\emph{et al.}, 1997) with a slight modification. Following the
+phenol-chloroform extraction steps 1/10 of chilled 3 \si{\Molar} sodium
+acetate (pH 5.2) was added. DNA was precipitated by adding 1 volume of
+chilled isopropanol, incubating the mixtures overnight at \num{-20}
+\si{\degreeCelsius} and centrifuging at 20,000 × g and 4
+\si{\degreeCelsius} for 21 \si{\minute}. The pellet was washed twice
+with 500 \si{\ul} of chilled 70 \si{\percent} ethanol and centrifuged
+after each washing step at 20,000 × g and 4 \si{\degreeCelsius} for 5
+\si{\minute}. Dried pellets were resuspended in 50 -- 100 \si{\ul} of
+deionized water.
 
 \hypertarget{illumina-16s-rrna-sequencing}{%
 \subsubsection{Illumina 16S rRNA
 Sequencing}\label{illumina-16s-rrna-sequencing}}
 
-An aliquot of isolated DNA was treated with RNase A (final concentration
-200 \si{\ug\per\ml}) for 2 \si{\hour} at 37 \si{\degreeCelsius}. The DNA
-concentration was determined using the Quant-iT PicoGreen dsDNA Assay
-Kit (Invitrogen, USA) according to the manufacturer's instructions and
-diluted to 1 \si{\ng\per\ul}. The V4 region of the 16S rRNA gene was
-amplified using a two-step PCR procedure. In the first PCR the 515F
-(5'-GTGYCAGCMGCCGCGGTAA-3') and 806R (5'-GGACTACNVGGGTWTCTAAT-3')
-primers from the Earth Microbiome Project
+Illumina MiSeq sequencing of the V4 16S rRNA region was performed as
+described previously (Korlević \emph{et al.}, submitted). The V4 region
+of the 16S rRNA gene was amplified using a two-step PCR procedure. In
+the first PCR the 515F (5'-GTGYCAGCMGCCGCGGTAA-3') and 806R
+(5'-GGACTACNVGGGTWTCTAAT-3') primers from the Earth Microbiome Project
 (\url{http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/16s/})
 were used to amplify the target region (Caporaso \emph{et al.}, 2012;
 Apprill \emph{et al.}, 2015; Parada \emph{et al.}, 2016). These primers
-contained on their 5' end a tagged sequence. Each sample was amplified
-in four parallel 25 \si{\ul} reactions of which each contained: 1 × Q5
-Reaction Buffer , 0.2 \si{\milli\Molar} of dNTPmix, 0.7 \si{\mg\per\ml}
-BSA (Bovine Serum Albumin), 0.2 \si{\micro\Molar} of forward and reverse
-primers, 0.5 U of Q5 High-Fidelity DNA Polymerase (New England Biolabs,
-USA) and 5 \si{\ng} of DNA template. Cycling conditions were: initial
-denaturation at 94 \si{\degreeCelsius} for 3 \si{\minute}, 20 cycles of
-denaturation at 94 \si{\degreeCelsius} for 45 \si{\s}, annealing at 50
-\si{\degreeCelsius} for 60 \si{\s} and elongation at 72
-\si{\degreeCelsius} for 90 \si{\s}, finalized by an elongation step at
-72 \si{\degreeCelsius} for 10 \si{\minute}. The four parallel reactions
-volumes were pooled and PCR products were purified using the GeneJET PCR
-Purification Kit (Thermo Fisher Scientific, USA) according to the
-manufacturer's instructions and following the protocol that included
-isopropanol addition for better small DNA fragment yield. The column was
-eluted in 30 \si{\ul} of deionized water. Purified PCR products were
-sent for Illumina MiSeq sequencing (2 × 250 bp) at IMGM Laboratories,
-Martinsried, Germany. Before sequencing, at IMGM the second PCR
-amplification of the two-step PCR procedure was performed using primers
-targeting the tagged region incorporated in the first PCR. In addition,
-these primers contained adapter and sample-specific index sequences. The
-second PCR was carried out for 8 cycles. Beside samples, a positive and
-negative control were sequenced. A negative control was comprised of
-four parallel PCR reactions without DNA template, while for a positive
-control a mock community composed of evenly mixed DNA material
-originating from 20 bacterial strains (ATCC MSA-1002, ATCC, USA) was
-used. The sequences obtained in this study have been submitted to the
-European Nucleotide Archive (ENA) under accession numbers \textbf{TO BE
-ADDED LATER!}.
+contained on their 5' end a tagged sequence. Purified PCR products were
+sent for Illumina MiSeq sequencing at IMGM Laboratories, Martinsried,
+Germany. Before sequencing, the second PCR amplification of the two-step
+PCR procedure was performed at IMGM using primers targeting the tagged
+region incorporated in the first PCR. In addition, these primers
+contained adapter and sample-specific index sequences. Beside samples, a
+positive and negative control for each sequencing batch were sequenced.
+A negative control was comprised of PCR reactions without DNA template,
+while for a positive controls a mock community composed of evenly mixed
+DNA material originating from 20 bacterial strains (ATCC MSA-1002, ATCC,
+USA) was used. The sequences obtained in this study have been submitted
+to the European Nucleotide Archive (ENA) under accession numbers
+\textbf{TO BE ADDED LATER!}.
 
 \hypertarget{sequence-analysis}{%
 \subsubsection{Sequence Analysis}\label{sequence-analysis}}
@@ -255,113 +312,34 @@ Standard Operating Procedure (MiSeq SOP;
 and recommendations given from the Riffomonas project to enhance data
 reproducibility (\url{http://www.riffomonas.org/}). For alignment and
 classification of sequences the SILVA SSU Ref NR 99 database (release
-132; \url{http://www.arb-silva.de}) was used (Quast \emph{et al.}, 2013;
-Yilmaz \emph{et al.}, 2014). Sequences classified as chloroplasts by
-mothur were exported, aligned using SILVA incremental aligner (SINA,
-version 1.6.0) (Pruesse \emph{et al.}, 2012) against the same SILVA SSU
-Ref NR 99 database (release 132) and imported into ARB (version 6.0.6)
-(Ludwig \emph{et al.}, 2004) for further phylogenetic analysis using the
-same database. Reference sequences close to imported ones were selected
-and used to calculate a phylogenetic tree using the Maximum Likelihood
-algorithm RAxML (version 7.0.3) with 1000 tree replicates (Stamatakis,
-2006). Imported partial chloroplast sequences were added to the tree
-using the maximum parsimony criteria and not allowing changes to tree
-topology. Pipeline data processing and visualization was done using R
-(version 3.6.0) (R Core Team, 2019), package tidyverse (version 1.2.1)
-(Wickham \emph{et al.}, 2019) and multiple other packages (Xie, 2014,
-2015, 2019a, 2019b; Xie \emph{et al.}, 2018; Zhu, 2019; Allaire \emph{et
-al.}, 2019). The detailed analysis procedure including the R Markdown
-file for this paper are available as a GitHub repository (\textbf{TO BE
-ADDED LATER!}). Based on the ATCC MSA-1002 mock community included in
-the analysis a sequencing error rate of 0.01 \si{\percent} was
-determined, which is in line with previously reported values for
-next-generation sequencing data (Kozich \emph{et al.}, 2013; Schloss
-\emph{et al.}, 2016). In addition, the negative control processed
-together with the samples yielded only 2 sequences after sequence
-quality curation.
-
-\hypertarget{protein-isolation}{%
-\subsubsection{Protein Isolation}\label{protein-isolation}}
-
-Proteins were isolated according to the protocol for isolation from soil
-described in Chourey \emph{et al.} (2010) and modified by Hultman
-\emph{et al.} (2015). These protocols were further modified and adapted
-for protein isolation from microbial communities form macrophyte
-surfaces as described below. 20 \si{\ml} of protein extraction buffer (4
-\si{\percent} SDS, 100 \si{\milli\Molar} Tris-HCl {[}pH 8.0{]}) was
-added to 5 \si{\g} wet weight of leaves or 10 \si{\g} wet weight of
-thalli. The mixture was incubated in boiling water for 5 \si{\minute},
-vortexed for 10 \si{\minute} and incubated again in boiling water for 5
-\si{\minute}. After a brief vortex the lysate was transferred to a clean
-tube separating the host leaves or thalli from the mixture containing
-lyzed epiphytic cells. Dithiothreitol (DTT; final concentration 24
-\si{\milli\Molar}) was added and proteins were precipitated with chilled
-100 \si{\percent} trichloroacetic acid (TCA; final concentration 20
-\si{\percent}) overnight at \num{-20} °C. Precipitated proteins were
-centrifuged at 10,000 × g and 4 \si{\degreeCelsius} for 40 \si{\minute}.
-The obtained protein pellet was washed three times with chilled acetone.
-During the first washing step the pellet was transferred to a clean 1.5
-\si{\ml} tube. After each washing step samples were centrifuged at
-20,000 × g and 4 \si{\degreeCelsius} for 5 \si{\minute}. Dried pellets
-were stored at \num{-80} °C until further analysis.
-
-\hypertarget{metaproteomics}{%
-\subsubsection{Metaproteomics}\label{metaproteomics}}
-
-Isolated proteins were whole trypsin digested using the FASP
-(filter-aided sample preparation) Protein Digestion Kit (Expedeon, UK)
-according to the manufacturer's instructions (Wiśniewski \emph{et al.},
-2009) with small modifications. Before loading the solution to the
-column, protein pellets were solubilized in a urea sample buffer
-included in the kit amended with DTT (final concentration 100
-\si{\milli\Molar}) for 45 \si{\minute} at room temperature and
-centrifuged at 20,000 × g for 2 -- 5 \si{\minute} at room temperature to
-remove larger particles. The first washing step after protein solution
-loading was repeated twice. In addition, centrifugation steps were
-prolonged if the column was clogged. Trypsin digestion was performed on
-column filters at 37 \si{\degreeCelsius} overnight for 18 \si{\hour}.
-The final filtrate containing digested proteins was acidified with 1
-\si{\percent} (final concentration) trifluoroacetic acid, freezed at
-\num{-80} \si{\degreeCelsius} for 15 \si{\minute}, lyophilized and sent
-to the Vienna Metabolomics Center (University of Vienna) for
-metaproteomic analysis. Peptides were resuspended in 1 \si{\percent}
-(final concentration) trifluoroacetic acid, desalted using the Pierce
-C18 Tips (Thermo Fisher Scientific, USA) according to the manufacturer's
-instructions and sequenced on a Q Exactive Hybrid Quadrupole-Orbitrap
-Mass Spectrometer (Thermo Fisher Scientific, USA). Obtained MS/MS
-spectra were searched against a protein database from metagenomic
-assembly published in Burke \emph{et al.} (2011) using SEQUEST-HIT
-engines and validated with Percolator in Proteome Discoverer 2.1 (Thermo
-Fisher Scientific, USA). The target-decoy approach was used to reduce
-the probability of false peptide identification. Results whose false
-discovery rate at the peptide level was \SI{< 1}{\percent} were kept.
-For protein identification a minimum of of two peptides and one unique
-peptide were required. For protein quantification, a chromatographic
-peak area-based free quantitative method was applied.
-
-\hypertarget{confocal-microscopy}{%
-\subsubsection{Confocal Microscopy}\label{confocal-microscopy}}
-
-Host leaves and thalli from DNA and protein isolation steps were washed
-seven times in deionized water and fixed with formaldehyde (final
-concentration \textasciitilde{} 3 \si{\percent}). In addition,
-nontreated leaves and thalli, washed three times in ASW to remove
-loosely attached microbial cells, were fixed in the same concentration
-of formaldehyde and used as a positive control. For long therm storage,
-fixed leaves and thalli were immersed in a mixture of phosphate-buffered
-saline (PBS) and ethanol (1:1) and stored at \num{-20}
-\si{\degreeCelsius}. Treated and untreated leaves and thalli segments
-were stained in a 2 × solution of SYBR Green I and examined under a
-Leica TCS SP8 X FLIM confocal microscope (Leica Microsystems, Germany).
+138; \url{http://www.arb-silva.de}) was used (Quast \emph{et al.}, 2013;
+Yilmaz \emph{et al.}, 2014). Pipeline data processing and visualization
+was done using R (version 3.6.0) (R Core Team, 2019), package vegan
+(version 2.5-6) (Oksanen \emph{et al.}, 2019), package tidyverse
+(version 1.3.0) (Wickham \emph{et al.}, 2019) and multiple other
+packages (Xie, 2014, 2015, 2019a, 2019b, 2020; Neuwirth, 2014; Xie
+\emph{et al.}, 2018; Allaire \emph{et al.}, 2019; Zhu, 2019). The
+detailed analysis procedure including the R Markdown file for this paper
+are available as a GitHub repository (\textbf{TO BE ADDED LATER!}).
+Based on the ATCC MSA-1002 mock community included in the analysis an
+average sequencing error rate of 0.01 \si{\percent} was determined,
+which is in line with previously reported values for next-generation
+sequencing data (Kozich \emph{et al.}, 2013; Schloss \emph{et al.},
+2016). In addition, the negative controls processed together with the
+samples yielded on average only 2 sequences after sequence quality
+curation.
 
 \hypertarget{results}{%
 \subsection{Results}\label{results}}
 
+Chloroplast sequences were following the seasonal pattern
+(\autoref{supp-chloroplast}, \autoref{pcoa}).
+
 \hypertarget{discussion}{%
 \subsection{Discussion}\label{discussion}}
 
-\hypertarget{acknowledgements}{%
-\subsection{Acknowledgements}\label{acknowledgements}}
+\hypertarget{acknowledgments}{%
+\subsection{Acknowledgments}\label{acknowledgments}}
 
 \newpage
 
@@ -379,11 +357,27 @@ revision to V4 region SSU rRNA 806R gene primer greatly increases
 detection of SAR11 bacterioplankton. \emph{Aquatic Microbial Ecology}
 \textbf{75}: 129--137.
 
+\leavevmode\hypertarget{ref-Armstrong2000}{}%
+Armstrong, E., Rogerson, A., and Leftley, J.W. (2000) The Abundance of
+Heterotrophic Protists Associated with Intertidal Seaweeds.
+\emph{Estuarine, Coastal and Shelf Science} \textbf{50}: 415--424.
+
+\leavevmode\hypertarget{ref-Bengtsson2010}{}%
+Bengtsson, M., Sjøtun, K., and Øvreås, L. (2010) Seasonal dynamics of
+bacterial biofilms on the kelp Laminaria hyperborea. \emph{Aquatic
+Microbial Ecology} \textbf{60}: 71--83.
+
 \leavevmode\hypertarget{ref-Burke2011a}{}%
 Burke, C., Steinberg, P., Rusch, D., Kjelleberg, S., and Thomas, T.
-(2011) Bacterial community assembly based on functional genes rather
+(2011a) Bacterial community assembly based on functional genes rather
 than species. \emph{Proceedings of the National Academy of Sciences of
 the United States of America} \textbf{108}: 14288--14293.
+
+\leavevmode\hypertarget{ref-Burke2011b}{}%
+Burke, C., Thomas, T., Lewis, M., Steinberg, P., and Kjelleberg, S.
+(2011b) Composition, uniqueness and variability of the epiphytic
+bacterial community of the green alga Ulva australis. \emph{The ISME
+journal} \textbf{5}: 590--600.
 
 \leavevmode\hypertarget{ref-Caporaso2012}{}%
 Caporaso, J.G., Lauber, C.L., Walters, W.A., Berg-Lyons, D., Huntley,
@@ -391,17 +385,24 @@ J., Fierer, N., et al. (2012) Ultra-high-throughput microbial community
 analysis on the Illumina HiSeq and MiSeq platforms. \emph{The ISME
 Journal} \textbf{6}: 1621--1624.
 
-\leavevmode\hypertarget{ref-Chourey2010}{}%
-Chourey, K., Jansson, J., VerBerkmoes, N., Shah, M., Chavarria, K.L.,
-Tom, L.M., et al. (2010) Direct Cellular Lysis/Protein Extraction
-Protocol for Soil Metaproteomics. \emph{Journal of Proteome Research}
-\textbf{9}: 6615--6622.
+\leavevmode\hypertarget{ref-Crump2008}{}%
+Crump, B.C. and Koch, E.W. (2008) Attached bacterial populations shared
+by four species of aquatic angiosperms. \emph{Applied and environmental
+microbiology} \textbf{74}: 5948--5957.
 
-\leavevmode\hypertarget{ref-Hultman2015}{}%
-Hultman, J., Waldrop, M.P., Mackelprang, R., David, M.M., McFarland, J.,
-Blazewicz, S.J., et al. (2015) Multi-omics of permafrost, active layer
-and thermokarst bog soil microbiomes. \emph{Nature} \textbf{521}:
-208--212.
+\leavevmode\hypertarget{ref-Egan2013}{}%
+Egan, S., Harder, T., Burke, C., Steinberg, P., Kjelleberg, S., and
+Thomas, T. (2013) The seaweed holobiont: understanding seaweed-bacteria
+interactions. \emph{FEMS microbiology reviews} \textbf{37}: 462--476.
+
+\leavevmode\hypertarget{ref-Hollants2013}{}%
+Hollants, J., Leliaert, F., De Clerck, O., and Willems, A. (2013) What
+we can learn from sushi: A review on seaweed-bacterial associations.
+\textbf{83}: 1--16.
+
+\leavevmode\hypertarget{ref-Korlevic_in_press}{}%
+Korlević, M., Markovski, M., Zhao, Z., Herndl, G.J., and Najdek, M.
+Selective DNA and Protein Isolation from Marine Macrophyte Surfaces.
 
 \leavevmode\hypertarget{ref-Kozich2013}{}%
 Kozich, J.J., Westcott, S.L., Baxter, N.T., Highlander, S.K., and
@@ -410,10 +411,21 @@ curation pipeline for analyzing amplicon sequence data on the MiSeq
 Illumina sequencing platform. \emph{Applied and environmental
 microbiology} \textbf{79}: 5112--5120.
 
-\leavevmode\hypertarget{ref-Ludwig2004}{}%
-Ludwig, W., Strunk, O., Westram, R., Richter, L., Meier, H., Yadhukumar,
-et al. (2004) ARB: a software environment for sequence data.
-\emph{Nucleic Acids Research} \textbf{32}: 1363--1371.
+\leavevmode\hypertarget{ref-Lachnit2009}{}%
+Lachnit, T., Blümel, M., Imhoff, J.F., and Wahl, M. (2009) Specific
+epibacterial communities on macroalgae: Phylogeny matters more than
+habitat. \emph{Aquatic Biology} \textbf{5}: 181--186.
+
+\leavevmode\hypertarget{ref-Lachnit2011}{}%
+Lachnit, T., Meske, D., Wahl, M., Harder, T., and Schmitz, R. (2011)
+Epibacterial community patterns on marine macroalgae are host-specific
+but temporally variable. \emph{Environmental Microbiology} \textbf{13}:
+655--665.
+
+\leavevmode\hypertarget{ref-Margulis1991}{}%
+Margulis, L. (1991) Symbiogenesis and symbionticism. In, Margulis,L. and
+Fester,R. (eds), \emph{Symbiosis as a source of evolutionary
+innovation}. Cambridge, Massachusetts: The MIT Press, pp. 1--14.
 
 \leavevmode\hypertarget{ref-Massana1997}{}%
 Massana, R., Murray, A.E., Preston, C.M., and DeLong, E.F. (1997)
@@ -421,16 +433,30 @@ Vertical distribution and phylogenetic characterization of marine
 planktonic Archaea in the Santa Barbara Channel. \emph{Applied and
 environmental microbiology} \textbf{63}: 50--56.
 
+\leavevmode\hypertarget{ref-Miranda2013}{}%
+Miranda, L.N., Hutchison, K., Grossman, A.R., and Brawley, S.H. (2013)
+Diversity and Abundance of the Bacterial Community of the Red Macroalga
+Porphyra umbilicalis: Did Bacterial Farmers Produce Macroalgae?
+\emph{PLoS ONE} \textbf{8}: e58269.
+
+\leavevmode\hypertarget{ref-Morrissey2019}{}%
+Morrissey, K.L., Çavas, L., Willems, A., and De Clerck, O. (2019)
+Disentangling the influence of environment, host specificity and thallus
+differentiation on bacterial communities in siphonous green seaweeds.
+\emph{Frontiers in Microbiology} \textbf{10}:
+
+\leavevmode\hypertarget{ref-Neuwirth2014}{}%
+Neuwirth, E. (2014) RColorBrewer: ColorBrewer Palettes.
+
+\leavevmode\hypertarget{ref-Oksanen2019}{}%
+Oksanen, J., Blanchet, F.G., Friendly, M., Kindt, R., Legendre, P.,
+McGlinn, D., et al. (2019) vegan: Community Ecology Package.
+
 \leavevmode\hypertarget{ref-Parada2016}{}%
 Parada, A.E., Needham, D.M., and Fuhrman, J.A. (2016) Every base
 matters: assessing small subunit rRNA primers for marine microbiomes
 with mock communities, time series and global field samples.
 \emph{Environmental Microbiology} \textbf{18}: 1403--1414.
-
-\leavevmode\hypertarget{ref-Pruesse2012}{}%
-Pruesse, E., Peplies, J., and Glöckner, F.O. (2012) SINA: accurate
-high-throughput multiple sequence alignment of ribosomal RNA genes.
-\emph{Bioinformatics (Oxford, England)} \textbf{28}: 1823--1829.
 
 \leavevmode\hypertarget{ref-Quast2013}{}%
 Quast, C., Pruesse, E., Yilmaz, P., Gerken, J., Schweer, T., Yarza, P.,
@@ -441,6 +467,12 @@ data processing and web-based tools. \emph{Nucleic acids research}
 \leavevmode\hypertarget{ref-RCoreTeam2019}{}%
 R Core Team (2019) R: A Language and Environment for Statistical
 Computing, Vienna, Austria: R Foundation for Statistical Computing.
+
+\leavevmode\hypertarget{ref-Roth-Schulze2016}{}%
+Roth-Schulze, A.J., Zozaya-Valdés, E., Steinberg, P.D., and Thomas, T.
+(2016) Partitioning of functional and taxonomic diversity in
+surface-associated microbial communities. \emph{Environmental
+microbiology} \textbf{18}: 4391--4402.
 
 \leavevmode\hypertarget{ref-Schloss2016}{}%
 Schloss, P.D., Girard, R.A., Martin, T., Edwards, J., and Thrash, J.C.
@@ -454,20 +486,29 @@ platform-independent, community-supported software for describing and
 comparing microbial communities. \emph{Applied and environmental
 microbiology} \textbf{75}: 7537--7541.
 
-\leavevmode\hypertarget{ref-Stamatakis2006}{}%
-Stamatakis, A. (2006) RAxML-VI-HPC: maximum likelihood-based
-phylogenetic analyses with thousands of taxa and mixed models.
-\emph{Bioinformatics} \textbf{22}: 2688--2690.
+\leavevmode\hypertarget{ref-Tarquinio2019}{}%
+Tarquinio, F., Hyndes, G.A., Laverock, B., Koenders, A., and Säwström,
+C. (2019) The seagrass holobiont: Understanding seagrass-bacteria
+interactions and their role in seagrass ecosystem functioning.
+\emph{FEMS Microbiology Letters} \textbf{366}:
+
+\leavevmode\hypertarget{ref-Tujula2010}{}%
+Tujula, N.A., Crocetti, G.R., Burke, C., Thomas, T., Holmström, C., and
+Kjelleberg, S. (2010) Variability and abundance of the epiphytic
+bacterial community associated with a green marine Ulvacean alga.
+\emph{The ISME Journal} \textbf{4}: 301--311.
+
+\leavevmode\hypertarget{ref-Ugarelli2019}{}%
+Ugarelli, K., Laas, P., and Stingl, U. (2019) The microbial communities
+of leaves and roots associated with turtle grass (Thalassia testudinum)
+and manatee grass (syringodium filliforme) are distinct from seawater
+and sediment communities, but are similar between species and sampling
+sites. \emph{Microorganisms} \textbf{7}:
 
 \leavevmode\hypertarget{ref-Wickham2019}{}%
 Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L.D., François,
 R., et al. (2019) Welcome to the tidyverse. \emph{Journal of Open Source
 Software} \textbf{4}: 1686.
-
-\leavevmode\hypertarget{ref-Wisniewski2009}{}%
-Wiśniewski, J.R., Zougman, A., Nagaraj, N., and Mann, M. (2009)
-Universal sample preparation method for proteome analysis. \emph{Nature
-Methods} \textbf{6}: 359--362.
 
 \leavevmode\hypertarget{ref-Xie2015}{}%
 Xie, Y. (2015) Dynamic Documents with \{R\} and knitr, 2nd ed. Boca
@@ -484,7 +525,12 @@ Xie, Y. (2019a) knitr: A General-Purpose Package for Dynamic Report
 Generation in R.
 
 \leavevmode\hypertarget{ref-Xie2019}{}%
-Xie, Y. (2019b) tinytex: Helper Functions to Install and Maintain 'TeX
+Xie, Y. (2019b) TinyTeX: A lightweight, cross-platform, and
+easy-to-maintain LaTeX distribution based on TeX Live. \emph{TUGboat}
+30--32.
+
+\leavevmode\hypertarget{ref-Xie2020}{}%
+Xie, Y. (2020) tinytex: Helper Functions to Install and Maintain 'TeX
 Live', and Compile 'LaTeX' Documents.
 
 \leavevmode\hypertarget{ref-Xie2018}{}%
@@ -507,21 +553,95 @@ Syntax.
 \hypertarget{figure-captions}{%
 \subsection{Figure Captions}\label{figure-captions}}
 
+\textbf{\autoref{shared}.} \nameref{shared}
+
+\textbf{\autoref{pcoa}.} \nameref{pcoa}
+
 \textbf{\autoref{community}.} \nameref{community}
 
-\newpage
+\textbf{\autoref{cyano}.} \nameref{cyano}
+
+\textbf{\autoref{bactero}.} \nameref{bactero}
+
+\textbf{\autoref{alpha}.} \nameref{alpha}
+
+\textbf{\autoref{gamma}.} \nameref{gamma}
+
+\textbf{\autoref{desulfo}.} \nameref{desulfo}
 
 \hypertarget{figures}{%
 \subsection{Figures}\label{figures}}
 
-\newpage
-\begin{figure}[ht]
+\begin{figure}[H]
 
-{\centering \includegraphics[width=0.8\linewidth]{../results/figures/community_bar_plot} 
+{\centering \includegraphics[width=0.85\linewidth]{../results/figures/seasonal_shared} 
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant bacterial sequences.\label{community}}\label{fig:unnamed-chunk-2}
+\caption{Proprotion of shared bacterial and archaeal communities (Bray-Curtis Similarity Coefficient) and shared bacterial and archaeal OTUs (Jaccard's Similarity Coefficient) between consecutive sampling points and from the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater.\label{shared}}\label{fig:unnamed-chunk-2}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=1\linewidth]{../results/figures/pcoa_figure} 
+
+}
+
+\caption{Principal Coordinates Analysis (PCoA) of Bray-Curtis distances based on OTU abundances of bacterial and archaeal communities from the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. Samples from the same environment or same season are labeld in different colors. The proportion of explained variation by each axis is shown on the corresponding axis in parentheses.\label{pcoa}}\label{fig:unnamed-chunk-3}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.85\linewidth]{../results/figures/community_bar_plot} 
+
+}
+
+\caption{Taxonomic classification and relative contribution of the most abundant bacterial and archaeal sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater.\label{community}}\label{fig:unnamed-chunk-4}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.85\linewidth]{../results/figures/cyanobacteria_bar_plot} 
+
+}
+
+\caption{Taxonomic classification and relative contribution of the most abundant cyanobacterial sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of cyanobaterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{cyano}}\label{fig:unnamed-chunk-5}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.85\linewidth]{../results/figures/bacteroidota_bar_plot} 
+
+}
+
+\caption{Taxonomic classification and relative contribution of the most abundant sequences within the \textit{Bacteroidota} on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of sequences classified as \textit{Bacteroidota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{bactero}}\label{fig:unnamed-chunk-6}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.85\linewidth]{../results/figures/alphaproteobacteria_bar_plot} 
+
+}
+
+\caption{Taxonomic classification and relative contribution of the most abundant alphaproteobacterial sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of alphaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{alpha}}\label{fig:unnamed-chunk-7}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.85\linewidth]{../results/figures/gammaproteobacteria_bar_plot} 
+
+}
+
+\caption{Taxonomic classification and relative contribution of the most abundant gammaproteobacterial sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of gammaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{gamma}}\label{fig:unnamed-chunk-8}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.85\linewidth]{../results/figures/desulfobacterota_bar_plot} 
+
+}
+
+\caption{Taxonomic classification and relative contribution of the most abundant sequences within the \textit{Desulfobacterota} on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of sequences classified as \textit{Desulfobacterota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{desulfo}}\label{fig:unnamed-chunk-9}
 \end{figure}
 
 

@@ -41,8 +41,8 @@ theme <- theme(text=element_text(family="Times"), line=element_line(color="black
          legend.justification=c("left", "top"), plot.title=element_text(size=14, hjust=0.5))
 
 # Plots generation
-# All samlples
-# Filter all sampels
+# All samples
+# Filter all samples
 rarefied_metadata_select <- rarefied_metadata
 
 # Generation of PCoA data

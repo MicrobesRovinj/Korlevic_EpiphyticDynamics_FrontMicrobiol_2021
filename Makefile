@@ -62,7 +62,7 @@ $(REFS)silva.nr_v138.full : $(REFS)silva.nr_v138.align\
 $(REFS)silva.nr_v138.tax : code/format_taxonomy.R\
                            $(REFS)silva.nr_v138.full
 	wget https://www.arb-silva.de/fileadmin/silva_databases/release_138/Exports/taxonomy/tax_slv_ssu_138.txt.gz
-	gunzip tax_slv_ssu_138.txt.gz	
+	gunzip tax_slv_ssu_138.txt.gz
 	mv tax_slv_ssu_138.txt $(REFS)tax_slv_ssu_138.txt
 	R -e "source('code/format_taxonomy.R')"
 	mv $(REFS)silva.full_v138.tax $(REFS)silva.nr_v138.tax
@@ -226,26 +226,33 @@ $(FIGS)pcoa_figure.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
 #
 #########################################################################################
 
-$(FINAL)manuscript.pdf : $(MOTH)summary.txt\
-                         $(BASIC_STEM).pick.pick.pick.error.summary\
-                         $(FIGS)community_bar_plot.jpg\
-                         $(FIGS)chloroplast_bar_plot.jpg\
-                         $(FIGS)cyanobacteria_bar_plot.jpg\
-                         $(FIGS)bacteroidota_bar_plot.jpg\
-                         $(FIGS)alphaproteobacteria_bar_plot.jpg\
-                         $(FIGS)gammaproteobacteria_bar_plot.jpg\
-                         $(FIGS)desulfobacterota_bar_plot.jpg\
-                         $(FIGS)rarefaction.jpg\
-                         $(FIGS)calculators.jpg\
-                         $(FIGS)seasonal_shared.jpg\
-                         $(FIGS)pcoa_figure.jpg\
-                         $(FINAL)manuscript.Rmd\
-                         $(FINAL)header.tex\
-                         $(FINAL)references.bib\
-                         $(FINAL)citation_style.csl
+$(FINAL)manuscript.pdf\
+$(FINAL)supplementary.pdf : $(MOTH)summary.txt\
+                            $(BASIC_STEM).pick.pick.pick.error.summary\
+                            $(FIGS)community_bar_plot.jpg\
+                            $(FIGS)chloroplast_bar_plot.jpg\
+                            $(FIGS)cyanobacteria_bar_plot.jpg\
+                            $(FIGS)bacteroidota_bar_plot.jpg\
+                            $(FIGS)alphaproteobacteria_bar_plot.jpg\
+                            $(FIGS)gammaproteobacteria_bar_plot.jpg\
+                            $(FIGS)desulfobacterota_bar_plot.jpg\
+                            $(FIGS)rarefaction.jpg\
+                            $(FIGS)calculators.jpg\
+                            $(FIGS)seasonal_shared.jpg\
+                            $(FIGS)pcoa_figure.jpg\
+                            $(FINAL)manuscript.Rmd\
+                            $(FINAL)header.tex\
+                            $(FINAL)supplementary.Rmd\
+                            $(FINAL)header_supplementary.tex\
+                            $(FINAL)references.bib\
+                            $(FINAL)citation_style.csl
+        R -e 'render("$(FINAL)supplementary.Rmd", clean=FALSE)'
+        mv $(FINAL)supplementary.knit.md $(FINAL)supplementary.md
+        rm $(FINAL)supplementary.utf8.md
 	R -e 'render("$(FINAL)manuscript.Rmd", clean=FALSE)'
 	mv $(FINAL)manuscript.knit.md $(FINAL)manuscript.md
 	rm $(FINAL)manuscript.utf8.md
+	rm $(FINAL)*.log $(FINAL).out
 
 # Cleaning
 .PHONY: clean
