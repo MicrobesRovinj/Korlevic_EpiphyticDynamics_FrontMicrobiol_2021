@@ -11,7 +11,7 @@
 # Loading OTU/sample data
 shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared")
 
-# Generation of random rarified community data
+# Generation of random rarefied community data
 rarefied <- shared %>%
   select(-label, -Group, -numOtus) %>%
   rrarefy(., min(rowSums(.))) %>%

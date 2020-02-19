@@ -1,6 +1,6 @@
 ---
 title: "**Supplementary Information**"
-subtitle: "**Dynamics of Epiphytic Microbial Communities on Marine Macrophyte Surfaces**"
+subtitle: "**Seasonal Dynamics of Epiphytic Microbial Communities on Marine Macrophyte Surfaces**"
 output:
   pdf_document:
     keep_tex: true

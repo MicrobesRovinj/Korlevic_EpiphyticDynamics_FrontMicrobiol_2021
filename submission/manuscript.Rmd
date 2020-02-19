@@ -1,5 +1,5 @@
 ---
-title: "**Dynamics of Epiphytic Microbial Communities on Marine Macrophyte Surfaces**"
+title: "**Seasonal Dynamics of Epiphytic Microbial Communities on Marine Macrophyte Surfaces**"
 output:
   pdf_document:
     keep_tex: true
@@ -16,7 +16,7 @@ opts_chunk$set("tidy" = TRUE)
 opts_chunk$set("echo" = FALSE)
 opts_chunk$set("eval" = TRUE)
 opts_chunk$set("warning" = FALSE)
-opts_chunk$set("cache" = FALSE)
+opts_chunk$set("cache" = T)
 opts_chunk$set("message" = FALSE)
 
 inline_hook <- function(x){
@@ -96,7 +96,122 @@ nc <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.prec
 Obtained sequences were analyzed on the computer cluster Isabella (University Computing Center, University of Zagreb) using mothur (version 1.43.0) [@Schloss2009] according to the MiSeq Standard Operating Procedure (MiSeq SOP; https://mothur.org/wiki/MiSeq_SOP) [@Kozich2013] and recommendations given from the Riffomonas project to enhance data reproducibility (http://www.riffomonas.org/). For alignment and classification of sequences the SILVA SSU Ref NR 99 database (release 138; http://www.arb-silva.de) was used [@Quast2013; @Yilmaz2014]. Pipeline data processing and visualization was done using R (version 3.6.0) [@RCoreTeam2019], package vegan (version 2.5-6) [@Oksanen2019], package tidyverse (version 1.3.0) [@Wickham2019] and multiple other packages [@Xie2014; @Xie2015; @Xie2019a; @Xie2019; @Xie2020; @Allaire2019; @Xie2018; @Zhu2019; @Neuwirth2014]. The detailed analysis procedure including the R Markdown file for this paper are available as a GitHub repository (**TO BE ADDED LATER!**). Based on the ATCC MSA-1002 mock community included in the analysis an average sequencing error rate of `r error` \si{\percent} was determined, which is in line with previously reported values for next-generation sequencing data [@Kozich2013; @Schloss2016]. In addition, the negative controls processed together with the samples yielded on average only `r nc` sequences after sequence quality curation.
 
 ## Results
-Chloroplast sequences were following the seasonal pattern (\autoref{supp-chloroplast}, \autoref{pcoa}). 
+```{r community}
+# Loading input data containing sequence abundances and subsequent input data customization
+community <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v138.wang.tax.summary") %>%
+  filter(!str_detect(taxon, "^Eukaryota")) %>%
+  filter(taxon!="Root")
+
+# Remove Chloroplast and Mitochondria sequences and subtract their number from higher taxonomic levels to which
+# they belong
+chloroplast <- filter(community, str_detect(taxon, "^Chloroplast$"))$rankID
+mitochondria <- filter(community, str_detect(taxon, "^Mitochondria$"))$rankID
+
+community <- mutate_at(community, 5:ncol(community), list(~case_when(
+    rankID==str_extract(chloroplast, "(\\d+\\.){3}\\d+") ~ . - .[taxon=="Chloroplast"],
+    rankID==str_extract(chloroplast, "(\\d+\\.){2}\\d+") ~ . - .[taxon=="Chloroplast"],
+    rankID==str_extract(chloroplast, "(\\d+\\.){1}\\d+") ~ . - .[taxon=="Chloroplast"],
+  TRUE ~ .))) %>%
+  filter(!str_detect(taxon, "^Chloroplast")) %>%
+  mutate_at(5:ncol(.), list(~case_when(
+    rankID==str_extract(mitochondria, "(\\d+\\.){4}\\d+") ~ . - .[taxon=="Mitochondria"],
+    rankID==str_extract(mitochondria, "(\\d+\\.){3}\\d+") ~ . - .[taxon=="Mitochondria"],
+    rankID==str_extract(mitochondria, "(\\d+\\.){2}\\d+") ~ . - .[taxon=="Mitochondria"],
+    rankID==str_extract(mitochondria, "(\\d+\\.){1}\\d+") ~ . - .[taxon=="Mitochondria"],
+    TRUE ~ .))) %>%
+  filter(!str_detect(taxon, "^Mitochondria")) %>%
+  select(-ATCC_1, -ATCC_5, -NC_1)
+
+million_sequences <- filter(community, taxon=="Archaea" | taxon=="Bacteria") %>%
+  select(total) %>%
+  sum()/1e6
+
+# Loading metadata
+metadata <- read_tsv("data/raw/metadata.csv")
+
+samples_epiphytes <- filter(metadata, !is.na(station) & station!="F") %>%
+  summarise(n=n())
+samples_seawater <- filter(metadata, !is.na(station) & station=="F") %>%
+  summarise(n=n())
+
+# Minimal and maximal number of sequences
+min_max <- filter(community, taxon=="Archaea" | taxon=="Bacteria") %>%
+  summarise_at(6:ncol(.), sum) %>%
+  summarise(min=min(.), max=max(.))
+```
+
+```{r shared}
+# Loading OTU/sample data
+shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared")
+
+no_otus <- select(shared, starts_with("Otu")) %>%
+  colnames() %>%
+  length()
+
+# Generation of random rarefied community data
+rarefied <- shared %>%
+  select(-label, -Group, -numOtus) %>%
+  rrarefy(., min(rowSums(.))) %>%
+  as.tibble() %>%
+  add_column("Group"=shared$Group, .before=TRUE) %>%
+  select_if(funs(!is.numeric(.) || sum(.)!=0))
+
+no_otus_rarefied <- select(rarefied, starts_with("Otu")) %>%
+  colnames() %>%
+  length()
+
+otu_min_max <- select(rarefied, starts_with("Otu")) %>%
+  decostand(., method="pa") %>%
+  transmute(sum=rowSums(.))
+```
+Sequencing of the 16S rRNA V4 region yielded a total of `r million_sequences` million sequences after sequence quality curation and exclusion of eukaryotic, chloroplast, mitochondrial and no relative sequences. A total of `r samples_epiphytes` samples originating from epiphytic archaeal and bacterial communities associated with surfaces of the seagrass *Cymodocea nodosa* and macroalga *Caulerpa cylindracea* were analyzed. In addition, `r samples_seawater` samples (one of the samples was sequenced two times) originating from picoplankton archaeal and bacterial communities in the surrounding seawater were also processed. The number of reads per sample ranged between `r min_max$min` and `r min_max$max` sequences. Even when the highest sequencing effort was applied the rarefaction curves did not level off that is a common observation in high-throughput 16S rRNA amplicon sequencing approaches (\autoref{supp-rarefaction}). Following quality curation and exclusion of sequences mentioned before reads were clustered into `r no_otus` different OTUs at a similarity level of 97 \si{\percent}. Reads numbers were normalized to the minimum number of sequences, `r min_max$min`, through rarefaction resulting in `r no_otus_rarefied` different OTUs that ranged from `r min(otu_min_max)` to `r max(otu_min_max)` OTUs per sample (\autoref{supp-calculators}). To determine seasonal changes of richness and diversity in studied environments the Observed Number of OTUs, Chao1, ACE, Exponential Shannon [@Jost2006] and Inverse Simpson were calculated after normalization through rarefaction.
+
+```{r}
+# Loading OTU/sample data
+shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared")
+
+# Generation of random rarefied community data
+rarefied <- shared %>%
+  select(-label, -Group, -numOtus) %>%
+  rrarefy(., min(rowSums(.))) %>%
+  as.tibble() %>%
+  add_column("Group"=shared$Group, .before=TRUE) %>%
+  select_if(funs(!is.numeric(.) || sum(.)!=0))
+
+# Loading metadata 
+metadata <- read_tsv("data/raw/metadata.csv")
+
+# Joining metadata with OTU/sample data and summing sequences from each environment
+rarefied_metadata <- inner_join(rarefied, metadata, by=c("Group"="ID")) %>%
+  group_by(station) %>%
+  select(starts_with("Otu")) %>%
+  summarise_all(sum)
+
+# Copying the sample labels to the rows (input for library vegan)
+row.names(rarefied_metadata) <- rarefied_metadata$station
+
+# Removing column containing sample labels
+rarefied_metadata <- rarefied_metadata %>%
+  select(-station)
+
+# Calculating matrices of similarity indices
+jaccard <- vegdist(rarefied_metadata, method="jaccard", binary=T)
+jaccard <- as.tibble(data.frame(t(combn(rownames(rarefied_metadata), 2)), as.numeric(jaccard))) %>%
+  rename(V1=X1, V2=X2, jaccard=as.numeric.jaccard.)
+
+bray <- vegdist(rarefied_metadata, method="bray", binary=F)
+bray <- as.tibble(data.frame(t(combn(rownames(rarefied_metadata), 2)), as.numeric(bray))) %>%
+  rename(V1=X1, V2=X2, bray=as.numeric.bray.)
+
+similarity <- inner_join(jaccard, bray, by=c("V1"="V1", "V2"="V2")) %>%
+  mutate(jaccard=1-jaccard) %>%
+  mutate(bray=1-bray)
+```
+
+To determine the proportion of shared archaeal and bacterial OTUs and shared archaeal and bacterial communities sampled in different environments (*Cymodocea nodosa* [Invaded], *Caulerpa cylindracea* [Invaded and Noninvaded] and surrounding seawater) the Jaccard's Similarity Coefficient on presence-absence data and Bray-Curtis Similarity Coefficient were, respectively, calculated. Similarity coefficients were determined after normalization through rarefaction and binning of samples from a respective environment. The highest proportion of shared OTUs and communities was found between *Caulerpa cylindracea* invaded and noninvaded meadow communities (Jaccard, `r format(filter(similarity, V1=="FCa", V2=="FCaM")$jaccard, digits=2, nsmall=2)`; Bray-Curtis, `r format(filter(similarity, V1=="FCa", V2=="FCaM")$bray, digits=2, nsmall=2)`), while lower shared values were calculated between seawater and epiphytic communities (\autoref{matrix}). Shared proportions of OTUs and communities between *Cymodocea nodosa* and *Caulerpa cylindracea* were approximately in the middle between these two extremes.
+
+
+To assess seasonal changes in the proportion of shared bacterial and archaeal OTUs the Jaccard's Similarity Coefficient was calculated between consecutive sampling points (\autoref{shared}).
 
 ## Discussion
 
@@ -110,6 +225,8 @@ Chloroplast sequences were following the seasonal pattern (\autoref{supp-chlorop
 \setlength\parindent{0pt}
 
 ## Figure Captions
+**\autoref{matrix}.** \nameref{matrix}
+
 **\autoref{shared}.** \nameref{shared}
 
 **\autoref{pcoa}.** \nameref{pcoa}
@@ -127,6 +244,10 @@ Chloroplast sequences were following the seasonal pattern (\autoref{supp-chlorop
 **\autoref{desulfo}.** \nameref{desulfo}
 
 ## Figures
+```{r out.width="70%", fig.align="center", fig.cap="Proportion of shared bacterial and archaeal OTUs (Jaccard's Similarity Coefficient) and shared bacterial and archaeal communities (Bray-Curtis Similarity Coefficient) between communties associated with the surfaces of macrophytes (\\textit{Cymodocea nodosa} [Invaded] and \\textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and coomunities in the surrounding seawater.\\label{matrix}", fig.pos="H"}
+include_graphics("../results/figures/matrix.jpg")
+```
+
 ```{r out.width="85%", fig.align="center", fig.cap="Proprotion of shared bacterial and archaeal communities (Bray-Curtis Similarity Coefficient) and shared bacterial and archaeal OTUs (Jaccard's Similarity Coefficient) between consecutive sampling points and from the surfaces of macrophytes (\\textit{Cymodocea nodosa} [Invaded] and \\textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater.\\label{shared}", fig.pos="H"}
 include_graphics("../results/figures/seasonal_shared.jpg")
 ```

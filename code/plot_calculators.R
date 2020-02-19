@@ -212,7 +212,7 @@ p2 <- filter(estimators_indices_metadata, station=="FCa") %>%
 fca <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1,0.75), align="v")
 
 # Generating a plot to extract a common legend
-labels <- c("Observed Number of OTUs", "Chao1", "ACE", "Shannon Exponential", "Inverse Simpson")
+labels <- c("Observed Number of OTUs", "Chao1", "ACE", "Exponential Shannon", "Inverse Simpson")
 p1 <- filter(estimators_indices_metadata, station=="F") %>%
   ggplot(aes(x=date, y=value, linetype=estimator_index, shape=estimator_index,
              fill=estimator_index)) +

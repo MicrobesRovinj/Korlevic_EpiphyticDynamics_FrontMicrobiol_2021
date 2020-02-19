@@ -24,7 +24,7 @@
 \usepackage[margin=1.0in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
-            pdftitle={Dynamics of Epiphytic Microbial Communities on Marine Macrophyte Surfaces},
+            pdftitle={Seasonal Dynamics of Epiphytic Microbial Communities on Marine Macrophyte Surfaces},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -73,8 +73,8 @@
 
 \setlength{\droptitle}{-2em}
 
-  \title{\textbf{Dynamics of Epiphytic Microbial Communities on Marine Macrophyte
-Surfaces}}
+  \title{\textbf{Seasonal Dynamics of Epiphytic Microbial Communities on Marine
+Macrophyte Surfaces}}
     \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
     \author{}
@@ -332,8 +332,48 @@ curation.
 \hypertarget{results}{%
 \subsection{Results}\label{results}}
 
-Chloroplast sequences were following the seasonal pattern
-(\autoref{supp-chloroplast}, \autoref{pcoa}).
+Sequencing of the 16S rRNA V4 region yielded a total of 1.8 million
+sequences after sequence quality curation and exclusion of eukaryotic,
+chloroplast, mitochondrial and no relative sequences. A total of 35
+samples originating from epiphytic archaeal and bacterial communities
+associated with surfaces of the seagrass \emph{Cymodocea nodosa} and
+macroalga \emph{Caulerpa cylindracea} were analyzed. In addition, 18
+samples (one of the samples was sequenced two times) originating from
+picoplankton archaeal and bacterial communities in the surrounding
+seawater were also processed. The number of reads per sample ranged
+between 8,407 and 77,465 sequences. Even when the highest sequencing
+effort was applied the rarefaction curves did not level off that is a
+common observation in high-throughput 16S rRNA amplicon sequencing
+approaches (\autoref{supp-rarefaction}). Following quality curation and
+exclusion of sequences mentioned before reads were clustered into 28,726
+different OTUs at a similarity level of 97 \si{\percent}. Reads numbers
+were normalized to the minimum number of sequences, 8,407, through
+rarefaction resulting in 17,158 different OTUs that ranged from 373 to
+2,088 OTUs per sample (\autoref{supp-calculators}). To determine
+seasonal changes of richness and diversity in studied environments the
+Observed Number of OTUs, Chao1, ACE, Exponential Shannon (Jost, 2006)
+and Inverse Simpson were calculated after normalization through
+rarefaction.
+
+To determine the proportion of shared archaeal and bacterial OTUs and
+shared archaeal and bacterial communities sampled in different
+environments (\emph{Cymodocea nodosa} {[}Invaded{]}, \emph{Caulerpa
+cylindracea} {[}Invaded and Noninvaded{]} and surrounding seawater) the
+Jaccard's Similarity Coefficient on presence-absence data and
+Bray-Curtis Similarity Coefficient were, respectively, calculated.
+Similarity coefficients were determined after normalization through
+rarefaction and binning of samples from a respective environment. The
+highest proportion of shared OTUs and communities was found between
+\emph{Caulerpa cylindracea} invaded and noninvaded meadow communities
+(Jaccard, 0.35; Bray-Curtis, 0.77), while lower shared values were
+calculated between seawater and epiphytic communities
+(\autoref{matrix}). Shared proportions of OTUs and communities between
+\emph{Cymodocea nodosa} and \emph{Caulerpa cylindracea} were
+approximately in the middle between these two extremes.
+
+To assess seasonal changes in the proportion of shared bacterial and
+archaeal OTUs the Jaccard's Similarity Coefficient was calculated
+between consecutive sampling points (\autoref{shared}).
 
 \hypertarget{discussion}{%
 \subsection{Discussion}\label{discussion}}
@@ -399,6 +439,9 @@ interactions. \emph{FEMS microbiology reviews} \textbf{37}: 462--476.
 Hollants, J., Leliaert, F., De Clerck, O., and Willems, A. (2013) What
 we can learn from sushi: A review on seaweed-bacterial associations.
 \textbf{83}: 1--16.
+
+\leavevmode\hypertarget{ref-Jost2006}{}%
+Jost, L. (2006) Entropy and diversity. \textbf{113}: 363--375.
 
 \leavevmode\hypertarget{ref-Korlevic_in_press}{}%
 Korlević, M., Markovski, M., Zhao, Z., Herndl, G.J., and Najdek, M.
@@ -553,6 +596,8 @@ Syntax.
 \hypertarget{figure-captions}{%
 \subsection{Figure Captions}\label{figure-captions}}
 
+\textbf{\autoref{matrix}.} \nameref{matrix}
+
 \textbf{\autoref{shared}.} \nameref{shared}
 
 \textbf{\autoref{pcoa}.} \nameref{pcoa}
@@ -574,11 +619,20 @@ Syntax.
 
 \begin{figure}[H]
 
+{\centering \includegraphics[width=0.7\linewidth]{../results/figures/matrix} 
+
+}
+
+\caption{Proportion of shared bacterial and archaeal OTUs (Jaccard's Similarity Coefficient) and shared bacterial and archaeal communities (Bray-Curtis Similarity Coefficient) between communties associated with the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and coomunities in the surrounding seawater.\label{matrix}}\label{fig:unnamed-chunk-3}
+\end{figure}
+
+\begin{figure}[H]
+
 {\centering \includegraphics[width=0.85\linewidth]{../results/figures/seasonal_shared} 
 
 }
 
-\caption{Proprotion of shared bacterial and archaeal communities (Bray-Curtis Similarity Coefficient) and shared bacterial and archaeal OTUs (Jaccard's Similarity Coefficient) between consecutive sampling points and from the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater.\label{shared}}\label{fig:unnamed-chunk-2}
+\caption{Proprotion of shared bacterial and archaeal communities (Bray-Curtis Similarity Coefficient) and shared bacterial and archaeal OTUs (Jaccard's Similarity Coefficient) between consecutive sampling points and from the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater.\label{shared}}\label{fig:unnamed-chunk-4}
 \end{figure}
 
 \begin{figure}[H]
@@ -587,7 +641,7 @@ Syntax.
 
 }
 
-\caption{Principal Coordinates Analysis (PCoA) of Bray-Curtis distances based on OTU abundances of bacterial and archaeal communities from the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. Samples from the same environment or same season are labeld in different colors. The proportion of explained variation by each axis is shown on the corresponding axis in parentheses.\label{pcoa}}\label{fig:unnamed-chunk-3}
+\caption{Principal Coordinates Analysis (PCoA) of Bray-Curtis distances based on OTU abundances of bacterial and archaeal communities from the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. Samples from the same environment or same season are labeld in different colors. The proportion of explained variation by each axis is shown on the corresponding axis in parentheses.\label{pcoa}}\label{fig:unnamed-chunk-5}
 \end{figure}
 
 \begin{figure}[H]
@@ -596,7 +650,7 @@ Syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant bacterial and archaeal sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater.\label{community}}\label{fig:unnamed-chunk-4}
+\caption{Taxonomic classification and relative contribution of the most abundant bacterial and archaeal sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater.\label{community}}\label{fig:unnamed-chunk-6}
 \end{figure}
 
 \begin{figure}[H]
@@ -605,7 +659,7 @@ Syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant cyanobacterial sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of cyanobaterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{cyano}}\label{fig:unnamed-chunk-5}
+\caption{Taxonomic classification and relative contribution of the most abundant cyanobacterial sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of cyanobaterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{cyano}}\label{fig:unnamed-chunk-7}
 \end{figure}
 
 \begin{figure}[H]
@@ -614,7 +668,7 @@ Syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant sequences within the \textit{Bacteroidota} on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of sequences classified as \textit{Bacteroidota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{bactero}}\label{fig:unnamed-chunk-6}
+\caption{Taxonomic classification and relative contribution of the most abundant sequences within the \textit{Bacteroidota} on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of sequences classified as \textit{Bacteroidota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{bactero}}\label{fig:unnamed-chunk-8}
 \end{figure}
 
 \begin{figure}[H]
@@ -623,7 +677,7 @@ Syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant alphaproteobacterial sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of alphaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{alpha}}\label{fig:unnamed-chunk-7}
+\caption{Taxonomic classification and relative contribution of the most abundant alphaproteobacterial sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of alphaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{alpha}}\label{fig:unnamed-chunk-9}
 \end{figure}
 
 \begin{figure}[H]
@@ -632,7 +686,7 @@ Syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant gammaproteobacterial sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of gammaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{gamma}}\label{fig:unnamed-chunk-8}
+\caption{Taxonomic classification and relative contribution of the most abundant gammaproteobacterial sequences on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of gammaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{gamma}}\label{fig:unnamed-chunk-10}
 \end{figure}
 
 \begin{figure}[H]
@@ -641,7 +695,7 @@ Syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant sequences within the \textit{Desulfobacterota} on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of sequences classified as \textit{Desulfobacterota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{desulfo}}\label{fig:unnamed-chunk-9}
+\caption{Taxonomic classification and relative contribution of the most abundant sequences within the \textit{Desulfobacterota} on the surfaces of macrophytes (\textit{Cymodocea nodosa} [Invaded] and \textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater. The proprotion of sequences classified as \textit{Desulfobacterota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative\label{desulfo}}\label{fig:unnamed-chunk-11}
 \end{figure}
 
 

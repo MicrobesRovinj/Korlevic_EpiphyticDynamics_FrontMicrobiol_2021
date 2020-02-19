@@ -22,7 +22,7 @@ rarefied <- shared %>%
 # Loading metadata 
 metadata <- read_tsv("data/raw/metadata.csv")
 
-# Joining metadata and point coordiantes
+# Joining metadata and point coordinates
 rarefied_metadata <- inner_join(metadata, rarefied, by=c("ID"="Group"))
 
 # Function for setting the number of decimal places
