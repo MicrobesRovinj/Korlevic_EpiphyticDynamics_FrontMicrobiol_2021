@@ -11,11 +11,11 @@
 # Loading OTU/sample data
 shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared")
 
-# Generation of random rarified community data
+# Generation of random rarefied community data
 rarefied <- shared %>%
   select(-label, -Group, -numOtus) %>%
   rrarefy(., min(rowSums(.))) %>%
-  as.tibble() %>%
+  as_tibble() %>%
   add_column("Group"=shared$Group, .before=TRUE) %>%
   select_if(list(~!is.numeric(.) || sum(.)!=0))
 
@@ -49,7 +49,7 @@ rarefied_metadata_select <- rarefied_metadata
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
 spe.b.pcoa <- cmdscale(spe.bray, k=(nrow(rarefied_metadata_select)-1), eig=TRUE)
 coordinates <- spe.b.pcoa$points[,1:2] %>%
-  as.tibble() %>%
+  as_tibble() %>%
   add_column("Group"=rarefied_metadata_select$label, .before=TRUE)
 coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 
@@ -79,7 +79,7 @@ rarefied_metadata_select <- filter(rarefied_metadata, station=="F") %>%
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
 spe.b.pcoa <- cmdscale(spe.bray, k=(nrow(rarefied_metadata_select)-1), eig=TRUE)
 coordinates <- spe.b.pcoa$points[,1:2] %>%
-  as.tibble() %>%
+  as_tibble() %>%
   add_column("Group"=rarefied_metadata_select$label, .before=TRUE)
 coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 
@@ -105,7 +105,7 @@ rarefied_metadata_select <- filter(rarefied_metadata, station=="FCyM") %>%
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
 spe.b.pcoa <- cmdscale(spe.bray, k=(nrow(rarefied_metadata_select)-1), eig=TRUE)
 coordinates <- spe.b.pcoa$points[,1:2] %>%
-  as.tibble() %>%
+  as_tibble() %>%
   add_column("Group"=rarefied_metadata_select$label, .before=TRUE)
 coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 
@@ -131,7 +131,7 @@ rarefied_metadata_select <- filter(rarefied_metadata, str_detect(station, "^FCa"
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
 spe.b.pcoa <- cmdscale(spe.bray, k=(nrow(rarefied_metadata_select)-1), eig=TRUE)
 coordinates <- spe.b.pcoa$points[,1:2] %>%
-  as.tibble() %>%
+  as_tibble() %>%
   add_column("Group"=rarefied_metadata_select$label, .before=TRUE)
 coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 

@@ -24,6 +24,9 @@ metadata <- read_tsv("data/raw/metadata.csv")
 
 # Joining metadata with OTU/sample data and summing sequences from each environment
 rarefied_metadata <- inner_join(rarefied, metadata, by=c("Group"="ID")) %>%
+  mutate(date=as.Date(date, "%d.%m.%Y")) %>%
+  filter(date >= "2017-11-01") %>%
+  select_if(funs(!is.numeric(.) || sum(.)!=0)) %>%
   group_by(station) %>%
   select(starts_with("Otu")) %>%
   summarise_all(sum)

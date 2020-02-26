@@ -12,7 +12,7 @@ csl: citation_style.csl #Get themes at https://github.com/citation-style-languag
 bibliography: references.bib
 ---
 
-```{r knitr_settings, eval=TRUE, echo=FALSE, cache=FALSE}
+```{r knitr_settings, eval=TRUE, echo=FALSE, cache=FALSE, message=FALSE}
 opts_chunk$set("tidy" = TRUE)
 opts_chunk$set("echo" = FALSE)
 opts_chunk$set("eval" = TRUE)
@@ -38,6 +38,8 @@ inline_hook <- function(x){
 	}
 }
 knitr::knit_hooks$set(inline=inline_hook)
+
+library("kableExtra")
 ```
 
 \vspace{70mm}
@@ -68,4 +70,42 @@ include_graphics("../results/figures/calculators.jpg")
 
 ```{r out.width="85%", fig.align="center", fig.cap="Relative contribution of chloroplast sequences on the surfaces of macrophytes (\\textit{Cymodocea nodosa} [Invaded] and \\textit{Caulerpa cylindracea} [Invaded and Noninvaded]) and in the surrounding seawater.\\label{chloroplast}", fig.pos="H"}
 include_graphics("../results/figures/chloroplast_bar_plot.jpg")
+```
+
+## Supplementary Table
+
+```{r nseq_notus}
+# Loading OTU/sample data
+shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared")
+
+# Calculating the number of sequences and OTUs in each sample
+nseq_notus <- shared %>%
+  mutate(nseq=rowSums(select(., starts_with("Otu")))) %>%
+  mutate(notus=rowSums(select(., starts_with("Otu"))!=0)) %>%
+  select(Group, nseq, notus)
+
+# Loading metadata 
+metadata <- read_tsv("data/raw/metadata.csv")
+
+# Joining metadata with the number of sequences and OTUs
+invisible(Sys.setlocale(locale="en_GB.utf8"))
+metadata_nseq_notus <- inner_join(metadata, nseq_notus, by=c("ID"="Group")) %>%
+  select(ID, station, date, season, nseq, notus) %>%
+  mutate(date=as.Date(date, "%d.%m.%Y")) %>%
+  mutate(date=format(date, "%d %B %Y")) %>%
+  mutate(date=str_replace(date, "^0", "")) %>%
+  arrange(match(station, c("F", "FCyM", "FCaM", "FCa"))) %>%
+  mutate(station=str_replace(station, "^F$", "Seawater")) %>%
+  mutate(station=str_replace(station, "^FCyM$", "\\\\textit{Cymodocea nodosa} (Invaded)")) %>%
+  mutate(station=str_replace(station, "^FCaM$", "\\\\textit{Caulerpa cylindracea} (Invaded)")) %>%
+  mutate(station=str_replace(station, "^FCa$", "\\\\textit{Caulerpa cylindracea} (Nonnvaded)")) %>%
+  mutate(ID=str_replace(ID, "^23_1$", "23a")) %>%
+  mutate(ID=str_replace(ID, "^23_2$", "23b")) %>%
+  mutate(nseq=format(nseq, big.mark=","), notus=format(notus, big.mark=","))
+
+# Generating the table
+kable(metadata_nseq_notus, format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=c("Sample ID", "Community Type", "Date", "Season", "No. of Sequences", "No. of OTUs"), caption="Sample ID, Community Type, Sampling Date and Season, No. of Sequences and No. of OTUs of each sample.\\label{nseq_notus}", align="c") %>%
+  kable_styling(latex_options=c("hold_position", "repeat_header"), font_size=9) %>%
+  row_spec(0, bold=TRUE) %>%
+  column_spec(1, width="6em")
 ```
