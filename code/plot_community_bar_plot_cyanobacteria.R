@@ -14,7 +14,7 @@ community <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.uniq
   filter(!str_detect(taxon, "^Eukaryota")) %>%
   filter(taxon!="Root")
 
-# Remove Chloroplast and Mitochondria sequences and subtract their number from higher taxonomic levels to which
+# Remove chloroplast and mitochondrial sequences and subtract their number from higher taxonomic levels to which
 # they belong
 chloroplast <- filter(community, str_detect(taxon, "^Chloroplast$"))$rankID
 mitochondria <- filter(community, str_detect(taxon, "^Mitochondria$"))$rankID
