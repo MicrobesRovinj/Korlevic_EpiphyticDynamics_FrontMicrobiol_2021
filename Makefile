@@ -246,13 +246,13 @@ $(FINAL)supplementary.pdf : $(MOTH)summary.txt\
                             $(FINAL)header_supplementary.tex\
                             $(FINAL)references.bib\
                             $(FINAL)citation_style.csl
-        R -e 'render("$(FINAL)supplementary.Rmd", clean=FALSE)'
-        mv $(FINAL)supplementary.knit.md $(FINAL)supplementary.md
-        rm $(FINAL)supplementary.utf8.md
+	R -e 'render("$(FINAL)supplementary.Rmd", clean=FALSE)'
+	mv $(FINAL)supplementary.knit.md $(FINAL)supplementary.md
+	rm $(FINAL)supplementary.utf8.md
 	R -e 'render("$(FINAL)manuscript.Rmd", clean=FALSE)'
 	mv $(FINAL)manuscript.knit.md $(FINAL)manuscript.md
 	rm $(FINAL)manuscript.utf8.md
-	rm $(FINAL)*.log $(FINAL).out
+	rm $(FINAL)*.log $(FINAL)*.out
 
 # Cleaning
 .PHONY: clean
