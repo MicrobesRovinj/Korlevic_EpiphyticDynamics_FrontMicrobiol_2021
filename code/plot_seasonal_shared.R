@@ -17,7 +17,7 @@ rarefied <- shared %>%
   rrarefy(., min(rowSums(.))) %>%
   as.tibble() %>%
   add_column("Group"=shared$Group, .before=TRUE) %>%
-  select_if(funs(!is.numeric(.) || sum(.)!=0))
+  select_if(list(~ !is.numeric(.) || sum(.)!=0))
 
 # Copying the sample labels to the rows (input for library vegan)
 row.names(rarefied) <- rarefied$Group
@@ -35,7 +35,8 @@ bray <- vegdist(rarefied, method="bray", binary=F)
 bray <- as.tibble(data.frame(t(combn(rownames(rarefied),2)), as.numeric(bray))) %>%
   rename(V1=X1, V2=X2, bray=as.numeric.bray.)
 
-distance <- inner_join(jaccard, bray, by=c("V1"="V1", "V2"="V2"))
+distance <- inner_join(jaccard, bray, by=c("V1"="V1", "V2"="V2")) %>%
+  mutate_at(c("V1", "V2"), list(~ as.character(.)))
 
 # Loading metadata 
 metadata <- read_tsv("data/raw/metadata.csv")
@@ -109,7 +110,7 @@ p2 <- filter(data, index=="jaccard") %>%
   labs(x="", y="%") +
   theme
 
-f <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1,0.75), align="v")
+f <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align="v")
 
 # Plots generation
 # Cymodocea nodosa samples
@@ -147,11 +148,11 @@ p2 <- filter(data, index=="jaccard") %>%
   scale_shape_manual(values=shapes) +
   scale_fill_manual(values=fills) +
   scale_x_date(date_break ="months" , date_labels="%b %Y") +
-  scale_y_continuous(limits=c(20, 40)) +
+  scale_y_continuous(limits=c(20, 50)) +
   labs(x="", y="") +
   theme
 
-fcym <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1,0.75), align="v")
+fcym <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align="v")
 
 # Plots generation
 # Caulerpa cylindracea (Invaded) samples
@@ -193,7 +194,7 @@ p2 <- filter(data, index=="jaccard") %>%
   labs(x="Date", y="%") +
   theme
 
-fcam <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1,0.75), align="v")
+fcam <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align="v")
 
 # Plots generation
 # Caulerpa cylindracea (Noninvaded) samples
@@ -231,11 +232,11 @@ p2 <- filter(data, index=="jaccard") %>%
   scale_shape_manual(values=shapes) +
   scale_fill_manual(values=fills) +
   scale_x_date(date_break ="months" , date_labels="%b %Y") +
-  scale_y_continuous(limits=c(10, 40)) +
+  scale_y_continuous(limits=c(20, 40)) +
   labs(x="Date", y="") +
   theme
-  
-fca <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1,0.75), align="v")
+
+fca <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align="v")
 
 # Generating a plot to extract a common legend
 labels <- c("Bray-Curtis Similarity Coefficient", "Jaccard's Similarity Coefficient")

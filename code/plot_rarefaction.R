@@ -8,7 +8,7 @@
 #
 #################################################################################################################
 
-# Loading input data and selction of values for plotting
+# Loading input data and selection of values for plotting
 rarefaction <- read_tsv(file="data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.groups.rarefaction") %>%
   select(-contains("lci-"), -contains("hci-")) %>%
   gather(-numsampled, key=sample, value=sobs) %>%
