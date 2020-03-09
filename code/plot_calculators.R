@@ -15,7 +15,7 @@ shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.
 rarefied <- shared %>%
   select(-label, -Group, -numOtus) %>%
   rrarefy(., min(rowSums(.))) %>%
-  as.tibble() %>%
+  as_tibble() %>%
   add_column("Group"=shared$Group, .before=TRUE) %>%
   select_if(list(~!is.numeric(.) || sum(.)!=0))
 
@@ -28,7 +28,7 @@ rarefied <- rarefied %>%
 
 # Calculating Chao1 and ACE species estimators
 estimators <- estimateR(rarefied)
-estimators <- as.tibble(t(estimators)) %>%
+estimators <- as_tibble(t(estimators)) %>%
   add_column("Group"=colnames(estimators), .before=TRUE)
 
 # Calculating diversity indices

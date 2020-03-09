@@ -15,7 +15,7 @@ shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.
 rarefied <- shared %>%
   select(-label, -Group, -numOtus) %>%
   rrarefy(., min(rowSums(.))) %>%
-  as.tibble() %>%
+  as_tibble() %>%
   add_column("Group"=shared$Group, .before=TRUE) %>%
   select_if(list(~ !is.numeric(.) || sum(.)!=0))
 
@@ -28,11 +28,11 @@ rarefied <- rarefied %>%
 
 # Calculating dissimilarity indices
 jaccard <- vegdist(rarefied, method="jaccard", binary=T)
-jaccard <- as.tibble(data.frame(t(combn(rownames(rarefied),2)), as.numeric(jaccard))) %>%
+jaccard <- as_tibble(data.frame(t(combn(rownames(rarefied),2)), as.numeric(jaccard))) %>%
   rename(V1=X1, V2=X2, jaccard=as.numeric.jaccard.)
 
 bray <- vegdist(rarefied, method="bray", binary=F)
-bray <- as.tibble(data.frame(t(combn(rownames(rarefied),2)), as.numeric(bray))) %>%
+bray <- as_tibble(data.frame(t(combn(rownames(rarefied),2)), as.numeric(bray))) %>%
   rename(V1=X1, V2=X2, bray=as.numeric.bray.)
 
 distance <- inner_join(jaccard, bray, by=c("V1"="V1", "V2"="V2")) %>%

@@ -218,6 +218,12 @@ $(FIGS)pcoa_figure.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
                          $(RAW)metadata.csv
 	R -e "source('code/plot_pcoa.R')"
 
+# Construct a matrix plot of similarity indices
+$(FIGS)matrix.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+                    code/plot_matrix.R\
+                    $(RAW)metadata.csv
+	R -e "source('code/plot_matrix.R')"
+
 #########################################################################################
 #
 # Part 4: Combaine all together
@@ -240,6 +246,7 @@ $(FINAL)supplementary.pdf : $(MOTH)summary.txt\
                             $(FIGS)calculators.jpg\
                             $(FIGS)seasonal_shared.jpg\
                             $(FIGS)pcoa_figure.jpg\
+                            $(FIGS)matrix.jpg\
                             $(FINAL)manuscript.Rmd\
                             $(FINAL)header.tex\
                             $(FINAL)supplementary.Rmd\
@@ -258,13 +265,13 @@ $(FINAL)supplementary.pdf : $(MOTH)summary.txt\
 .PHONY: clean
 clean :
 	rm -f my_job.qsub.* || true
-	rm -f $(REFS)tax* || true
-	rm -f $(REFS)silva* || true
+#	rm -f $(REFS)tax* || true
+#	rm -f $(REFS)silva* || true
 	rm -f $(MOTH)* || true
 	rm -f data/summary.txt || true
-	rm -f $(RAW)*.fastq || true
-	rm -f $(RAW)names_file.txt || true
-	rm -f $(RAW)raw.files || true
+#	rm -f $(RAW)*.fastq || true
+#	rm -f $(RAW)names_file.txt || true
+#	rm -f $(RAW)raw.files || true
 	rm -rf code/mothur/ || true
 	rm -f $(FIGS)* || true
 	rm -f mothur*logfile || true
