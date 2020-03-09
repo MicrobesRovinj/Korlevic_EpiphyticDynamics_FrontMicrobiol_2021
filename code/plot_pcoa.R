@@ -70,32 +70,6 @@ p1 <- ggplot() +
   scale_y_continuous(labels=scaleFUN) +
   theme
 
-# Seawater samples
-# Filter samples from the water column
-rarefied_metadata_select <- filter(rarefied_metadata, station=="F") %>%
-  select_if(list(~!is.numeric(.) || sum(.)!=0))
-
-# Generation of PCoA data
-spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
-spe.b.pcoa <- cmdscale(spe.bray, k=(nrow(rarefied_metadata_select)-1), eig=TRUE)
-coordinates <- spe.b.pcoa$points[,1:2] %>%
-  as_tibble() %>%
-  add_column("Group"=rarefied_metadata_select$label, .before=TRUE)
-coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
-
-# PCoA plot generation
-p2 <- ggplot() +
-  geom_point(data=coordinates, aes(x=V1, y=V2, fill=season), shape=21, size=3, stroke=0.5) +
-  scale_fill_manual(name=NULL,
-                    breaks=c("Spring", "Summer", "Autumn", "Winter"),
-                    values=brewer.pal(n=4, name="Set1")) +
-  labs(x=paste0("PCoA I (",format(round(spe.b.pcoa$eig[1]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)"), 
-       y=paste0("PCoA II (",format(round(spe.b.pcoa$eig[2]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)")) +
-  ggtitle(parse(text="bold('Seawater')")) +
-  scale_x_continuous(labels=scaleFUN) +
-  scale_y_continuous(labels=scaleFUN) +
-  theme
-
 # Cymodocea nodosa samples
 # Filter samples from the water column
 rarefied_metadata_select <- filter(rarefied_metadata, station=="FCyM") %>%
@@ -110,7 +84,7 @@ coordinates <- spe.b.pcoa$points[,1:2] %>%
 coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 
 # PCoA plot generation
-p3 <- ggplot() +
+p2 <- ggplot() +
   geom_point(data=coordinates, aes(x=V1, y=V2, fill=season), shape=21, size=3, stroke=0.5) +
   scale_fill_manual(name=NULL,
                     breaks=c("Spring", "Summer", "Autumn", "Winter"),
@@ -136,7 +110,7 @@ coordinates <- spe.b.pcoa$points[,1:2] %>%
 coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 
 # PCoA plot generation
-p4 <- ggplot() +
+p3 <- ggplot() +
   geom_point(data=coordinates, aes(x=V1, y=V2, fill=season, shape=station), size=3, stroke=0.5) +
   scale_fill_manual(name=NULL,
                     breaks=c("Spring", "Summer", "Autumn", "Winter"),
@@ -157,5 +131,5 @@ p4 <- ggplot() +
   guides(fill=guide_legend(override.aes=list(shape=21)))
 
 # Combining plots together and save
-p <- cowplot::plot_grid(p1, p2, p3, p4, align="h")
-ggsave("results/figures/pcoa_figure.jpg", p, width=297, height=210, units="mm")
+p <- cowplot::plot_grid(p1, p2, p3, ncol=1, align="h")
+ggsave("results/figures/pcoa_figure.jpg", p, width=170, height=357, units="mm")
