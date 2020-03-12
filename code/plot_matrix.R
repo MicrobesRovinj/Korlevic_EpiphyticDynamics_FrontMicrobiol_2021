@@ -15,7 +15,7 @@ shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.
 rarefied <- shared %>%
   select(-label, -Group, -numOtus) %>%
   rrarefy(., min(rowSums(.))) %>%
-  as.tibble() %>%
+  as_tibble(.name_repair="unique") %>%
   add_column("Group"=shared$Group, .before=TRUE) %>%
   select_if(list(~ !is.numeric(.) || sum(.)!=0))
 
@@ -28,8 +28,7 @@ rarefied_metadata <- inner_join(rarefied, metadata, by=c("Group"="ID")) %>%
   filter(date >= "2017-11-01") %>%
   select_if(funs(!is.numeric(.) || sum(.)!=0)) %>%
   group_by(station) %>%
-  select(starts_with("Otu")) %>%
-  summarise_all(sum)
+  summarise_at(vars(starts_with("Otu")), sum)
 
 # Copying the sample labels to the rows (input for library vegan)
 row.names(rarefied_metadata) <- rarefied_metadata$station
@@ -40,12 +39,12 @@ rarefied_metadata <- rarefied_metadata %>%
 
 # Calculating matrices of similarity indices
 jaccard <- vegdist(rarefied_metadata, method="jaccard", binary=T)
-jaccard <- as.tibble(data.frame(t(combn(rownames(rarefied_metadata), 2)), as.numeric(jaccard))) %>%
-  rename(V1=X1, V2=X2, jaccard=as.numeric.jaccard.)
+jaccard <- as_tibble(data.frame(t(combn(rownames(rarefied_metadata), 2)), as.numeric(jaccard)),
+                     .name_repair= ~c("V1", "V2", "jaccard"))
 
 bray <- vegdist(rarefied_metadata, method="bray", binary=F)
-bray <- as.tibble(data.frame(t(combn(rownames(rarefied_metadata), 2)), as.numeric(bray))) %>%
-  rename(V1=X1, V2=X2, bray=as.numeric.bray.)
+bray <- as_tibble(data.frame(t(combn(rownames(rarefied_metadata), 2)), as.numeric(bray)),
+                  .name_repair= ~c("V1", "V2", "bray"))
 
 similarity <- inner_join(jaccard, bray, by=c("V1"="V1", "V2"="V2")) %>%
   mutate(jaccard=1-jaccard) %>%
