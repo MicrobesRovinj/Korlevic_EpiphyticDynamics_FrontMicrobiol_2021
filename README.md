@@ -47,14 +47,14 @@
 * R packages:
   * `knitr`
   * `rmarkdown`
-  *"stats"
-  *"knitr"
-  *"rmarkdown"
-  *"tinytex"
-  *"tidyverse"
-  *"vegan"
-  *"RColorBrewer"
-  *"kableExtra"
+  * "stats"
+  * "knitr"
+  * "rmarkdown"
+  * "tinytex"
+  * "tidyverse"
+  * "vegan"
+  * "RColorBrewer"
+  * "kableExtra"
 
 #### Running analysis
 ```
