@@ -45,16 +45,14 @@
 * mothur (v. 1.43.0)
 * R (v. 3.6.0); should be located in the user's PATH
 * R packages:
+  * `stats`
   * `knitr`
   * `rmarkdown`
-  * "stats"
-  * "knitr"
-  * "rmarkdown"
-  * "tinytex"
-  * "tidyverse"
-  * "vegan"
-  * "RColorBrewer"
-  * "kableExtra"
+  * `tinytex`
+  * `tidyverse`
+  * `vegan`
+  * `RColorBrewer`
+  * `kableExtra`
 
 #### Running analysis
 ```
