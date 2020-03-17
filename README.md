@@ -57,7 +57,7 @@ This is the repository for the manuscript "Seasonal Dynamics of Epiphytic Microb
 * The analysis supposes the use of 16 processor cores.
 
 #### Running analysis
-Before starting analysis be sure to generate the SILVA compatible reference and taxonomy files and indicate in the Makefile their location. The manuscript and supplementary information can be regenerated on a Linux computer by running the following commands:
+Before running the analysis be sure to generate the mothur compatible SILVA reference file and indicate in the Makefile its location. The manuscript and supplementary information can be regenerated on a Linux computer by running the following commands:
 ```
 git clone https://github.com/mkorlevic/Korlevic_EpiphyticDynamics_EnvironMicrobiol_2020.git
 cd Korlevic_EpiphyticDynamics_EnvironMicrobiol_2020/
