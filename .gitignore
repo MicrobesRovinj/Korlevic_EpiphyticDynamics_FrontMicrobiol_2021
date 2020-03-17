@@ -1,14 +1,13 @@
 Rplots.pdf
+*.qsub*
+mothur*logfile
 
 code/mothur/*
 data/*/*
-data/summary.txt
-!data/process/*
 !README.md
 !LICENSE.md
 !data/raw/primer.oligos
 !data/raw/metadata.csv
 !data/raw/group_colors.csv
-
-*.qsub*
-mothur*logfile
+!data/raw/raw.files
+!data/references/atcc_v4.fasta

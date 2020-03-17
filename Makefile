@@ -22,29 +22,29 @@ $(MOTHUR) :
 #
 # 	We will need several reference files to complete the analyses including the
 # SILVA reference alignment and taxonomy. As we are analyzing both Bacteria and
-# Archaea we need to optimize the procedure described on the mothur blog
-# (http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/).
-#
+# Archaea we need to optimize the procedure described on the mothur blog.
+# (http://blog.mothur.org/2020/03/04/SILVA-v138-reference-files/)
 #########################################################################################
 
 # We want the latest greatest reference alignment and the SILVA reference
 # alignment is the best reference alignment on the market. We will use the
-# version 138. The curation of the reference files to make them compatible with
-# mothur is described at http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/
+# Release 138. The curation of the reference files to make them compatible with
+# mothur is described at http://blog.mothur.org/2020/03/04/SILVA-v138-reference-files/
 # As we are using primers from the Earth Microbiome Project that are targeting
 # both Bacteria and Archaea (http://www.earthmicrobiome.org/protocols-and-standards/16s/)
 # we need to modify the procedure described at
-# http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/
+# http://blog.mothur.org/2020/03/04/SILVA-v138-reference-files/
 # as this approach is removing shorter archeal sequences.
 #
 # The SILVA Release 138 was downloaded from
 # https://www.arb-silva.de/fileadmin/silva_databases/release_138/ARB_files/SILVA_138_SSURef_NR99_05_01_20_opt.arb.gz
 # opened with ARB and exported to silva.full_v138.fasta file as described at
-# http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/ uder the
+# http://blog.mothur.org/2020/03/04/SILVA-v138-reference-files/ uder the
 # section Getting the data in and out of the ARB database. A total of 447,349
 # sequences were exported.
 
 # Screening the sequences
+# Set the location from where to copy the silva.full_v138.fasta file
 $(REFS)silva.nr_v138.align : $(MOTHUR)\
                              ~/references/silva.full_v138/silva.full_v138.fasta
 	cp ~/references/silva.full_v138/silva.full_v138.fasta $(REFS)silva.full_v138.fasta
@@ -265,13 +265,12 @@ $(FINAL)supplementary.pdf : $(MOTH)summary.txt\
 .PHONY: clean
 clean :
 	rm -f my_job.qsub.* || true
-#	rm -f $(REFS)tax* || true
-#	rm -f $(REFS)silva* || true
+	rm -f $(REFS)tax* || true
+	rm -f $(REFS)silva* || true
 	rm -f $(MOTH)* || true
 	rm -f data/summary.txt || true
-#	rm -f $(RAW)*.fastq || true
+#	rm -f $(RAW)18118-*.fastq || true
 #	rm -f $(RAW)names_file.txt || true
-#	rm -f $(RAW)raw.files || true
 	rm -rf code/mothur/ || true
 	rm -f $(FIGS)* || true
 	rm -f mothur*logfile || true
