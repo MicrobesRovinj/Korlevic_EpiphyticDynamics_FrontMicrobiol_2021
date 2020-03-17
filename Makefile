@@ -89,7 +89,7 @@ $(RAW)raw.files : $(RAW)metadata.csv
 
 $(RAW)*.fastq : $(RAW)raw.files\
                 ~/raw/together/*.fastq
-	(cut -f 2 $(RAW)raw.files; cut -f 3 $(RAW)raw.files) | cat > $(RAW)names_file.txt
+	(cut -f 2 $(RAW)raw.files; cut -f 3 $(RAW)raw.files) | sed "/^NC_/ d" > $(RAW)names_file.txt
 	xargs -I % --arg-file=$(RAW)names_file.txt cp ~/raw/together/% -t $(RAW)
 
 # Here we go from the raw fastq files and the files file to generate a fasta,
@@ -267,10 +267,10 @@ clean :
 	rm -f my_job.qsub.* || true
 	rm -f $(REFS)tax* || true
 	rm -f $(REFS)silva* || true
-	rm -f $(MOTH)* || true
+	rm -f $(MOTH)raw.* || true
 	rm -f data/summary.txt || true
-#	rm -f $(RAW)18118-*.fastq || true
-#	rm -f $(RAW)names_file.txt || true
+	rm -f $(RAW)18118-*.fastq || true
+	rm -f $(RAW)names_file.txt || true
 	rm -rf code/mothur/ || true
-	rm -f $(FIGS)* || true
+	rm -f $(FIGS)*.jpg || true
 	rm -f mothur*logfile || true

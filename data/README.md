@@ -1,1 +1,1 @@
-This directory contains raw and primary data that are not changed once created.
+This directory contains raw and primary data that are not changed once created and mothur processed data.

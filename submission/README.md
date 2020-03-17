@@ -1,1 +1,1 @@
-This directory contains files neccessary for manuscript or supplementary information rendering, e.g executable Rmarkdown.
+This directory contains files necessary for manuscript and supplementary information rendering, e.g executable Rmarkdown.
