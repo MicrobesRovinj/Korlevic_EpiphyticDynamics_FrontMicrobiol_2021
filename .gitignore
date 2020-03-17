@@ -1,15 +1,11 @@
-.Rproj.user
-.Rhistory
-.RData
 Rplots.pdf
-
-.DS_Store
 
 code/mothur/*
 data/*/*
 data/summary.txt
 !data/process/*
 !README.md
+!LICENSE.md
 !data/raw/primer.oligos
 !data/raw/metadata.csv
 !data/raw/group_colors.csv
@@ -27,5 +23,3 @@ data/summary.txt
 
 *.qsub*
 mothur*logfile
-*temp*
-*.docx
