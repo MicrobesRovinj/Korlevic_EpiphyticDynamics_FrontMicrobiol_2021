@@ -1,1 +1,1 @@
-This directory contains all the programmatic code used in the analysis. 
+This directory contains all programmatic code used in the analysis. 
