@@ -1,10 +1,10 @@
 ## Seasonal Dynamics of Epiphytic Microbial Communities on Marine Macrophyte Surfaces
+This is the repository for the manuscript "Seasonal Dynamics of Epiphytic Microbial Communities on Marine Macrophyte Surfaces" written by Marino Korlević, Marsej Markovski, Zihao Zhao, Gerhard J. Herndl and Mirjana Najdek. The raw sequencing data with the exception of negative controls have been deposited in the European Nucleotide Archive (ENA) at EMBL-EBI under accession number PRJEB37267. Negative control samples are part of this repository and located in data/raw/. This README file contains an overview of the repository structure, information on software dependencies and instructions how to reproduce and rerun the analysis.
 
 ### Overview
 
 	project
 	|- README                       # the top level description of content (this doc)
-	|- CONTRIBUTING                 # instructions for how to contribute to your project
 	|- LICENSE                      # the license for this project
 	|
 	|- submission/
@@ -13,13 +13,13 @@
 	| |- manuscript.tex             # TeX version of manuscript.Rmd file
 	| |- manuscript.pdf             # PDF version of manuscript.Rmd file
 	| |- manuscript.aux             # auxiliary file of the manuscipt.tex file, used for cross-referencing
-	| |- header.tex                 # LaTeX header file to format PDF version of manuscript
+	| |- header.tex                 # LaTeX header file to format the PDF version of manuscript
 	| |- supplementary.Rmd          # executable Rmarkdown for the supplementary information of this study
 	| |- supplementary.md           # Markdown (GitHub) version of the supplementary.Rmd file
 	| |- supplementary.tex          # TeX version of supplementary.Rmd file
 	| |- supplementary.pdf          # PDF version of supplementary.Rmd file
 	| |- supplementary.aux          # auxiliary file of the supplementary.tex file, used for cross-referencing
-	| |- header_supplementary.tex   # LaTeX header file to format PDF version of supplementary information
+	| |- header_supplementary.tex   # LaTeX header file to format the PDF version of supplementary information
 	| |- references.bib             # BibTeX formatted references
 	| +- citation_style.csl         # csl file to format references
 	|
@@ -33,30 +33,37 @@
 	|- results                      # all output from workflows and analyses
 	| +- figures/                   # graphs, designated for manuscript or supplementary information figures
 	|
-	|-.gitignore                    # .gitinore file for this study
-	|-Rprofile                      # .Rprofile file containing informaton on which R libraries to load,
+	|-.gitignore                    # gitinore file for this study
+	|-.Rprofile                     # Rprofile file containing informaton on which R libraries to load,
 	|                               # rendering options for knitr and Rmarkdown, functions etc.
 	+- Makefile                     # executable Makefile for this study
 
 ### How to regenerate this repository
 
-#### Dependencies and locations
-* Gnu Make; should be located in the user's PATH
+#### Dependencies
+* GNU Bash (v. 4.2.46(2))
+* GNU Make (v. 3.82); should be located in the user's PATH
 * mothur (v. 1.43.0)
 * R (v. 3.6.0); should be located in the user's PATH
 * R packages:
-  * `stats`
-  * `knitr`
-  * `rmarkdown`
-  * `tinytex`
-  * `tidyverse`
-  * `vegan`
-  * `RColorBrewer`
-  * `kableExtra`
+  * `stats (v. 3.6.0)`
+  * `knitr (v. 1.25)`
+  * `rmarkdown (v. 1.16)`
+  * `tinytex (v. 0.16)`
+  * `tidyverse (v. 1.2.1)`
+  * `vegan (v. 2.5.6)`
+  * `RColorBrewer (v. 1.1.2)`
+  * `kableExtra (v. 1.1.0)`
+* The analysis supposes the use of 16 processors
 
 #### Running analysis
+The manuscript and supplementary information can be regenerated on a Linux computer by running the following commands:
 ```
 git clone https://github.com/mkorlevic/Korlevic_EpiphyticDynamics_EnvironMicrobiol_2020.git
+cd Korlevic_EpiphyticDynamics_EnvironMicrobiol_2020/
 make submission/manuscript.pdf
 ```
-
+If something goes wrong and the analysis needs to be restarted run the following command from the project home directory before rerunning the analysis:
+```
+make clean
+```
