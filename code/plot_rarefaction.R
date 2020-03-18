@@ -75,7 +75,7 @@ p2 <- filter(metadata_rarefaction, str_detect(label, "FCyM$")) %>%
   scale_colour_manual(values=set_names(color_type$color, color_type$date)) +
   scale_linetype_manual(values=set_names(color_type$line_type, color_type$date)) +
   labs(x="", y="") +
-  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Invaded)')")) +
+  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Mixed)')")) +
   theme
 
 p3 <- filter(metadata_rarefaction, str_detect(label, "FCaM$")) %>%
@@ -87,7 +87,7 @@ p3 <- filter(metadata_rarefaction, str_detect(label, "FCaM$")) %>%
   scale_x_continuous(limits=c(0, 40000)) +
   scale_y_continuous(limits=c(0, 4000)) +
   labs(x="Number of Sequences", y="Number of OTUs") +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Invaded)')")) +
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Mixed)')")) +
   theme
 
 p4 <- filter(metadata_rarefaction, str_detect(label, "FCa$")) %>%
@@ -96,7 +96,7 @@ p4 <- filter(metadata_rarefaction, str_detect(label, "FCa$")) %>%
   geom_line(size=1.5) +
   scale_colour_manual(values=set_names(color_type$color, color_type$date)) +
   scale_linetype_manual(values=set_names(color_type$line_type, color_type$date)) +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Noninvaded)')")) +
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Monospecific)')")) +
   labs(x="Number of Sequences", y="") +
   theme
 

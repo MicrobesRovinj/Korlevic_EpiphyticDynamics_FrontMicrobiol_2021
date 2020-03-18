@@ -60,9 +60,9 @@ p1 <- ggplot() +
                       values=c("#66A61E", "#E6AB02", "#A6761D", "#666666"),
                       breaks=c("F", "FCyM", "FCaM", "FCa"),
                       labels=c("Seawater",
-                               parse(text="italic('Cymodocea nodosa')~'(Invaded)'"),
-                               parse(text="italic('Caulerpa cylindracea')~'(Invaded)'"),
-                               parse(text="italic('Caulerpa cylindracea')~'(Noninvaded)'"))) +
+                               parse(text="italic('Cymodocea nodosa')~'(Mixed)'"),
+                               parse(text="italic('Caulerpa cylindracea')~'(Mixed)'"),
+                               parse(text="italic('Caulerpa cylindracea')~'(Monospecific)'"))) +
   labs(x=paste0("PCoA I (",format(round(spe.b.pcoa$eig[1]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)"), 
        y=paste0("PCoA II (",format(round(spe.b.pcoa$eig[2]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)")) +
   ggtitle(parse(text="bold('Seawater and Epiphytes')")) +
@@ -91,7 +91,7 @@ p2 <- ggplot() +
                     values=brewer.pal(n=4, name="Set1")) +
   labs(x=paste0("PCoA I (",format(round(spe.b.pcoa$eig[1]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)"), 
        y=paste0("PCoA II (",format(round(spe.b.pcoa$eig[2]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)")) +
-  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Invaded)')")) +
+  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Mixed)')")) +
   scale_x_continuous(labels=scaleFUN) +
   scale_y_continuous(labels=scaleFUN) +
   theme
@@ -118,11 +118,11 @@ p3 <- ggplot() +
   scale_shape_manual(name=NULL,
                      values=c(21, 23),
                      breaks=c("FCaM", "FCa"),
-                     labels=c(parse(text="italic('Caulerpa cylindracea')~'(Invaded)'"),
-                              parse(text="italic('Caulerpa cylindracea')~'(Noninvaded)'"))) +
+                     labels=c(parse(text="italic('Caulerpa cylindracea')~'(Mixed)'"),
+                              parse(text="italic('Caulerpa cylindracea')~'(Monospecific)'"))) +
   labs(x=paste0("PCoA I (",format(round(spe.b.pcoa$eig[1]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)"), 
        y=paste0("PCoA II (",format(round(spe.b.pcoa$eig[2]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)")) +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Invaded and Noninvaded)')")) +
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Mixed and Monospecific)')")) +
   scale_x_continuous(labels=scaleFUN) +
   scale_y_continuous(labels=scaleFUN) +
   theme +

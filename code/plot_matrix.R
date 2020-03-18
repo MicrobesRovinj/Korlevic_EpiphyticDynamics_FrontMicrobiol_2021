@@ -69,9 +69,9 @@ theme <- theme(text=element_text(family="Times"), line=element_line(color="black
 
 # Plot generation
 group_name <- c("F"=expression(bold("Seawater")),
-                "FCyM"=expression(atop(bolditalic("Cymodocea nodosa"), bold("(Invaded)"))),
-                "FCaM"=expression(atop(bolditalic("Caulerpa cylindracea"), bold("(Invaded)"))),
-                "FCa"=expression(atop(bolditalic("Caulerpa cylindracea"), bold("(Noninvaded)"))))
+                "FCyM"=expression(atop(bolditalic("Cymodocea nodosa"), bold("(Mixed)"))),
+                "FCaM"=expression(atop(bolditalic("Caulerpa cylindracea"), bold("(Mixed)"))),
+                "FCa"=expression(atop(bolditalic("Caulerpa cylindracea"), bold("(Monospecific)"))))
 
 jaccard <- ggplot(similarity, aes(x=V2, y=V1, fill=jaccard)) + 
   geom_tile(colour="black", size=0.5) +

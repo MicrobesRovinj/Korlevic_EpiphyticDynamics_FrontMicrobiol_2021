@@ -12,7 +12,7 @@ This is the repository for the manuscript "Seasonal Dynamics of Epiphytic Microb
 	| |- manuscript.md              # Markdown (GitHub) version of the manuscript.Rmd file
 	| |- manuscript.tex             # TeX version of manuscript.Rmd file
 	| |- manuscript.pdf             # PDF version of manuscript.Rmd file
-	| |- manuscript.aux             # auxiliary file of the manuscipt.tex file, used for cross-referencing
+	| |- manuscript.aux             # auxiliary file of the manuscript.tex file, used for cross-referencing
 	| |- header.tex                 # LaTeX header file to format the PDF version of manuscript
 	| |- supplementary.Rmd          # executable Rmarkdown for the supplementary information of this study
 	| |- supplementary.md           # Markdown (GitHub) version of the supplementary.Rmd file
@@ -34,7 +34,7 @@ This is the repository for the manuscript "Seasonal Dynamics of Epiphytic Microb
 	| +- figures/                   # graphs, designated for manuscript or supplementary information figures
 	|
 	|-.gitignore                    # gitinore file for this study
-	|-.Rprofile                     # Rprofile file containing informaton on which R libraries to load,
+	|-.Rprofile                     # Rprofile file containing information on which R libraries to load,
 	|                               # rendering options for knitr and Rmarkdown, functions etc.
 	+- Makefile                     # executable Makefile for this study
 

@@ -137,7 +137,7 @@ fcym <- filter(plot, station=="FCyM") %>%
   geom_text(data=filter(whole, station=="FCyM"), aes(x=date, y=80, label=paste(format(round(abundance, 1), nsmall=1), "%")),
             family="Times", fontface="bold", angle=90, hjust=-1) +
   labs(x=NULL, y="%") +
-  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Invaded)')")) +
+  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Mixed)')")) +
   scale_x_date(date_break="months" , date_labels="%b %Y", limits=as.Date(c("2017-11-01", "2018-10-15")),
                expand=c(0, 0)) +
   scale_y_continuous(expand=expand_scale(mult=c(0, 0.33)), breaks=seq(0, 100, by=10)) +
@@ -151,7 +151,7 @@ fcam <- filter(plot, station=="FCaM") %>%
   geom_text(data=filter(whole, station=="FCaM"), aes(x=date, y=75, label=paste(format(round(abundance, 1), nsmall=1), "%")),
             family="Times", fontface="bold", angle=90, hjust=-1) +
   labs(x=NULL, y="%") +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Invaded)')")) +
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Mixed)')")) +
   scale_x_date(date_break="months" , date_labels="%b %Y", limits=as.Date(c("2017-11-01", "2018-10-15")),
                expand=c(0, 0)) +
   scale_y_continuous(expand=expand_scale(mult=c(0, 0.33)), breaks=seq(0, 100, by=10)) +
@@ -165,7 +165,7 @@ fca <- filter(plot, station=="FCa") %>%
   geom_text(data=filter(whole, station=="FCa"), aes(x=date, y=75, label=paste(format(round(abundance, 1), nsmall=1), "%")),
             family="Times", fontface="bold", angle=90, hjust=-1) +
   labs(x="Date", y="%") +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Noninvaded)')")) +
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Monospecific)')")) +
   scale_x_date(date_break="months" , date_labels="%b %Y", limits=as.Date(c("2017-11-01", "2018-10-15")),
                expand=c(0, 0)) +
   scale_y_continuous(expand=expand_scale(mult=c(0, 0.33)), breaks=seq(0, 100, by=10)) +

@@ -136,7 +136,7 @@ p1 <- filter(data, index=="bray") %>%
   scale_fill_manual(values=fills) +
   scale_y_continuous(limits=c(0, 100)) +
   labs(x="", y="") +
-  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Invaded)')")) +
+  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Mixed)')")) +
   theme +
   theme(axis.ticks.x=element_blank(), axis.text.x=element_blank())
 
@@ -155,7 +155,7 @@ p2 <- filter(data, index=="jaccard") %>%
 fcym <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align="v")
 
 # Plots generation
-# Caulerpa cylindracea (Invaded) samples
+# Caulerpa cylindracea (Mixed) samples
 data <- filter(distance_metadata, station.x=="FCaM" & station.y=="FCaM") %>%
   filter((date.x=="2017-11-23" & date.y=="2017-12-04") |
          (date.x=="2017-12-04" & date.y=="2017-12-14") |
@@ -178,7 +178,7 @@ p1 <- filter(data, index=="bray") %>%
   scale_fill_manual(values=fills) +
   scale_y_continuous(limits=c(0, 100)) +
   labs(x="", y="%") +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Invaded)')")) +
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Mixed)')")) +
   theme +
   theme(axis.ticks.x=element_blank(), axis.text.x=element_blank())
 
@@ -197,7 +197,7 @@ p2 <- filter(data, index=="jaccard") %>%
 fcam <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align="v")
 
 # Plots generation
-# Caulerpa cylindracea (Noninvaded) samples
+# Caulerpa cylindracea (Monospecific) samples
 data <- filter(distance_metadata, station.x=="FCa" & station.y=="FCa") %>%
   filter((date.x=="2017-11-23" & date.y=="2017-12-04") |
          (date.x=="2017-12-04" & date.y=="2017-12-14") |
@@ -220,7 +220,7 @@ p1 <- filter(data, index=="bray") %>%
   scale_fill_manual(values=fills) +
   scale_y_continuous(limits=c(0, 100)) +
   labs(x="", y="") +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Noninvaded)')")) +
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Monospecific)')")) +
   theme +
   theme(axis.ticks.x=element_blank(), axis.text.x=element_blank())
 

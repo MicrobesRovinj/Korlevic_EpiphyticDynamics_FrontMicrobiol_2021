@@ -124,7 +124,7 @@ p1 <- filter(estimators_indices_metadata, station=="FCyM") %>%
   scale_fill_manual(values=fills_p1) +
   scale_y_continuous(limits=c(300, 2500)) +
   labs(x="", y="") +
-  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Invaded)')")) +
+  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Mixed)')")) +
   theme +
   theme(axis.ticks.x=element_blank(), axis.text.x=element_blank())
 
@@ -145,7 +145,7 @@ p2 <- filter(estimators_indices_metadata, station=="FCyM") %>%
 fcym <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1,0.75), align="v")
 
 # Plots generation
-# Caulerpa cylindracea (Invaded) samples
+# Caulerpa cylindracea (Mixed) samples
 p1 <- filter(estimators_indices_metadata, station=="FCaM") %>%
   filter(estimator_index=="S.obs" | estimator_index=="S.chao1" | estimator_index=="S.ACE") %>%
   ggplot(aes(x=date, y=value, linetype=estimator_index, shape=estimator_index,
@@ -157,7 +157,7 @@ p1 <- filter(estimators_indices_metadata, station=="FCaM") %>%
   scale_fill_manual(values=fills_p1) +
   scale_y_continuous(limits=c(1300, 4300)) +
   labs(x="", y="") +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Invaded)')")) +
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Mixed)')")) +
   theme +
   theme(axis.ticks.x=element_blank(), axis.text.x=element_blank())
 
@@ -179,7 +179,7 @@ fcam <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1,0.75), align=
   cowplot_theme
 
 # Plots generation
-# Caulerpa cylindracea (Noninvaded) samples
+# Caulerpa cylindracea (Monospecific) samples
 p1 <- filter(estimators_indices_metadata, station=="FCa") %>%
   filter(estimator_index=="S.obs" | estimator_index=="S.chao1" | estimator_index=="S.ACE") %>%
   ggplot(aes(x=date, y=value, linetype=estimator_index, shape=estimator_index,
@@ -191,7 +191,7 @@ p1 <- filter(estimators_indices_metadata, station=="FCa") %>%
   scale_fill_manual(values=fills_p1) +
   scale_y_continuous(limits=c(1300, 4300)) +
   labs(x="", y="") +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Noninvaded)')")) +
+  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Monospecific)')")) +
   theme +
   theme(axis.ticks.x=element_blank(), axis.text.x=element_blank())
 
