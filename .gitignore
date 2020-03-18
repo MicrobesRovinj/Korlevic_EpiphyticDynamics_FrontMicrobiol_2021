@@ -9,5 +9,4 @@ data/*/*
 !data/raw/primer.oligos
 !data/raw/metadata.csv
 !data/raw/group_colors.csv
-!data/raw/raw.files
 !data/references/atcc_v4.fasta
