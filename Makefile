@@ -84,11 +84,10 @@ $(REFS)silva.nr_v138.pcr.unique%align : $(REFS)silva.nr_v138.align\
 #
 #########################################################################################
 
-$(RAW)raw.files : $(RAW)metadata.csv
+$(RAW)raw.files : $(RAW)metadata.csv\
+                  $(RAW)NC_*.fastq\
+                  ~/raw/together/*.fastq
 	cut -f 1,2,3 data/raw/metadata.csv | tail -n +2 > $(RAW)raw.files
-
-$(RAW)*.fastq : $(RAW)raw.files\
-                ~/raw/together/*.fastq
 	(cut -f 2 $(RAW)raw.files; cut -f 3 $(RAW)raw.files) | sed "/^NC_/ d" > $(RAW)names_file.txt
 	xargs -I % --arg-file=$(RAW)names_file.txt cp ~/raw/together/% -t $(RAW)
 
@@ -110,8 +109,8 @@ $(BASIC_STEM).pick.pick%fasta\
 $(BASIC_STEM).denovo.vsearch.pick.pick%count_table\
 $(BASIC_STEM).pick.nr_v138.wang.pick%taxonomy\
 $(BASIC_STEM).pick.nr_v138.wang.tax%summary : code/get_good_seqs.batch\
-                                              $(RAW)raw.files\
                                               $(RAW)primer.oligos\
+                                              $(RAW)raw.files\
                                               $(RAW)*.fastq\
                                               $(REFS)silva.nr_v138.pcr.align\
                                               $(REFS)silva.nr_v138.pcr.unique.align\
@@ -232,8 +231,8 @@ $(FIGS)matrix.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
 #
 #########################################################################################
 
-$(FINAL)manuscript.pdf\
-$(FINAL)supplementary.pdf : $(MOTH)summary.txt\
+$(FINAL)manuscript%pdf\
+$(FINAL)supplementary%pdf : $(MOTH)summary.txt\
                             $(BASIC_STEM).pick.pick.pick.error.summary\
                             $(FIGS)community_bar_plot.jpg\
                             $(FIGS)chloroplast_bar_plot.jpg\
@@ -268,9 +267,12 @@ clean :
 	rm -f $(REFS)tax* || true
 	rm -f $(REFS)silva* || true
 	rm -f $(MOTH)raw.* || true
-	rm -f data/summary.txt || true
+	rm -f $(MOTH)summary.txt || true
 	rm -f $(RAW)18118-*.fastq || true
 	rm -f $(RAW)names_file.txt || true
+	rm -f $(RAW)raw.files || true
 	rm -rf code/mothur/ || true
 	rm -f $(FIGS)*.jpg || true
 	rm -f mothur*logfile || true
+	rm -f $(FINAL)manuscript.pdf || true
+	rm -f $(FINAL)supplementary.pdf
