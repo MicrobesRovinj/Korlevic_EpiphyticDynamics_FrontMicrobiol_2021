@@ -84,10 +84,14 @@ $(REFS)silva.nr_v138.pcr.unique%align : $(REFS)silva.nr_v138.align\
 #
 #########################################################################################
 
-$(RAW)raw.files : $(RAW)metadata.csv\
-                  $(RAW)NC_*.fastq\
-                  ~/raw/together/*.fastq
+# Generate raw.files for mothur make.contigs 
+$(RAW)raw.files : $(RAW)metadata.csv
 	cut -f 1,2,3 data/raw/metadata.csv | tail -n +2 > $(RAW)raw.files
+
+# Download project fastq.gz files from the European Nucleotide Archive (ENA)
+$(RAW)18118-*.fastq : ~/raw/together/*.fastq\
+                      $(RAW)NC_*.fastq\
+                      $(RAW)raw.files
 	(cut -f 2 $(RAW)raw.files; cut -f 3 $(RAW)raw.files) | sed "/^NC_/ d" > $(RAW)names_file.txt
 	xargs -I % --arg-file=$(RAW)names_file.txt cp ~/raw/together/% -t $(RAW)
 
@@ -111,7 +115,8 @@ $(BASIC_STEM).pick.nr_v138.wang.pick%taxonomy\
 $(BASIC_STEM).pick.nr_v138.wang.tax%summary : code/get_good_seqs.batch\
                                               $(RAW)primer.oligos\
                                               $(RAW)raw.files\
-                                              $(RAW)*.fastq\
+                                              $(RAW)NC_*.fastq\
+                                              $(RAW)18118-*.fastq\
                                               $(REFS)silva.nr_v138.pcr.align\
                                               $(REFS)silva.nr_v138.pcr.unique.align\
                                               $(REFS)silva.nr_v138.tax\
@@ -231,8 +236,8 @@ $(FIGS)matrix.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
 #
 #########################################################################################
 
-$(FINAL)manuscript%pdf\
-$(FINAL)supplementary%pdf : $(MOTH)summary.txt\
+$(FINAL)manuscript.pdf\
+$(FINAL)supplementary.pdf : $(MOTH)summary.txt\
                             $(BASIC_STEM).pick.pick.pick.error.summary\
                             $(FIGS)community_bar_plot.jpg\
                             $(FIGS)chloroplast_bar_plot.jpg\
@@ -267,6 +272,7 @@ clean :
 	rm -f $(REFS)tax* || true
 	rm -f $(REFS)silva* || true
 	rm -f $(MOTH)raw.* || true
+	rm -f $(MOTH)current_files.summary || true
 	rm -f $(MOTH)summary.txt || true
 	rm -f $(RAW)18118-*.fastq || true
 	rm -f $(RAW)names_file.txt || true

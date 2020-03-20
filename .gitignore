@@ -4,8 +4,6 @@ mothur*logfile
 
 code/mothur/*
 data/*/*
-!README.md
-!LICENSE.md
 !data/raw/primer.oligos
 !data/raw/metadata.csv
 !data/raw/group_colors.csv

@@ -58,10 +58,10 @@ color <- read_tsv("data/raw/group_colors.csv") %>%
 
 # Generation of italic names for groups
 names <- parse(text=case_when(plot$taxon=="Chloroplast" ~ paste0("plain('", plot$taxon,  "')"),
-                              plot$taxon=="Bacteria_unclassified" ~ "italic('Bacteria')~plain('(No Relative)')",
+                              plot$taxon=="Bacteria_unclassified" ~ "italic('Bacteria')~plain('(NR)')",
                               plot$taxon=="Marinimicrobia_(SAR406_clade)" ~ "italic('Marinimicrobia')",
                               plot$taxon=="Other" ~ paste0("plain('", plot$taxon, "')"),
-                              plot$taxon=="No_Relative" ~ "plain('NR')",
+                              plot$taxon=="No_Relative" ~ "plain('No Relative')",
                               TRUE ~ paste0("italic('", plot$taxon, "')")))
 
 # Tidying the sequence abundance data
