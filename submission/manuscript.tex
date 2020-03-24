@@ -99,6 +99,7 @@ Macrophyte Surfaces}}
 
 \usepackage[labelsep=period, labelfont=bf]{caption}
 \renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\figurename}{Fig.}
 \captionsetup{justification=raggedright,singlelinecheck=false}
 
 \usepackage{pdflscape}
@@ -120,19 +121,16 @@ Macrophyte Surfaces}}
 
 \usepackage{txfonts}
 
+\renewcommand{\figureautorefname}{Fig.}
+
 \begin{document}
 \maketitle
 
-\vspace{50mm}
+\vspace{20mm}
 
 Marino Korlević\textsuperscript{1\(*\)}, Marsej
 Markovski\textsuperscript{1}, Zihao Zhao\textsuperscript{2}, Gerhard J.
 Herndl\textsuperscript{2,3}, Mirjana Najdek\textsuperscript{1}
-
-\vspace{40mm}
-
-\textsuperscript{\(*\)}To whom correspondence should be addressed:
-\href{mailto:marino.korlevic@irb.hr}{\nolinkurl{marino.korlevic@irb.hr}}
 
 1. Center for Marine Research, Ruđer Bošković Institute, Croatia
 
@@ -143,13 +141,28 @@ Vienna, Austria
 Netherlands Institute for Sea Research, Utrecht University, The
 Netherlands
 
+\textsuperscript{\(*\)}To whom correspondence should be addressed:
+
+Marino Korlević
+
+G. Paliaga 5, 52210 Rovinj, Croatia
+
+Tel.: +385 52 804 768
+
+Fax: +385 52 804 780
+
+e-mail:
+\href{mailto:marino.korlevic@irb.hr}{\nolinkurl{marino.korlevic@irb.hr}}
+
+Running title: Seasonal dynamics of epiphytic communities
+
 \newpage
 \linenumbers
 \sisetup{mode=text}
 \setlength\parindent{24pt}
 
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\hypertarget{summary}{%
+\subsection{Summary}\label{summary}}
 
 Surfaces of marine macrophytes (seagrasses and macroalgae) are inhabited
 by diverse microbial communities. Most studies focusing on macrophyte
@@ -244,8 +257,8 @@ al.}, 2016). In addition, some of the variation in the observed data
 could be attributed to different techniques used in various studies,
 such as different protocols for epiphytic cell detachment and/or DNA
 isolation, as no standard protocol to study epiphytic communities was
-established (Ugarelli \emph{et al.}, 2019; Korlević \emph{et al.},
-submitted).
+established (Korlević \emph{et al.}, unpublished; Ugarelli \emph{et
+al.}, 2019).
 
 The majority of studies describing macrophyte epiphytic communities did
 not encompass seasonal changes (Crump and Koch, 2008; Lachnit \emph{et
@@ -286,18 +299,18 @@ observation in high-throughput 16S rRNA amplicon sequencing approaches
 of sequences mentioned before reads were clustered into 28,702 different
 OTUs at a similarity level of 97 \si{\percent}. Read numbers were
 normalized to the minimum number of sequences, 8,409
-(\autoref{supp-nseq_notus}), through rarefaction resulting in 17,172
-different OTUs that ranged from 366 to 2,043 OTUs per sample
+(\autoref{supp-nseq_notus}), through rarefaction resulting in 17,055
+different OTUs that ranged from 370 to 2,033 OTUs per sample
 (\autoref{supp-calculators}). To determine seasonal changes of richness
 and diversity the Observed Number of OTUs, Chao1, ACE, Exponential
 Shannon (Jost, 2006) and Inverse Simpson were calculated after
 normalization through rarefaction. Generally, richness estimators and
 diversity indices showed similar trends. On average, higher values were
-found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,683.2 ±
-130.9 OTUs{]} and monospecific {[}Number of OTUs, 1,737.2 ± 166.4
-OTUs{]}), middle values for \emph{C. nodosa} (Number of OTUs, 1,058.4 ±
-216.8 OTUs) and lower values for picoplankton communities in the ambient
-seawater (Number of OTUs, 529.5 ± 143.0 OTUs)
+found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,691.5 ±
+144.4 OTUs{]} and monospecific {[}Number of OTUs, 1,733.3 ± 156.8
+OTUs{]}), middle values for \emph{C. nodosa} (Number of OTUs, 1,060.9 ±
+216.1 OTUs) and lower values for picoplankton communities in the ambient
+seawater (Number of OTUs, 527.5 ± 147.8 OTUs)
 (\autoref{supp-calculators}). Seasonal changes did not show such large
 dissimilarities. \emph{C. nodosa} communities showed a slow increase
 towards the end of the study, while \emph{C. cylindracea} (mixed and
@@ -312,7 +325,7 @@ Coefficient were, respectively, calculated. Coefficients were determined
 after normalization through rarefaction and binning of samples from a
 particular environment. The highest proportion of shared OTUs and
 community was found between mixed and monospecific \emph{C. cylindracea}
-(Jaccard, 0.35; Bray-Curtis, 0.78), while lower shared values were
+(Jaccard, 0.35; Bray-Curtis, 0.77), while lower shared values were
 calculated between seawater and epiphytic communities
 (\autoref{matrix}). Shared proportion between \emph{C. nodosa} and
 \emph{C. cylindracea} were approximately in the middle between these two
@@ -324,7 +337,7 @@ were more pronounced for seawater in comparison to \emph{C. nodosa} and
 especially \emph{C. cylindracea} associated communities
 (\autoref{shared}). In addition, only 0.4 -- 1.0 \si{\percent} of OTUs
 from each surface associated community were found at every time point.
-These OTUs also made a high proportion of total sequences (40.8 -- 52.2
+These OTUs also made a high proportion of total sequences (40.3 -- 53.7
 \si{\percent}). To further disentangle the environmental and seasonal
 community dissimilarity a Principal Coordinates Analysis (PCoA) based on
 Bray-Curtis distances and OTU abundances was applied. It showed a clear
@@ -334,10 +347,10 @@ archaeal communities based on host species was determined. This
 separation was further supported by ANOSIM (R = 0.96, \emph{p}
 \textless{} 0.001). Seasonal changes of \emph{C. nodosa} associated
 communities indicated a separation between Spring, Summer and
-Autumn/Winter samples (ANOSIM, R = 0.53, \emph{p} \textless{} 0.01). For
+Autumn/Winter samples (ANOSIM, R = 0.54, \emph{p} \textless{} 0.01). For
 \emph{C. cylindracea} associated communities a separation between Summer
 and Autumn/Winter/Spring samples was observed that was not so strongly
-supported (ANOSIM, R = 0.30, \emph{p} \textless{} 0.01)
+supported (ANOSIM, R = 0.31, \emph{p} \textless{} 0.05)
 (\autoref{pcoa}).
 
 The taxonomic composition of both, macrophyte associated and seawater
@@ -466,7 +479,7 @@ as host tissue shaking (Nõges \emph{et al.}, 2010), scraping (Uku
 these methods showed different removal efficiencies but none was
 enabling a complete removal of attached microbial cells. In the present
 study, we applied an earlier developed removal protocol (Korlević
-\emph{et al.}, submitted), based on a previous idea of direct cellular
+\emph{et al.}, unpublished), based on a previous idea of direct cellular
 lysis (Burke \emph{et al.}, 2009), to ensure an almost complete cell
 detachment. The application of a direct lysis procedure coupled with a
 high frequency sampling protocol and Illumina high resolution amplicon
@@ -556,7 +569,7 @@ be identified (Egan \emph{et al.}, 2013).
 Seasonal richness changes in the epiphytic community were substantial as
 could be observed in the proportion of OTUs that could be found at every
 sampling time (\(\leq\) 1.0 \si{\percent}). Interestingly, these OTUs
-were accounting for a high proportion of sequences (\(\leq\) 52.2
+were accounting for a high proportion of sequences (\(\leq\) 53.7
 \si{\percent}). A very similar proportion of persistent OTUs and their
 sequence contribution was reported in high frequency studies describing
 seasonal picoplankton changes (Gilbert \emph{et al.}, 2009, 2012). In
@@ -670,7 +683,7 @@ in epiphytic microbial communities.
 \newpage
 
 \hypertarget{experimental-procedures}{%
-\subsection{Experimental Procedures}\label{experimental-procedures}}
+\subsection{Experimental procedures}\label{experimental-procedures}}
 
 \hypertarget{sampling}{%
 \subsubsection{Sampling}\label{sampling}}
@@ -698,15 +711,15 @@ Filters were briefly dried at room temperature and stored at \num{-80}
 monthly from July 2017 to October 2018.
 
 \hypertarget{dna-isolation}{%
-\subsubsection{DNA Isolation}\label{dna-isolation}}
+\subsubsection{DNA isolation}\label{dna-isolation}}
 
 DNA from surfaces of \emph{C. nodosa} and \emph{C. cylindracea} was
 isolated using a previously modified and adapted protocol that allows
-for a selective epiphytic DNA isolation (Massana \emph{et al.}, 1997;
-Korlević \emph{et al.}, submitted). Briefly, leaves and thalli are
-incubated in a lysis buffer and treated with lysozyme and proteinase K.
-Following the incubations, the mixture containing lyzed epiphytic cells
-is separated from leaves and thalli and extracted using a
+for a selective epiphytic DNA isolation (Korlević \emph{et al.},
+unpublished; Massana \emph{et al.}, 1997). Briefly, leaves and thalli
+are incubated in a lysis buffer and treated with lysozyme and proteinase
+K. Following the incubations, the mixture containing lyzed epiphytic
+cells is separated from leaves and thalli and extracted using a
 phenol-chloroform procedure. Finally, the extracted DNA is precipitated
 using isopropanol. DNA from seawater picoplankton was isolated from 0.2
 \si{\um} polycarbonate filters according to Massana \emph{et al.} (1997)
@@ -722,13 +735,14 @@ were resuspended in 50 -- 100 \si{\ul} of deionized water.
 
 \hypertarget{illumina-16s-rrna-sequencing}{%
 \subsubsection{Illumina 16S rRNA
-Sequencing}\label{illumina-16s-rrna-sequencing}}
+sequencing}\label{illumina-16s-rrna-sequencing}}
 
 Illumina MiSeq sequencing of the V4 16S rRNA region was performed as
-described previously (Korlević \emph{et al.}, submitted). The V4 region
-of the 16S rRNA gene was amplified using a two-step PCR procedure. In
-the first PCR the 515F (5'-GTGYCAGCMGCCGCGGTAA-3') and 806R
-(5'-GGACTACNVGGGTWTCTAAT-3') primers from the Earth Microbiome Project
+described previously (Korlević \emph{et al.}, unpublished). The V4
+region of the 16S rRNA gene was amplified using a two-step PCR
+procedure. In the first PCR the 515F (5'-GTGYCAGCMGCCGCGGTAA-3') and
+806R (5'-GGACTACNVGGGTWTCTAAT-3') primers from the Earth Microbiome
+Project
 (\url{http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/16s/})
 were used (Caporaso \emph{et al.}, 2012; Apprill \emph{et al.}, 2015;
 Parada \emph{et al.}, 2016). These primers contained on their 5' end a
@@ -747,7 +761,7 @@ European Nucleotide Archive (ENA) at EMBL-EBI under accession number
 PRJEB37267.
 
 \hypertarget{sequence-analysis}{%
-\subsubsection{Sequence Analysis}\label{sequence-analysis}}
+\subsubsection{Sequence analysis}\label{sequence-analysis}}
 
 Obtained sequences were analyzed on the computer cluster Isabella
 (University Computing Center, University of Zagreb) using mothur
@@ -791,14 +805,14 @@ for access to the cluster Isabella.
 
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-Abraham2014}{}%
-Abraham, W.R. and Rohde, M. (2014) The Family \emph{Hyphomonadaceae}.
-In, Rosenberg,E., DeLong,E.F., Lory,S., Stackebrandt,E., and Thompson,F.
-(eds), \emph{The Prokaryotes: Alphaproteobacteria and
-Betaproteobacteria}. Berlin, Heidelberg: Springer-Verlag, pp. 283--299.
+Abraham, W.R. and Rohde, M. (2014) The family \emph{Hyphomonadaceae}. In
+\emph{The prokaryotes: Alphaproteobacteria and Betaproteobacteria}.
+Rosenberg, E., DeLong, E.F., Lory, S., Stackebrandt, E., and Thompson,
+F. (eds). Berlin, Heidelberg: Springer-Verlag, pp. 283--299.
 
 \leavevmode\hypertarget{ref-Allaire2019}{}%
 Allaire, J.J., Xie, Y., McPherson, J., Luraschi, J., Ushey, K., Atkins,
-A., et al. (2019) rmarkdown: Dynamic Documents for R.
+A., et al. (2019) Rmarkdown: dynamic documents for R.
 
 \leavevmode\hypertarget{ref-Apprill2015}{}%
 Apprill, A., McNally, S., Parsons, R., and Weber, L. (2015) Minor
@@ -807,14 +821,14 @@ detection of SAR11 bacterioplankton. \emph{Aquat Microb Ecol}
 \textbf{75}: 129--137.
 
 \leavevmode\hypertarget{ref-Armstrong2000}{}%
-Armstrong, E., Rogerson, A., and Leftley, J. (2000) The Abundance of
-Heterotrophic Protists Associated with Intertidal Seaweeds. \emph{Estuar
+Armstrong, E., Rogerson, A., and Leftley, J. (2000) The abundance of
+heterotrophic protists associated with intertidal seaweeds. \emph{Estuar
 Coast Shelf Sci} \textbf{50}: 415--424.
 
 \leavevmode\hypertarget{ref-Bengtsson2017}{}%
 Bengtsson, M.M., Bühler, A., Brauer, A., Dahlke, S., Schubert, H., and
-Blindow, I. (2017) Eelgrass Leaf Surface Microbiomes Are Locally
-Variable and Highly Correlated with Epibiotic Eukaryotes. \emph{Front
+Blindow, I. (2017) Eelgrass leaf surface microbiomes are locally
+variable and highly correlated with epibiotic eukaryotes. \emph{Front
 Microbiol} \textbf{8}: 1312.
 
 \leavevmode\hypertarget{ref-Bengtsson2010}{}%
@@ -828,8 +842,8 @@ of dimethylsulfoniopropionate (DMSP) in the Mediterranean seagrass
 \emph{Posidonia oceanica}. \emph{Aquat Bot} \textbf{125}: 72--79.
 
 \leavevmode\hypertarget{ref-Burke2009}{}%
-Burke, C., Kjelleberg, S., and Thomas, T. (2009) Selective Extraction of
-Bacterial DNA from the Surfaces of Macroalgae. \emph{Appl Environ
+Burke, C., Kjelleberg, S., and Thomas, T. (2009) Selective extraction of
+bacterial DNA from the surfaces of macroalgae. \emph{Appl Environ
 Microbiol} \textbf{75}: 252--256.
 
 \leavevmode\hypertarget{ref-Burke2011a}{}%
@@ -868,14 +882,14 @@ Seasonal development of a coastal microbial mat. \emph{Sci Rep}
 \textbf{9}: 9035.
 
 \leavevmode\hypertarget{ref-Crump2008}{}%
-Crump, B.C. and Koch, E.W. (2008) Attached Bacterial Populations Shared
-by Four Species of Aquatic Angiosperms. \emph{Appl Environ Microbiol}
+Crump, B.C. and Koch, E.W. (2008) Attached bacterial populations shared
+by four species of aquatic angiosperms. \emph{Appl Environ Microbiol}
 \textbf{74}: 5948--5957.
 
 \leavevmode\hypertarget{ref-Crump2018}{}%
 Crump, B.C., Wojahn, J.M., Tomas, F., and Mueller, R.S. (2018)
-Metatranscriptomics and Amplicon Sequencing Reveal Mutualisms in
-Seagrass Microbiomes. \emph{Front Microbiol} \textbf{9}: 388.
+Metatranscriptomics and amplicon sequencing reveal mutualisms in
+seagrass microbiomes. \emph{Front Microbiol} \textbf{9}: 388.
 
 \leavevmode\hypertarget{ref-Egan2013}{}%
 Egan, S., Harder, T., Burke, C., Steinberg, P., Kjelleberg, S., and
@@ -884,8 +898,8 @@ interactions. \emph{FEMS Microbiol Rev} \textbf{37}: 462--476.
 
 \leavevmode\hypertarget{ref-Fahimipour2017}{}%
 Fahimipour, A.K., Kardish, M.R., Lang, J.M., Green, J.L., Eisen, J.A.,
-and Stachowicz, J.J. (2017) Global-Scale Structure of the Eelgrass
-Microbiome. \emph{Appl Environ Microbiol} \textbf{83}: e03391--16.
+and Stachowicz, J.J. (2017) Global-scale structure of the eelgrass
+microbiome. \emph{Appl Environ Microbiol} \textbf{83}: e03391--16.
 
 \leavevmode\hypertarget{ref-Gilbert2009}{}%
 Gilbert, J.A., Field, D., Swift, P., Newbold, L., Oliver, A., Smyth, T.,
@@ -900,7 +914,7 @@ community dynamics. \emph{ISME J} \textbf{6}: 298--308.
 
 \leavevmode\hypertarget{ref-Higashioka2015}{}%
 Higashioka, Y., Kojima, H., Watanabe, T., and Fukui, M. (2015) Draft
-Genome Sequence of \emph{Desulfatitalea tepidiphila}
+genome sequence of \emph{Desulfatitalea tepidiphila}
 S28bF\textsuperscript{T}. \emph{Genome Announc} \textbf{3}: e01326--15.
 
 \leavevmode\hypertarget{ref-Hollants2013}{}%
@@ -917,29 +931,24 @@ Jørgensen, B.B. and Gallardo, V.A. (1999) \emph{Thioploca} spp.:
 filamentous sulfur bacteria with nitrate vacuoles. \emph{FEMS Microbiol
 Ecol} \textbf{28}: 301--313.
 
-\leavevmode\hypertarget{ref-Korlevic_submitted}{}%
-Korlević, M., Markovski, M., Zhao, Z., Herndl, G.J., and Najdek, M.
-Selective DNA and Protein Isolation from Marine Macrophyte Surfaces.
-Manuscript submitted for publication.
-
 \leavevmode\hypertarget{ref-Korlevic2015}{}%
 Korlević, M., Pop Ristova, P., Garić, R., Amann, R., and Orlić, S.
-(2015) Bacterial Diversity in the South Adriatic Sea during a Strong,
-Deep Winter Convection Year. \emph{Appl Environ Microbiol} \textbf{81}:
+(2015) Bacterial diversity in the South Adriatic Sea during a strong,
+deep winter convection year. \emph{Appl Environ Microbiol} \textbf{81}:
 1715--1726.
 
 \leavevmode\hypertarget{ref-Kozich2013}{}%
 Kozich, J.J., Westcott, S.L., Baxter, N.T., Highlander, S.K., and
-Schloss, P.D. (2013) Development of a Dual-Index Sequencing Strategy and
-Curation Pipeline for Analyzing Amplicon Sequence Data on the MiSeq
-Illumina Sequencing Platform. \emph{Appl Environ Microbiol} \textbf{79}:
+Schloss, P.D. (2013) Development of a dual-index sequencing strategy and
+curation pipeline for analyzing amplicon sequence data on the MiSeq
+Illumina sequencing platform. \emph{Appl Environ Microbiol} \textbf{79}:
 5112--5120.
 
 \leavevmode\hypertarget{ref-Kuever2014}{}%
-Kuever, J. (2014) The Family \emph{Desulfobulbaceae}. In, Rosenberg,E.,
-DeLong,E.F., Lory,S., Stackebrandt,E., and Thompson,F. (eds), \emph{The
-Prokaryotes: Deltaproteobacteria and Epsilonproteobacteria}. Berlin,
-Heidelberg: Springer-Verlag, pp. 75--86.
+Kuever, J. (2014) The family \emph{Desulfobulbaceae}. In \emph{The
+prokaryotes: Deltaproteobacteria and Epsilonproteobacteria}. Rosenberg,
+E., DeLong, E.F., Lory, S., Stackebrandt, E., and Thompson, F. (eds).
+Berlin, Heidelberg: Springer-Verlag, pp. 75--86.
 
 \leavevmode\hypertarget{ref-Lachnit2009}{}%
 Lachnit, T., Blümel, M., Imhoff, J.F., and Wahl, M. (2009) Specific
@@ -958,32 +967,32 @@ communities associated with three sessile marine eukaryotes. \emph{Aquat
 Microb Ecol} \textbf{48}: 217--229.
 
 \leavevmode\hypertarget{ref-Margulis1991}{}%
-Margulis, L. (1991) Symbiogenesis and Symbionticism. In, Margulis,L. and
-Fester,R. (eds), \emph{Symbiosis as a Source of Evolutionary Innovation:
-Speciation and Morphogenesis}. Cambridge, Massachusetts: The MIT Press,
-pp. 1--14.
+Margulis, L. (1991) Symbiogenesis and symbionticism. In \emph{Symbiosis
+as a source of evolutionary innovation: Speciation and morphogenesis}.
+Margulis, L. and Fester, R. (eds). Cambridge, Massachusetts: The MIT
+Press, pp. 1--14.
 
 \leavevmode\hypertarget{ref-Massana1997}{}%
 Massana, R., Murray, A.E., Preston, C.M., and DeLong, E.F. (1997)
-Vertical Distribution and Phylogenetic Characterization of Marine
-Planktonic \emph{Archaea} in the Santa Barbara Channel. \emph{Appl
+Vertical distribution and phylogenetic characterization of marine
+planktonic \emph{Archaea} in the Santa Barbara Channel. \emph{Appl
 Environ Microbiol} \textbf{63}: 50--56.
 
 \leavevmode\hypertarget{ref-McIlroy2014}{}%
-McIlroy, S.J. and Nielsen, P.H. (2014) The Family \emph{Saprospiraceae}.
-In, Rosenberg,E., DeLong,E.F., Lory,S., Stackebrandt,E., and Thompson,F.
-(eds), \emph{The Prokaryotes: Other Major Lineages of Bacteria and The
-Archaea}. Berlin, Heidelberg: Springer-Verlag, pp. 863--889.
+McIlroy, S.J. and Nielsen, P.H. (2014) The family \emph{Saprospiraceae}.
+In \emph{The prokaryotes: Other major lineages of Bacteria and the
+Archaea}. Rosenberg, E., DeLong, E.F., Lory, S., Stackebrandt, E., and
+Thompson, F. (eds). Berlin, Heidelberg: Springer-Verlag, pp. 863--889.
 
 \leavevmode\hypertarget{ref-Michelou2013}{}%
 Michelou, V.K., Caporaso, J.G., Knight, R., and Palumbi, S.R. (2013) The
-Ecology of Microbial Communities Associated with \emph{Macrocystis
+ecology of microbial communities associated with \emph{Macrocystis
 pyrifera}. \emph{PLoS One} \textbf{8}: e67480.
 
 \leavevmode\hypertarget{ref-Miranda2013}{}%
 Miranda, L.N., Hutchison, K., Grossman, A.R., and Brawley, S.H. (2013)
-Diversity and Abundance of the Bacterial Community of the Red Macroalga
-\emph{Porphyra umbilicalis}: Did Bacterial Farmers Produce Macroalgae?
+Diversity and abundance of the bacterial community of the red macroalga
+\emph{Porphyra umbilicalis}: did bacterial farmers produce macroalgae?
 \emph{PLoS One} \textbf{8}: e58269.
 
 \leavevmode\hypertarget{ref-Mobberley2012}{}%
@@ -993,12 +1002,12 @@ barcoded pyrosequencing. \emph{Environ Microbiol} \textbf{14}: 82--100.
 
 \leavevmode\hypertarget{ref-Morrissey2019}{}%
 Morrissey, K.L., Çavas, L., Willems, A., and De Clerck, O. (2019)
-Disentangling the Influence of Environment, Host Specificity and Thallus
-Differentiation on Bacterial Communities in Siphonous Green Seaweeds.
+Disentangling the influence of environment, host specificity and thallus
+differentiation on bacterial communities in siphonous green seaweeds.
 \emph{Front Microbiol} \textbf{10}: 717.
 
 \leavevmode\hypertarget{ref-Neuwirth2014}{}%
-Neuwirth, E. (2014) RColorBrewer: ColorBrewer Palettes.
+Neuwirth, E. (2014) RColorBrewer: ColorBrewer palettes.
 
 \leavevmode\hypertarget{ref-Noges2010}{}%
 Nõges, T., Luup, H., and Feldmann, T. (2010) Primary production of
@@ -1007,7 +1016,7 @@ Võrtsjärv) in Estonia. \emph{Aquat Ecol} \textbf{44}: 83--92.
 
 \leavevmode\hypertarget{ref-Oksanen2019}{}%
 Oksanen, J., Blanchet, F.G., Friendly, M., Kindt, R., Legendre, P.,
-McGlinn, D., et al. (2019) vegan: Community Ecology Package.
+McGlinn, D., et al. (2019) Vegan: community ecology package.
 
 \leavevmode\hypertarget{ref-Parada2016}{}%
 Parada, A.E., Needham, D.M., and Fuhrman, J.A. (2016) Every base
@@ -1017,9 +1026,9 @@ with mock communities, time series and global field samples.
 
 \leavevmode\hypertarget{ref-Pujalte2014}{}%
 Pujalte, M.J., Lucena, T., Ruvira, M.A., Arahal, D.R., and Macián, M.C.
-(2014) The Family \emph{Rhodobacteraceae}. In, Rosenberg,E.,
-DeLong,E.F., Lory,S., Stackebrandt,E., and Thompson,F. (eds), \emph{The
-Prokaryotes: Alphaproteobacteria and Betaproteobacteria}. Berlin,
+(2014) The family \emph{Rhodobacteraceae}. In \emph{The prokaryotes:
+Alphaproteobacteria and Betaproteobacteria}. Rosenberg, E., DeLong,
+E.F., Lory, S., Stackebrandt, E., and Thompson, F. (eds). Berlin,
 Heidelberg: Springer-Verlag, pp. 439--512.
 
 \leavevmode\hypertarget{ref-Quast2013}{}%
@@ -1029,23 +1038,22 @@ data processing and web-based tools. \emph{Nucleic Acids Res}
 \textbf{41}: D590--D596.
 
 \leavevmode\hypertarget{ref-RCoreTeam2019}{}%
-R Core Team (2019) R: A Language and Environment for Statistical
-Computing, Vienna, Austria: R Foundation for Statistical Computing.
+R Core Team (2019) A language and environment for statistical computing.
 
 \leavevmode\hypertarget{ref-Reisser2014}{}%
 Reisser, J., Shaw, J., Hallegraeff, G., Proietti, M., Barnes, D.K.A.,
-Thums, M., et al. (2014) Millimeter-Sized Marine Plastics: A New Pelagic
-Habitat for Microorganisms and Invertebrates. \emph{PLoS One}
+Thums, M., et al. (2014) Millimeter-sized marine plastics: a new pelagic
+habitat for microorganisms and invertebrates. \emph{PLoS One}
 \textbf{9}: e100289.
 
 \leavevmode\hypertarget{ref-Reyes2001}{}%
-Reyes, J. and Sansón, M. (2001) Biomass and Production of the Epiphytes
-on the Leaves of \emph{Cymodocea nodosa} in the Canary Islands.
+Reyes, J. and Sansón, M. (2001) Biomass and production of the epiphytes
+on the leaves of \emph{Cymodocea nodosa} in the Canary Islands.
 \emph{Bot Mar} \textbf{44}: 307--313.
 
 \leavevmode\hypertarget{ref-Rickert2016}{}%
 Rickert, E., Wahl, M., Link, H., Richter, H., and Pohnert, G. (2016)
-Seasonal Variations in Surface Metabolite Composition of \emph{Fucus
+Seasonal variations in surface metabolite composition of \emph{Fucus
 vesiculosus} and \emph{Fucus serratus} from the Baltic Sea. \emph{PLoS
 One} \textbf{11}: e0168196.
 
@@ -1062,10 +1070,10 @@ changes of the introduced \emph{Caulerpa racemosa} var.
 its Mediterranean range. \emph{Aquat Bot} \textbf{82}: 55--70.
 
 \leavevmode\hypertarget{ref-Salaun2012}{}%
-Salaün, S., Barre, S. la, Santos-Goncalvez, M.D., Potin, P., Haras, D.,
-and Bazire, A. (2012) Influence of Exudates of the Kelp \emph{Laminaria
-Digitata} on Biofilm Formation of Associated and Exogenous Bacterial
-Epiphytes. \emph{Microb Ecol} \textbf{64}: 359--369.
+Salaün, S., La Barre, S., Santos-Goncalvez, M.D., Potin, P., Haras, D.,
+and Bazire, A. (2012) Influence of exudates of the kelp \emph{Laminaria
+digitata} on biofilm formation of associated and exogenous bacterial
+epiphytes. \emph{Microb Ecol} \textbf{64}: 359--369.
 
 \leavevmode\hypertarget{ref-Schloss2016a}{}%
 Schloss, P.D., Jenior, M.L., Koumpouras, C.C., Westcott, S.L., and
@@ -1074,9 +1082,9 @@ PacBio SMRT DNA sequencing system. \emph{PeerJ} \textbf{4}: e1869.
 
 \leavevmode\hypertarget{ref-Schloss2009}{}%
 Schloss, P.D., Westcott, S.L., Ryabin, T., Hall, J.R., Hartmann, M.,
-Hollister, E.B., et al. (2009) Introducing mothur: Open-Source,
-Platform-Independent, Community-Supported Software for Describing and
-Comparing Microbial Communities. \emph{Appl Environ Microbiol}
+Hollister, E.B., et al. (2009) Introducing mothur: open-source,
+platform-independent, community-supported software for describing and
+comparing microbial communities. \emph{Appl Environ Microbiol}
 \textbf{75}: 7537--7541.
 
 \leavevmode\hypertarget{ref-Tarquinio2019}{}%
@@ -1092,63 +1100,65 @@ bacterial community associated with a green marine \emph{Ulvacean} alga.
 \emph{ISME J} \textbf{4}: 301--311.
 
 \leavevmode\hypertarget{ref-Ugarelli2019}{}%
-Ugarelli, K., Laas, P., and Stingl, U. (2019) The Microbial Communities
-of Leaves and Roots Associated with Turtle Grass (Thalassia testudinum)
-and Manatee Grass (Syringodium filliforme) are Distinct from Seawater
-and Sediment Communities, but Are Similar between Species and Sampling
-Sites. \emph{Microorganisms} \textbf{7}: 4.
+Ugarelli, K., Laas, P., and Stingl, U. (2019) The microbial communities
+of leaves and roots associated with turtle grass (\emph{Thalassia
+testudinum}) and manatee grass (\emph{Syringodium filliforme}) are
+distinct from seawater and sediment communities, but are similar between
+species and sampling sites. \emph{Microorganisms} \textbf{7}: 4.
 
 \leavevmode\hypertarget{ref-Uku2007}{}%
-Uku, J., Björk, M., Bergman, B., and Díez, B. (2007) CHARACTERIZATION
-AND COMPARISON OF PROKARYOTIC EPIPHYTES ASSOCIATED WITH THREE EAST
-AFRICAN SEAGRASSES. \emph{J Phycol} \textbf{43}: 768--779.
+Uku, J., Björk, M., Bergman, B., and Díez, B. (2007) Characterization
+and comparison of prokaryotic epiphytes associated with three East
+African seagrasses. \emph{J Phycol} \textbf{43}: 768--779.
 
 \leavevmode\hypertarget{ref-Weidner2000}{}%
-Weidner, Arnold, Stackebrandt, and Pühler (2000) Phylogenetic Analysis
-of Bacterial Communities Associated with Leaves of the Seagrass
-\emph{Halophila stipulacea} by a Culture-Independent Small-Subunit rRNA
-Gene Approach. \emph{Microb Ecol} \textbf{39}: 22--31.
+Weidner, S., Arnold, W., Stackebrandt, E., and Pühler, A. (2000)
+Phylogenetic analysis of bacterial communities associated with leaves of
+the seagrass \emph{Halophila stipulacea} by a culture-independent
+small-subunit rRNA gene approach. \emph{Microb Ecol} \textbf{39}:
+22--31.
 
 \leavevmode\hypertarget{ref-Wickham2019}{}%
 Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L.D., François,
-R., et al. (2019) Welcome to the Tidyverse. \emph{J Open Source Softw}
+R., et al. (2019) Welcome to the tidyverse. \emph{J Open Source Softw}
 \textbf{4}: 1686.
 
 \leavevmode\hypertarget{ref-Xie2015}{}%
-Xie, Y. (2015) Dynamic Documents with R and knitr, 2nd ed. Boca Raton,
+Xie, Y. (2015) Dynamic documents with R and knitr, 2nd ed. Boca Raton,
 Florida: Chapman; Hall/CRC.
 
 \leavevmode\hypertarget{ref-Xie2014}{}%
-Xie, Y. (2014) knitr: A Comprehensive Tool for Reproducible Research in
-R. In, Stodden,V., Leisch,F., and Peng,R.D. (eds), \emph{Implement.
-Reprod. Comput. Res.} Chapman; Hall/CRC.
+Xie, Y. (2014) Knitr: a comprehensive tool for reproducible research in
+R. In \emph{Implementing reproducible computational research}. Stodden,
+V., Leisch, F., and Peng, R.D. (eds). New York: Chapman; Hall/CRC, pp.
+3--32.
 
 \leavevmode\hypertarget{ref-Xie2019a}{}%
-Xie, Y. (2019a) knitr: A General-Purpose Package for Dynamic Report
-Generation in R.
+Xie, Y. (2019a) Knitr: a general-purpose package for dynamic report
+generation in R.
 
 \leavevmode\hypertarget{ref-Xie2019}{}%
-Xie, Y. (2019b) TinyTeX: A lightweight, cross-platform, and
+Xie, Y. (2019b) TinyTeX: a lightweight, cross-platform, and
 easy-to-maintain LaTeX distribution based on TeX Live. \emph{TUGboat}
-30--32.
+\textbf{40}: 30--32.
 
 \leavevmode\hypertarget{ref-Xie2020}{}%
-Xie, Y. (2020) tinytex: Helper Functions to Install and Maintain 'TeX
-Live', and Compile 'LaTeX' Documents.
+Xie, Y. (2020) TinyTex: helper functions to install and maintain 'TeX
+Live', and compile 'LaTeX' documents.
 
 \leavevmode\hypertarget{ref-Xie2018}{}%
-Xie, Y., Allaire, J.J., and Grolemund, G. (2018) R Markdown: The
-Definitive Guide, Boca Raton, Florida: Chapman; Hall/CRC.
+Xie, Y., Allaire, J.J., and Grolemund, G. (2018) R Markdown: the
+definitive guide, 1st ed. Boca Raton, Florida: Chapman; Hall/CRC.
 
 \leavevmode\hypertarget{ref-Xie2017}{}%
-Xie, Z., Lin, W., and Luo, J. (2017) Comparative Phenotype and Genome
-Analysis of \emph{Cellvibrio} sp. PR1, a Xylanolytic and Agarolytic
-Bacterium from the Pearl River. \emph{Biomed Res Int} \textbf{2017}:
+Xie, Z., Lin, W., and Luo, J. (2017) Comparative phenotype and genome
+analysis of \emph{Cellvibrio} sp. PR1, a xylanolytic and agarolytic
+bacterium from the Pearl River. \emph{Biomed Res Int} \textbf{2017}:
 6304248.
 
 \leavevmode\hypertarget{ref-Yilmaz2014}{}%
 Yilmaz, P., Parfrey, L.W., Yarza, P., Gerken, J., Pruesse, E., Quast,
-C., et al. (2014) The SILVA and "All-species Living Tree Project (LTP)"
+C., et al. (2014) The SILVA and "All-Species Living Tree Project (LTP)"
 taxonomic frameworks. \emph{Nucleic Acids Res} \textbf{42}: D643--D648.
 
 \leavevmode\hypertarget{ref-Zavodnik1998}{}%
@@ -1158,14 +1168,14 @@ seagrass \emph{Cymodocea nodosa} (Ucr.) Asch. \emph{Sci Mar}
 \textbf{62}: 301--309.
 
 \leavevmode\hypertarget{ref-Zhu2019}{}%
-Zhu, H. (2019) kableExtra: Construct Complex Table with 'kable' and Pipe
-Syntax.
+Zhu, H. (2019) KableExtra: construct complex table with 'kable' and pipe
+syntax.
 
 \newpage 
 \setlength\parindent{0pt}
 
-\hypertarget{figure-captions}{%
-\subsection{Figure Captions}\label{figure-captions}}
+\hypertarget{figure-legends}{%
+\subsection{Figure legends}\label{figure-legends}}
 
 \textbf{\autoref{matrix}.} \nameref{matrix}
 
