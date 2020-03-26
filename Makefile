@@ -281,4 +281,4 @@ clean :
 	rm -f $(FIGS)*.jpg || true
 	rm -f mothur*logfile || true
 	rm -f $(FINAL)manuscript.pdf || true
-	rm -f $(FINAL)supplementary.pdf
+	rm -f $(FINAL)supplementary.pdf || true
