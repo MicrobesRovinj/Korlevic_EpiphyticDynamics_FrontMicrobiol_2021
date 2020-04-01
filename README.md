@@ -31,7 +31,7 @@ This is the repository for the manuscript "Seasonal Dynamics of Epiphytic Microb
 	|- code/                        # any programmatic code
 	|
 	|- results                      # all output from workflows and analyses
-	| +- figures/                   # graphs, designated for manuscript or supplementary information figures
+	| +- figures/                   # graphs designated for manuscript or supplementary information figures
 	|
 	|-.gitignore                    # gitinore file for this study
 	|-.Rprofile                     # Rprofile file containing information on which R libraries to load,

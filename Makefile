@@ -4,8 +4,6 @@ MOTH = data/mothur/
 REFS = data/references/
 BASIC_STEM = data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster
 FIGS = results/figures/
-TABLES = results/tables/
-PROC = data/process/
 FINAL = submission/
 
 # Obtain the Linux version of mothur (v.1.43.0) from the mothur GitHub repository
@@ -23,13 +21,13 @@ $(MOTHUR) :
 # 	We will need several reference files to complete the analyses including the
 # SILVA reference alignment and taxonomy. As we are analyzing both Bacteria and
 # Archaea we need to optimize the procedure described on the mothur blog.
-# (http://blog.mothur.org/2020/03/04/SILVA-v138-reference-files/)
+# (https://mothur.org/blog/2020/SILVA-v138-reference-files/)
 #########################################################################################
 
 # We want the latest greatest reference alignment and the SILVA reference
 # alignment is the best reference alignment on the market. We will use the
 # Release 138. The curation of the reference files to make them compatible with
-# mothur is described at http://blog.mothur.org/2020/03/04/SILVA-v138-reference-files/
+# mothur is described at https://mothur.org/blog/2020/SILVA-v138-reference-files/
 # As we are using primers from the Earth Microbiome Project that are targeting
 # both Bacteria and Archaea (http://www.earthmicrobiome.org/protocols-and-standards/16s/)
 # we need to modify the procedure described at
@@ -39,7 +37,7 @@ $(MOTHUR) :
 # The SILVA Release 138 was downloaded from
 # https://www.arb-silva.de/fileadmin/silva_databases/release_138/ARB_files/SILVA_138_SSURef_NR99_05_01_20_opt.arb.gz
 # opened with ARB and exported to silva.full_v138.fasta file as described at
-# http://blog.mothur.org/2020/03/04/SILVA-v138-reference-files/ uder the
+# https://mothur.org/blog/2020/SILVA-v138-reference-files/ uder the
 # section Getting the data in and out of the ARB database. A total of 447,349
 # sequences were exported.
 
