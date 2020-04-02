@@ -209,7 +209,7 @@ p2 <- filter(estimators_indices_metadata, station=="FCa") %>%
   labs(x="Date", y="") +
   theme
 
-fca <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1,0.75), align="v")
+fca <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align="v")
 
 # Generating a plot to extract a common legend
 labels <- c("Observed Number of OTUs", "Chao1", "ACE", "Exponential Shannon", "Inverse Simpson")
