@@ -45,15 +45,25 @@ library("kableExtra")
 \vspace{60mm}
 Marino Korlević^1$*$^, Marsej Markovski^1^, Zihao Zhao^2^, Gerhard J. Herndl^2,3^, Mirjana Najdek^1^
 
-\vspace{40mm}
-
-^$*$^To whom correspondence should be addressed: marino.korlevic@irb.hr
-
 1\. Center for Marine Research, Ruđer Bošković Institute, Croatia
 
 2\. Department of Functional and Evolutionary Ecology, University of Vienna, Austria
 
 3\. Department of Marine Microbiology and Biogeochemistry, Royal Netherlands Institute for Sea Research, Utrecht University, The Netherlands
+
+^$*$^To whom correspondence should be addressed:
+
+Marino Korlević
+
+G. Paliaga 5, 52210 Rovinj, Croatia
+
+Tel.: +385 52 804 768
+
+Fax: +385 52 804 780
+
+e-mail: marino.korlevic@irb.hr
+
+Running title: Seasonal dynamics of epiphytic communities
 
 \sisetup{mode=text}
 \setlength\parindent{24pt}
