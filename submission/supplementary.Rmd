@@ -42,7 +42,7 @@ knitr::knit_hooks$set(inline=inline_hook)
 library("kableExtra")
 ```
 
-\vspace{60mm}
+\vspace{20mm}
 Marino Korlević^1$*$^, Marsej Markovski^1^, Zihao Zhao^2^, Gerhard J. Herndl^2,3^, Mirjana Najdek^1^
 
 1\. Center for Marine Research, Ruđer Bošković Institute, Croatia
