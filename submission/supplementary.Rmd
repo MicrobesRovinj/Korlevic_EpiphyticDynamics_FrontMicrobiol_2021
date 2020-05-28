@@ -109,16 +109,12 @@ metadata_nseq_notus <- inner_join(metadata, nseq_notus, by=c("ID"="Group")) %>%
   mutate(station=str_replace(station, "^FCyM$", "\\\\textit{Cymodocea nodosa} (Mixed)")) %>%
   mutate(station=str_replace(station, "^FCaM$", "\\\\textit{Caulerpa cylindracea} (Mixed)")) %>%
   mutate(station=str_replace(station, "^FCa$", "\\\\textit{Caulerpa cylindracea} (Monospecific)")) %>%
-  mutate(season=str_replace(season, "^Summer$", "summer")) %>%
-  mutate(season=str_replace(season, "^Autumn$", "autumn")) %>%
-  mutate(season=str_replace(season, "^Winter$", "winter")) %>%
-  mutate(season=str_replace(season, "^Spring$", "spring")) %>%
   mutate(ID=str_replace(ID, "^23_1$", "23a")) %>%
   mutate(ID=str_replace(ID, "^23_2$", "23b")) %>%
   mutate(nseq=format(nseq, big.mark=","), notus=format(notus, big.mark=","))
 
 # Generating the table
-kable(metadata_nseq_notus, format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=c("Sample ID", "Community Type", "Date", "Season", "No. of Sequences", "No. of OTUs"), caption="Sample ID, Community Type, Sampling Date and Season, No. of Sequences and No. of OTUs of each sample. The number of sequences and OTUs was calculated after exclusion of sequences without known relatives (no relative sequences) and eukaryotic, chloroplast and mitochondrial sequences.\\label{nseq_notus}", align="c") %>%
+kable(metadata_nseq_notus, format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=c("Sample ID", "Community Type", "Date", "Season", "No. of Sequences", "No. of OTUs"), caption="Sample ID, community type, sampling date and season, no. of sequences and no. of OTUs of each sample. The number of sequences and OTUs was calculated after exclusion of sequences without known relatives (no relative sequences) and eukaryotic, chloroplast and mitochondrial sequences.\\label{nseq_notus}", align="c") %>%
   kable_styling(latex_options=c("hold_position", "repeat_header"), font_size=9) %>%
   row_spec(0, bold=TRUE) %>%
   column_spec(1, width="6em")
