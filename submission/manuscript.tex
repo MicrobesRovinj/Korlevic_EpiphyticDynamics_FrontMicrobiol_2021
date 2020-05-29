@@ -123,6 +123,10 @@ Macrophyte Surfaces}}
 
 \renewcommand{\figureautorefname}{Fig.}
 
+\usepackage{microtype}
+\usepackage{biblatex}
+\appto{\bibsetup}{\raggedright}
+
 \begin{document}
 \maketitle
 
@@ -157,6 +161,7 @@ e-mail:
 Running title: Seasonal dynamics of epiphytic communities
 
 \newpage
+\linenumbers
 \sisetup{mode=text}
 \setlength\parindent{24pt}
 
@@ -297,18 +302,18 @@ high-throughput 16S rRNA amplicon sequencing approaches
 of sequences as mentioned above reads were clustered into 28,750
 different OTUs at a similarity level of 97 \si{\percent}. Read numbers
 were normalized to the minimum number of sequences (8,408,
-\autoref{supp-nseq_notus}) through rarefaction resulting in 17,041
-different OTUs with 359 to 1,995 OTUs per sample
+\autoref{supp-nseq_notus}) through rarefaction resulting in 17,048
+different OTUs with 374 to 2,035 OTUs per sample
 (\autoref{supp-calculators}). To determine seasonal changes in richness
 and diversity the observed number of OTUs, Chao1, ACE, Exponential
 Shannon (Jost, 2006) and Inverse Simpson were calculated after
 normalization through rarefaction. Generally, richness estimators and
 diversity indices showed similar trends. On average, higher values were
-found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,698.7 ±
-142.1 OTUs{]} and monospecific {[}Number of OTUs, 1,731.1 ± 151.9
-OTUs{]}) than for \emph{C. nodosa} (Number of OTUs, 1,053.7 ± 209.6
-OTUs) and lowest values were obtained for the microbial community of the
-ambient seawater (Number of OTUs, 530.6 ± 144.6 OTUs)
+found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,684.7 ±
+130.7 OTUs{]} and monospecific {[}Number of OTUs, 1,733.4 ± 152.0
+OTUs{]}) than for \emph{C. nodosa} (Number of OTUs, 1,050 ± 210.1 OTUs)
+and lowest values were obtained for the microbial community of the
+ambient seawater (Number of OTUs, 528.4 ± 133.2 OTUs)
 (\autoref{supp-calculators}). Seasonal changes did not reveal such large
 dissimilarities. \emph{C. nodosa} communities showed a slow increase
 towards the end of the study, while \emph{C. cylindracea} (mixed and
@@ -333,10 +338,10 @@ Bray-Curtis Similarity Coefficients were calculated between consecutive
 sampling points (\autoref{shared}). Both coefficients showed similar
 trends. Temporal proportional changes were more pronounced for ambient
 seawater than for \emph{C. nodosa} and especially \emph{C. cylindracea}
-associated communities (\autoref{shared}). In addition, only 0.4 -- 1.0
+associated communities (\autoref{shared}). In addition, only 0.5 -- 1.0
 \si{\percent} of OTUs from each surface associated community were
 present at all seasons. These persistent OTUs constituted a high
-proportion of total sequences (40.6 -- 53.1 \si{\percent}). To further
+proportion of total sequences (42.4 -- 50.7 \si{\percent}). To further
 disentangle the environmental and seasonal community dissimilarity a
 Principal Coordinates Analysis (PCoA) based on Bray-Curtis distances and
 OTU abundances was applied. A clear separation between ambient seawater
@@ -346,10 +351,10 @@ based on host species was detected. This separation was further
 supported by ANOSIM (R = 0.96, \emph{p} \textless{} 0.001). Seasonal
 changes of \emph{C. nodosa} associated communities indicated a
 separation between spring, summer and autumn/winter samples (ANOSIM, R =
-0.53, \emph{p} \textless{} 0.01). For \emph{C. cylindracea} associated
+0.54, \emph{p} \textless{} 0.01). For \emph{C. cylindracea} associated
 communities a separation between summer and autumn/winter/spring samples
 was observed that was, however, not as strong as for \emph{C. nodosa}
-associated communities (ANOSIM, R = 0.33, \emph{p} \textless{} 0.01)
+associated communities (ANOSIM, R = 0.30, \emph{p} \textless{} 0.01)
 (\autoref{pcoa}).
 
 The taxonomic composition of both, macrophyte associated and ambient
@@ -584,7 +589,7 @@ low taxonomic ranks a community specific to host species was identified
 Seasonal changes in richness in the epiphytic community were substantial
 as indicated by the proportion of OTUs (\(\leq\) 1.0 \si{\percent})
 present at every sampling date. These persistent OTUs, however, were
-accounting for a high proportion of sequences (\(\leq\) 53.1
+accounting for a high proportion of sequences (\(\leq\) 50.7
 \si{\percent}) (\autoref{shared}). A very similar proportion of
 persistent OTUs was reported in high-frequency sampling studies
 describing seasonal changes in picoplankton (Gilbert \emph{et al.},
@@ -757,9 +762,9 @@ sequencing}\label{illumina-16s-rrna-sequencing}}
 Illumina MiSeq sequencing of the V4 region of the 16S rRNA gene was
 performed as described previously (Korlević \emph{et al.}, submitted).
 The V4 region of the 16S rRNA gene was amplified using a two-step PCR
-procedure. In the first PCR, the
-515F\linebreak(5'-GTGYCAGCMGCCGCGGTAA-3') and 806R
-(5'-GGACTACNVGGGTWTCTAAT-3') primers from the Earth Microbiome Project
+procedure. In the first PCR, the 515F (5'-GTGYCAGCMGCCGCGGTAA-3') and
+806R (5'-GGACTACNVGGGTWTCTAAT-3') primers from the Earth Microbiome
+Project
 (\url{http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/16s/})
 were used (Caporaso \emph{et al.}, 2012; Apprill \emph{et al.}, 2015;
 Parada \emph{et al.}, 2016). These primers contained on their 5' end a
