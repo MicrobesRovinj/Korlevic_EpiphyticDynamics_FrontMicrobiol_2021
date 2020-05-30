@@ -724,6 +724,8 @@ This work was founded by the Croatian Science Foundation through the MICRO-SEAGR
 
 \newpage
 ## References
+\interlinepenalty=10000
+\emergencystretch=3.5em
 <div id="refs"></div>
 
 \newpage 
