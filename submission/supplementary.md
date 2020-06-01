@@ -41,7 +41,7 @@ Running title: Seasonal dynamics of epiphytic communities
 \sisetup{mode=text}
 \setlength\parindent{24pt}
 
-## Supplementary Figures
+## Supplementary figures
 
 \begin{figure}[H]
 
@@ -49,7 +49,7 @@ Running title: Seasonal dynamics of epiphytic communities
 
 }
 
-\caption{Rarefaction curves of bacterial and archaeal communities from the surfaces of the macrophytes \textit{C. nodosa} (Mixed Settlement) and \textit{C. cylindracea} (Mixed and Monospecific Settlement) and in the ambient seawater.\label{rarefaction}}\label{fig:unnamed-chunk-1}
+\caption{Rarefaction curves of bacterial and archaeal communities from the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater.\label{rarefaction}}\label{fig:unnamed-chunk-1}
 \end{figure}
 
 \begin{figure}[H]
@@ -58,7 +58,7 @@ Running title: Seasonal dynamics of epiphytic communities
 
 }
 
-\caption{Seasonal dynamics of observed number of OTUs, Chao1, ACE, exponential of the Shannon Diversity Index and Inverse Simpson Index of bacterial and archaeal communities from the surfaces of the macrophytes \textit{C. nodosa} (Mixed Settlement) and \textit{C. cylindracea} (Mixed and Monospecific Settlement) and in the ambient seawater.\label{calculators}}\label{fig:unnamed-chunk-2}
+\caption{Seasonal dynamics of observed number of OTUs, Chao1, ACE, exponential of the Shannon diversity index and Inverse Simpson index of bacterial and archaeal communities from the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater.\label{calculators}}\label{fig:unnamed-chunk-2}
 \end{figure}
 
 \begin{figure}[H]
@@ -67,10 +67,10 @@ Running title: Seasonal dynamics of epiphytic communities
 
 }
 
-\caption{Relative contribution of chloroplast sequences on the surfaces of the macrophytes \textit{C. nodosa} (Mixed Settlement) and \textit{C. cylindracea} (Mixed and Monospecific Settlement) and in the ambient seawater.\label{chloroplast}}\label{fig:unnamed-chunk-3}
+\caption{Relative contribution of chloroplast sequences on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater.\label{chloroplast}}\label{fig:unnamed-chunk-3}
 \end{figure}
 
-## Supplementary Table
+## Supplementary table
 
 \begingroup\fontsize{9}{11}\selectfont
 
