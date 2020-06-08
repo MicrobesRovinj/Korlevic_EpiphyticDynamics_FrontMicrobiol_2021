@@ -59,7 +59,7 @@ This is the repository for the manuscript "Seasonal Dynamics of Epiphytic Microb
 #### Running analysis
 Before running the analysis be sure to generate the mothur compatible SILVA reference file and indicate in the Makefile its location. The manuscript and supplementary information can be regenerated on a Linux computer by running the following commands:
 ```
-git clone https://github.com/mkorlevic/Korlevic_EpiphyticDynamics_EnvironMicrobiol_2020.git
+git clone https://github.com/MicrobesRovinj/Korlevic_EpiphyticDynamics_EnvironMicrobiol_2020.git
 cd Korlevic_EpiphyticDynamics_EnvironMicrobiol_2020/
 make submission/manuscript.pdf
 ```
