@@ -42,7 +42,6 @@ theme <- theme(text=element_text(family="Times"), line=element_line(color="black
 
 # Plots generation
 # All samples
-# Filter all samples
 rarefied_metadata_select <- rarefied_metadata
 
 # Generation of PCoA data
@@ -71,7 +70,6 @@ p1 <- ggplot() +
   theme
 
 # Cymodocea nodosa samples
-# Filter samples from the water column
 rarefied_metadata_select <- filter(rarefied_metadata, station=="FCyM") %>%
   select_if(list(~!is.numeric(.) || sum(.)!=0))
 
@@ -97,7 +95,6 @@ p2 <- ggplot() +
   theme
 
 # Caulerpa cylindracea samples
-# Filter samples from the water column
 rarefied_metadata_select <- filter(rarefied_metadata, str_detect(station, "^FCa")) %>%
   select_if(list(~!is.numeric(.) || sum(.)!=0))
 
