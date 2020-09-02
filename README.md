@@ -54,6 +54,7 @@ This is the repository for the manuscript "Seasonal Dynamics of Epiphytic Microb
   * `vegan (v. 2.5.6)`
   * `RColorBrewer (v. 1.1.2)`
   * `kableExtra (v. 1.1.0)`
+  * `cowplot (v. 1.0.0)`
 * The analysis supposes the use of 16 processor cores.
 
 #### Running analysis
