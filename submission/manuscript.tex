@@ -301,18 +301,18 @@ high-throughput 16S rRNA amplicon sequencing approaches
 of sequences as mentioned above reads were clustered into 28,750
 different OTUs at a similarity level of 97 \si{\percent}. Read numbers
 were normalized to the minimum number of sequences (8,408,
-\autoref{supp-nseq_notus}) through rarefaction resulting in 17,093
-different OTUs with 369 to 2,055 OTUs per sample
+\autoref{supp-nseq_notus}) through rarefaction resulting in 17,126
+different OTUs with 364 to 1,982 OTUs per sample
 (\autoref{supp-calculators}). To determine seasonal changes in richness
 and diversity the observed number of OTUs, Chao1, ACE, Exponential
 Shannon (Jost, 2006) and Inverse Simpson were calculated after
 normalization through rarefaction. Generally, richness estimators and
 diversity indices showed similar trends. On average, higher values were
-found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,680.3 ±
-141.6 OTUs{]} and monospecific {[}Number of OTUs, 1,732.7 ± 166.4
-OTUs{]}) than for \emph{C. nodosa} (Number of OTUs, 1,054.4 ± 209.4
+found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,686.4 ±
+138.5 OTUs{]} and monospecific {[}Number of OTUs, 1,728.1 ± 145.2
+OTUs{]}) than for \emph{C. nodosa} (Number of OTUs, 1,049.3 ± 203.8
 OTUs) and lowest values were obtained for the microbial community of the
-ambient seawater (Number of OTUs, 523.6 ± 142.4 OTUs)
+ambient seawater (Number of OTUs, 533.2 ± 140.8 OTUs)
 (\autoref{supp-calculators}). Seasonal changes did not reveal such large
 dissimilarities. \emph{C. nodosa} communities showed a slow increase
 towards the end of the study, while \emph{C. cylindracea} (mixed and
@@ -327,7 +327,7 @@ Coefficient, respectively, were calculated. Coefficients were determined
 after normalization through rarefaction and binning of samples from the
 particular environment. The highest proportion of shared OTUs and
 community was found between mixed and monospecific \emph{C. cylindracea}
-(Jaccard, 0.36; Bray-Curtis, 0.77), while lower shared values were
+(Jaccard, 0.35; Bray-Curtis, 0.78), while lower shared values were
 calculated between ambient seawater and epiphytic communities
 (\autoref{matrix}). Shared proportion between \emph{C. nodosa} and
 \emph{C. cylindracea} were approximately in-between the values of mixed
@@ -337,10 +337,10 @@ Bray-Curtis Similarity Coefficients were calculated between consecutive
 sampling points (\autoref{shared}). Both coefficients showed similar
 trends. Temporal proportional changes were more pronounced for ambient
 seawater than for \emph{C. nodosa} and especially \emph{C. cylindracea}
-associated communities (\autoref{shared}). In addition, only 0.4 -- 1.0
+associated communities (\autoref{shared}). In addition, only 0.4 -- 1.1
 \si{\percent} of OTUs from each surface associated community were
 present at all seasons. These persistent OTUs constituted a high
-proportion of total sequences (40.1 -- 53.6 \si{\percent}). To further
+proportion of total sequences (41.2 -- 54.1 \si{\percent}). To further
 disentangle the environmental and seasonal community dissimilarity a
 Principal Coordinates Analysis (PCoA) based on Bray-Curtis distances and
 OTU abundances was applied. A clear separation between ambient seawater
@@ -350,10 +350,10 @@ based on host species was detected. This separation was further
 supported by ANOSIM (R = 0.96, \emph{p} \textless{} 0.001). Seasonal
 changes of \emph{C. nodosa} associated communities indicated a
 separation between spring, summer and autumn/winter samples (ANOSIM, R =
-0.53, \emph{p} \textless{} 0.01). For \emph{C. cylindracea} associated
+0.52, \emph{p} \textless{} 0.01). For \emph{C. cylindracea} associated
 communities a separation between summer and autumn/winter/spring samples
 was observed that was, however, not as strong as for \emph{C. nodosa}
-associated communities (ANOSIM, R = 0.30, \emph{p} \textless{} 0.01)
+associated communities (ANOSIM, R = 0.29, \emph{p} \textless{} 0.01)
 (\autoref{pcoa}).
 
 The taxonomic composition of both, macrophyte associated and ambient
@@ -586,9 +586,9 @@ low taxonomic ranks a community specific to host species was identified
 (Figs. \ref{pcoa} and \ref{community}) (Egan \emph{et al.}, 2013).
 
 Seasonal changes in richness in the epiphytic community were substantial
-as indicated by the proportion of OTUs (\(\leq\) 1.0 \si{\percent})
+as indicated by the proportion of OTUs (\(\leq\) 1.1 \si{\percent})
 present at every sampling date. These persistent OTUs, however, were
-accounting for a high proportion of sequences (\(\leq\) 53.6
+accounting for a high proportion of sequences (\(\leq\) 54.1
 \si{\percent}) (\autoref{shared}). A very similar proportion of
 persistent OTUs was reported in high-frequency sampling studies
 describing seasonal changes in picoplankton (Gilbert \emph{et al.},
@@ -798,9 +798,9 @@ was done using R (version 3.6.0) (R Core Team, 2019) combined with
 packages vegan (version 2.5-6) (Oksanen \emph{et al.}, 2019), tidyverse
 (version 1.3.0) (Wickham \emph{et al.}, 2019) and multiple other
 packages (Xie, 2014, 2015, 2020; Neuwirth, 2014; Xie \emph{et al.},
-2018; Y. Xie, 2019b, 2019a; Allaire \emph{et al.}, 2019; Zhu, 2019). The
-detailed analysis procedure including the R Markdown file are available
-in the GitHub repository
+2018; Wilke, 2018; Y. Xie, 2019b, 2019a; Allaire \emph{et al.}, 2019;
+Zhu, 2019). The detailed analysis procedure including the R Markdown
+file are available in the GitHub repository
 (\url{https://github.com/MicrobesRovinj/Korlevic_EpiphyticDynamics_EnvironMicrobiol_2020}).
 Based on the ATCC MSA-1002 mock community included in the analysis an
 average sequencing error rate of 0.01 \si{\percent} was determined,
@@ -1157,6 +1157,10 @@ small-subunit rRNA gene approach. \emph{Microb Ecol} \textbf{39}:
 Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L.D., François,
 R., et al. (2019) Welcome to the tidyverse. \emph{J Open Source Softw}
 \textbf{4}: 1686.
+
+\leavevmode\hypertarget{ref-Wilke2018}{}%
+Wilke, C.O. (2018) cowplot: Streamlined plot theme and plot annotations
+for 'ggplot2'.
 
 \leavevmode\hypertarget{ref-Xie2015}{}%
 Xie, Y. (2015) Dynamic Documents with R and knitr, 2nd ed. Boca Raton,
