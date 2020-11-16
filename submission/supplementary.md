@@ -37,7 +37,7 @@ e-mail: marino.korlevic@irb.hr
 
 Running title: Seasonal dynamics of epiphytic communities
 
-\linenumbers
+[]: # (\linenumbers)
 \sisetup{mode=text}
 \setlength\parindent{24pt}
 

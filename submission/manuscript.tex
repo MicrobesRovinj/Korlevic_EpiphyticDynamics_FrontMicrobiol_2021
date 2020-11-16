@@ -91,8 +91,8 @@ Macrophyte Surfaces}}
 \doublespacing
 \setlength{\parskip}{1em}
 
-\usepackage{lineno}
-\renewcommand{\linenumberfont}{\normalfont\tiny}
+%\usepackage{lineno}
+%\renewcommand{\linenumberfont}{\normalfont\tiny}
 
 \usepackage{pdfpages}
 
@@ -160,7 +160,7 @@ e-mail:
 Running title: Seasonal dynamics of epiphytic communities
 
 \newpage
-\linenumbers
+
 \sisetup{mode=text}
 \setlength\parindent{24pt}
 
@@ -301,18 +301,18 @@ high-throughput 16S rRNA amplicon sequencing approaches
 of sequences as mentioned above reads were clustered into 28,750
 different OTUs at a similarity level of 97 \si{\percent}. Read numbers
 were normalized to the minimum number of sequences (8,408,
-\autoref{supp-nseq_notus}) through rarefaction resulting in 17,071
-different OTUs with 382 to 2,031 OTUs per sample
+\autoref{supp-nseq_notus}) through rarefaction resulting in 17,082
+different OTUs with 379 to 2,017 OTUs per sample
 (\autoref{supp-calculators}). To determine seasonal changes in richness
 and diversity the observed number of OTUs, Chao1, ACE, Exponential
-Shannon (Jost, 2006) and Inverse Simpson were calculated after
+Shannon and Inverse Simpson (Jost, 2006) were calculated after
 normalization through rarefaction. Generally, richness estimators and
 diversity indices showed similar trends. On average, higher values were
-found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,686.1 ±
-142.8 OTUs{]} and monospecific {[}Number of OTUs, 1,729.5 ± 159.6
-OTUs{]}) than for \emph{C. nodosa} (Number of OTUs, 1,064.1 ± 210.0
+found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,698.7 ±
+139.6 OTUs{]} and monospecific {[}Number of OTUs, 1,735.2 ± 160.1
+OTUs{]}) than for \emph{C. nodosa} (Number of OTUs, 1,052.8 ± 216.1
 OTUs) and lowest values were obtained for the microbial community of the
-ambient seawater (Number of OTUs, 525.4 ± 145.1 OTUs)
+ambient seawater (Number of OTUs, 528.8 ± 145.4 OTUs)
 (\autoref{supp-calculators}). Seasonal changes did not reveal such large
 dissimilarities. \emph{C. nodosa} communities showed a slow increase
 towards the end of the study, while \emph{C. cylindracea} (mixed and
@@ -340,7 +340,7 @@ seawater than for \emph{C. nodosa} and especially \emph{C. cylindracea}
 associated communities (\autoref{shared}). In addition, only 0.4 -- 1.0
 \si{\percent} of OTUs from each surface associated community were
 present at all seasons. These persistent OTUs constituted a high
-proportion of total sequences (41.4 -- 52.4 \si{\percent}). To further
+proportion of total sequences (37.8 -- 53.6 \si{\percent}). To further
 disentangle the environmental and seasonal community dissimilarity a
 Principal Coordinates Analysis (PCoA) based on Bray-Curtis distances and
 OTU abundances was applied. A clear separation between ambient seawater
@@ -353,7 +353,7 @@ separation between spring, summer and autumn/winter samples (ANOSIM, R =
 0.54, \emph{p} \textless{} 0.01). For \emph{C. cylindracea} associated
 communities a separation between summer and autumn/winter/spring samples
 was observed that was, however, not as strong as for \emph{C. nodosa}
-associated communities (ANOSIM, R = 0.30, \emph{p} \textless{} 0.01)
+associated communities (ANOSIM, R = 0.31, \emph{p} \textless{} 0.01)
 (\autoref{pcoa}).
 
 The taxonomic composition of both, macrophyte associated and ambient
@@ -588,7 +588,7 @@ low taxonomic ranks a community specific to host species was identified
 Seasonal changes in richness in the epiphytic community were substantial
 as indicated by the proportion of OTUs (\(\leq\) 1.0 \si{\percent})
 present at every sampling date. These persistent OTUs, however, were
-accounting for a high proportion of sequences (\(\leq\) 52.4
+accounting for a high proportion of sequences (\(\leq\) 53.6
 \si{\percent}) (\autoref{shared}). A very similar proportion of
 persistent OTUs was reported in high-frequency sampling studies
 describing seasonal changes in picoplankton (Gilbert \emph{et al.},
@@ -723,8 +723,8 @@ sections of 1 -- 2 \si{\cm}, while \emph{C. cylindracea} thalli were cut
 into 5 -- 8 \si{\cm} long sections. Leaves and thalli were washed three
 times with sterile artificial seawater (ASW) to remove loosely attached
 microbial cells. Ambient seawater was collected in 10 \si{\l} containers
-by diving and transported to the laboratory where the whole container
-volume was filtered through a 20 \si{\um} net. The filtrate was further
+by diving and transported to the laboratory where 10 -- 20 \si{\l} were
+filtered through a 20 \si{\um} net. The filtrate was further
 sequentially filtered through 3 \si{\um} and 0.2 \si{\um} polycarbonate
 membrane filters (Whatman, United Kingdom) using a peristaltic pump.
 Filters were briefly dried at room temperature and stored at \num{-80}
@@ -814,10 +814,12 @@ curation.
 \subsection{Acknowledgments}\label{acknowledgments}}
 
 This work was founded by the Croatian Science Foundation through the
-MICRO-SEAGRASS project (IP-2016-06-7118). We would like to thank
-Margareta Buterer for technical support, Paolo Paliaga for help during
-sampling and the University Computing Center of the University of Zagreb
-for access to the computer cluster Isabella.
+MICRO-SEAGRASS project (project number IP-2016-06-7118). ZZ and GJH were
+supported by the Austrian Science Fund (FWF) project ARTEMIS (project
+number P28781-B21). We would like to thank Margareta Buterer for
+technical support, Paolo Paliaga for help during sampling and the
+University Computing Center of the University of Zagreb for access to
+the computer cluster Isabella.
 
 \newpage
 
@@ -954,7 +956,7 @@ Jørgensen, B.B. and Gallardo, V.A. (1999) \emph{Thioploca} spp.:
 filamentous sulfur bacteria with nitrate vacuoles. \emph{FEMS Microbiol
 Ecol} \textbf{28}: 301--313.
 
-\leavevmode\hypertarget{ref-Korlevica}{}%
+\leavevmode\hypertarget{ref-Korlevic}{}%
 Korlević, M., Markovski, M., Zhao, Z., Herndl, G.J., and Najdek, M.
 Selective DNA and protein isolation from marine macrophyte surfaces.
 
@@ -1266,7 +1268,7 @@ syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant (> 1 \si{\percent}) bacterial and archaeal sequences on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. NR -- No Relative (sequences without known relatives within the corresponding group)\label{community}}\label{fig:unnamed-chunk-4}
+\caption{Taxonomic classification and relative contribution of the most abundant ($\geq$ 1 \si{\percent}) bacterial and archaeal sequences on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. NR -- No Relative (sequences without known relatives within the corresponding group)\label{community}}\label{fig:unnamed-chunk-4}
 \end{figure}
 
 \begin{figure}[H]
@@ -1275,7 +1277,7 @@ syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant (> 1 \si{\percent}) cyanobacterial sequences on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of cyanobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\label{cyano}}\label{fig:unnamed-chunk-5}
+\caption{Taxonomic classification and relative contribution of the most abundant ($\geq$ 1 \si{\percent}) cyanobacterial sequences on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of cyanobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\label{cyano}}\label{fig:unnamed-chunk-5}
 \end{figure}
 
 \begin{figure}[H]
@@ -1284,7 +1286,7 @@ syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant (> 2 \si{\percent}) sequences within the \textit{Bacteroidota} on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of sequences classified as \textit{Bacteroidota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\label{bactero}}\label{fig:unnamed-chunk-6}
+\caption{Taxonomic classification and relative contribution of the most abundant ($\geq$ 2 \si{\percent}) sequences within the \textit{Bacteroidota} on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of sequences classified as \textit{Bacteroidota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\label{bactero}}\label{fig:unnamed-chunk-6}
 \end{figure}
 
 \begin{figure}[H]
@@ -1293,7 +1295,7 @@ syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant (> 2 \si{\percent}) alphaproteobacterial sequences on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of alphaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\label{alpha}}\label{fig:unnamed-chunk-7}
+\caption{Taxonomic classification and relative contribution of the most abundant ($\geq$ 2 \si{\percent}) alphaproteobacterial sequences on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of alphaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\label{alpha}}\label{fig:unnamed-chunk-7}
 \end{figure}
 
 \begin{figure}[H]
@@ -1302,7 +1304,7 @@ syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant (> 2 \si{\percent}) gammaproteobacterial sequences on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of gammaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\label{gamma}}\label{fig:unnamed-chunk-8}
+\caption{Taxonomic classification and relative contribution of the most abundant ($\geq$ 1 \si{\percent}) gammaproteobacterial sequences on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of gammaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\label{gamma}}\label{fig:unnamed-chunk-8}
 \end{figure}
 
 \begin{figure}[H]
@@ -1311,7 +1313,7 @@ syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant (> 1 \si{\percent}) sequences within the \textit{Desulfobacterota} on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of sequences classified as \textit{Desulfobacterota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\label{desulfo}}\label{fig:unnamed-chunk-9}
+\caption{Taxonomic classification and relative contribution of the most abundant ($\geq$ 1 \si{\percent}) sequences within the \textit{Desulfobacterota} on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of sequences classified as \textit{Desulfobacterota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\label{desulfo}}\label{fig:unnamed-chunk-9}
 \end{figure}
 
 

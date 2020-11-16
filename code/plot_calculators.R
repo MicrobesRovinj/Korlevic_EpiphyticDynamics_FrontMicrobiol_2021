@@ -58,7 +58,7 @@ estimators_indices_metadata <- inner_join(metadata, estimators_indices, by=c("ID
 theme <- theme(text=element_text(family="Times"), line=element_line(color="black"),
                panel.border=element_rect(fill=NA), panel.background=element_blank(),
                panel.grid=element_blank(), axis.line=element_blank(),
-               axis.text=element_text(size=12, color="black"), axis.text.x=element_text(angle=90, hjust=0.95, vjust=0.5),
+               axis.text=element_text(size=12, color="black"), axis.text.x=element_text(angle=90, hjust=0.95, vjust=1.75),
                axis.title=element_text(size=14, color="black"),
                plot.margin=unit(c(5.5, 5.5, 5.5, 5.5), "pt"), legend.position="none",
                plot.title=element_text(size=16, hjust=0.5))
@@ -89,6 +89,12 @@ p1 <- filter(estimators_indices_metadata, station=="F") %>%
   scale_shape_manual(values=shapes_p1) +
   scale_fill_manual(values=fills_p1) +
   scale_y_continuous(limits=c(300, 3000)) +
+  scale_x_date(breaks=seq(as.Date("2017-07-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Jul 2017", "Aug 2017", "Sep 2017", "Oct 2017", "Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-07-01", "2018-11-01")),
+               expand=c(0, 0)) +
   labs(x="", y="") +
   ggtitle(parse(text="bold('Seawater')")) +
   theme +
@@ -104,9 +110,15 @@ p2 <- filter(estimators_indices_metadata, station=="F") %>%
   scale_shape_manual(values=shapes_p2) +
   scale_fill_manual(values=fills_p2) +
   scale_y_continuous(limits=c(0, 150)) +
-  scale_x_date(date_break ="months" , date_labels="%b %Y") +
+  scale_x_date(breaks=seq(as.Date("2017-07-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Jul 2017", "Aug 2017", "Sep 2017", "Oct 2017", "Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-07-01", "2018-11-01")),
+               expand=c(0, 0)) +
   labs(x="", y="") +
-  theme
+  theme +
+  theme(axis.text.x=element_text(angle=90, hjust=0.95, vjust=1.5))
 
 f <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1,0.75), align="v") +
   cowplot_theme
@@ -123,6 +135,12 @@ p1 <- filter(estimators_indices_metadata, station=="FCyM") %>%
   scale_shape_manual(values=shapes_p1) +
   scale_fill_manual(values=fills_p1) +
   scale_y_continuous(limits=c(300, 2500)) +
+  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-11-01", "2018-11-01")),
+               expand=c(0, 0)) +
   labs(x="", y="") +
   ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Mixed)')")) +
   theme +
@@ -138,7 +156,12 @@ p2 <- filter(estimators_indices_metadata, station=="FCyM") %>%
   scale_shape_manual(values=shapes_p2) +
   scale_fill_manual(values=fills_p2) +
   scale_y_continuous(limits=c(0, 450)) +
-  scale_x_date(date_break="months" , date_labels="%b %Y") +
+  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-11-01", "2018-11-01")),
+               expand=c(0, 0)) +
   labs(x="", y="") +
   theme
 
@@ -156,6 +179,12 @@ p1 <- filter(estimators_indices_metadata, station=="FCaM") %>%
   scale_shape_manual(values=shapes_p1) +
   scale_fill_manual(values=fills_p1) +
   scale_y_continuous(limits=c(1300, 4300)) +
+  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-11-01", "2018-11-01")),
+               expand=c(0, 0)) +
   labs(x="", y="") +
   ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Mixed)')")) +
   theme +
@@ -171,7 +200,12 @@ p2 <- filter(estimators_indices_metadata, station=="FCaM") %>%
   scale_shape_manual(values=shapes_p2) +
   scale_fill_manual(values=fills_p2) +
   scale_y_continuous(limits=c(0, 700)) +
-  scale_x_date(date_break ="months" , date_labels="%b %Y") +
+  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-11-01", "2018-11-01")),
+               expand=c(0, 0)) +
   labs(x="Date", y="") +
   theme
 
@@ -190,6 +224,12 @@ p1 <- filter(estimators_indices_metadata, station=="FCa") %>%
   scale_shape_manual(values=shapes_p1) +
   scale_fill_manual(values=fills_p1) +
   scale_y_continuous(limits=c(1300, 4300)) +
+  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-11-01", "2018-11-01")),
+               expand=c(0, 0)) +
   labs(x="", y="") +
   ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Monospecific)')")) +
   theme +
@@ -205,7 +245,12 @@ p2 <- filter(estimators_indices_metadata, station=="FCa") %>%
   scale_shape_manual(values=shapes_p2) +
   scale_fill_manual(values=fills_p2) +
   scale_y_continuous(limits=c(0, 700)) +
-  scale_x_date(date_break ="months" , date_labels="%b %Y") +
+  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-11-01", "2018-11-01")),
+               expand=c(0, 0)) +
   labs(x="Date", y="") +
   theme
 

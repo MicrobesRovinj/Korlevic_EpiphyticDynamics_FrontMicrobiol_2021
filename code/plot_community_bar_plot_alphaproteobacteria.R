@@ -76,10 +76,10 @@ names <- parse(text=case_when(str_detect(plot$taxon, "uncultured") ~ paste0("pla
                               plot$taxon=="Stappiaceae_ge" ~ "italic('Stappiaceae')",
                               plot$taxon=="HIMB11" ~ "plain('HIMB11')",
                               plot$taxon=="AEGEAN-169_marine_group_ge" ~ "plain('AEGEAN-169 Marine Group')",
-                              plot$taxon=="Clade_Ia" ~ "plain('Clade Ia')",
-                              plot$taxon=="Clade_Ib" ~ "plain('Clade Ib')",
-                              plot$taxon=="Clade_II_ge" ~ "plain('Clade II')",
-                              plot$taxon=="Clade_III_ge" ~ "plain('Clade III')",
+                              plot$taxon=="Clade_Ia" ~ "plain('Subclade Ia')",
+                              plot$taxon=="Clade_Ib" ~ "plain('Subclade Ib')",
+                              plot$taxon=="Clade_II_ge" ~ "plain('Subclade II')",
+                              plot$taxon=="Clade_III_ge" ~ "plain('Subclade III')",
                               plot$taxon=="Other_Alphaproteobacteria" ~ "plain('Other')~italic('Alphaproteobacteria')",
                               TRUE ~ paste0("italic('", plot$taxon, "')")))
 
@@ -207,6 +207,6 @@ p <- cowplot::ggdraw() +
   cowplot::draw_plot(fcam, x=0.317, y=0.317, width=0.683, height=0.228) +
   cowplot::draw_plot(fca, x=0.317, y=0, width=0.683, height=0.317) +
   cowplot::draw_plot(legend, x=0.120, y=0.280, width=0.100, height=0.200) +
-  cowplot::draw_line(x=c(0.135, 0.135), y=c(0.285, 0.344), size=0.5) +
-  cowplot::draw_label("SAR11 Clade", x=0.145, y=0.314, hjust=0,  fontfamily="Times", size=12)
+  cowplot::draw_line(x=c(0.160, 0.160), y=c(0.284, 0.344), size=0.5) +
+  cowplot::draw_label("SAR11 Clade", x=0.170, y=0.314, hjust=0,  fontfamily="Times", size=12)
 ggsave("results/figures/alphaproteobacteria_bar_plot.jpg", p, width=210, height=297, units="mm")

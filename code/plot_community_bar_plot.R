@@ -87,7 +87,7 @@ theme <- theme(text=element_text(family="Times"), line=element_line(color="black
                axis.ticks.x=element_line(), axis.ticks.y.left=element_line(),
                axis.text.y=element_text(size=12, color="black"),
                axis.text.x=element_blank(), axis.title.y=element_text(size=14, color="black", vjust=-0.75),
-               panel.background=element_blank(), plot.margin=unit(c(5.5, 5.5, 5.5, -11), "pt"), legend.position="none",
+               panel.background=element_blank(), plot.margin=unit(c(44, 5.5, 5.5, -11), "pt"), legend.position="none",
                plot.title=element_text(size=16, hjust=0.13))
 
 # Plots generation
@@ -97,13 +97,17 @@ f <- filter(plot, station=="F") %>%
   scale_fill_manual(values=color, labels=names) + 
   labs(x=NULL, y="%") +
   ggtitle(parse(text="bold('Seawater')")) +
-  scale_x_date(date_break="months" , date_labels="%b %Y", limits=as.Date(c("2017-07-01", "2018-10-15")),
+  scale_x_date(breaks=seq(as.Date("2017-07-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Jul 2017", "Aug 2017", "Sep 2017", "Oct 2017", "Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-07-01", "2018-11-01")),
                expand=c(0, 0)) +
   scale_y_continuous(expand=c(0, 0), breaks=seq(0, 100, by=10)) +
   theme +
   theme(axis.text.x=element_text(size=12, color="black", angle=90,
-                                 hjust=1, vjust=0.5, margin=margin(t=5.5, unit="pt")),
-        axis.title.x=element_text(size=14, color="black"), plot.margin=unit(c(5.5, 5.5, 5.5, 5.5), "pt"),
+                                 hjust=1, vjust=2.5, margin=margin(t=5.5, unit="pt")),
+        axis.title.x=element_text(size=14, color="black"), plot.margin=unit(c(44, 5.5, 5.5, 5.5), "pt"),
         plot.title=element_text(size=16, hjust=0.5))
 
 fcym <- filter(plot, station=="FCyM") %>%
@@ -112,7 +116,11 @@ fcym <- filter(plot, station=="FCyM") %>%
   scale_fill_manual(values=color, labels=names) + 
   labs(x=NULL, y="%") +
   ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Mixed)')")) +
-  scale_x_date(date_break="months" , date_labels="%b %Y", limits=as.Date(c("2017-11-01", "2018-10-15")),
+  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-11-01", "2018-11-01")),
                expand=c(0, 0)) +
   scale_y_continuous(expand=c(0, 0), breaks=seq(0, 100, by=10)) +
   theme
@@ -123,7 +131,11 @@ fcam <- filter(plot, station=="FCaM") %>%
   scale_fill_manual(values=color, labels=names) + 
   labs(x=NULL, y="%") +
   ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Mixed)')")) +
-  scale_x_date(date_break="months" , date_labels="%b %Y", limits=as.Date(c("2017-11-01", "2018-10-15")),
+  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-11-01", "2018-11-01")),
                expand=c(0, 0)) +
   scale_y_continuous(expand=c(0, 0), breaks=seq(0, 100, by=10)) +
   theme
@@ -134,11 +146,15 @@ fca <- filter(plot, station=="FCa") %>%
   scale_fill_manual(values=color, labels=names) + 
   labs(x="Date", y="%") +
   ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Monospecific)')")) +
-  scale_x_date(date_break="months" , date_labels="%b %Y", limits=as.Date(c("2017-11-01", "2018-10-15")),
+  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-11-01", "2018-11-01")),
                expand=c(0, 0)) +
   scale_y_continuous(expand=c(0, 0), breaks=seq(0, 100, by=10)) +
   theme +
-  theme(axis.text.x=element_text(size=12, color="black", angle=90, hjust=1, vjust=0.5,
+  theme(axis.text.x=element_text(size=12, color="black", angle=90, hjust=1, vjust=2.5,
                                  margin=margin(t=5.5, unit="pt")),
         axis.title.x=element_text(size=14, color="black", margin=margin(t=11, unit="pt")))
 
@@ -147,7 +163,11 @@ p1 <- ggplot(plot) +
   geom_bar(aes(x=date, y=abundance, fill=taxon), stat="identity", colour="black", size=0.3, width=8) +
   scale_fill_manual(values=color, labels=names) + 
   labs(x=NULL, y="%") +
-  scale_x_date(date_break="months" , date_labels="%b %Y", limits=as.Date(c("2017-07-01", "2018-10-15")),
+  scale_x_date(breaks=seq(as.Date("2017-07-01"), as.Date("2018-11-01"), "months"),
+               labels=c("Jul 2017", "Aug 2017", "Sep 2017", "Oct 2017", "Nov 2017", "Dec 2017",
+                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
+                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
+               limits=as.Date(c("2017-07-01", "2018-11-01")),
                expand=c(0, 0)) +
   scale_y_continuous(expand=c(0, 0), breaks=seq(0, 100, by=10)) +
   theme +
@@ -161,8 +181,9 @@ legend <- cowplot::get_legend(p1)
 # Combining plots together and saving
 p <- cowplot::ggdraw() +
   cowplot::draw_plot(f, x=0, y=0.708, width=1, height=0.288) +
-  cowplot::draw_plot(fcym, x=0.267, y=0.545, width=0.733, height=0.228) +
-  cowplot::draw_plot(fcam, x=0.267, y=0.317, width=0.733, height=0.228) +
-  cowplot::draw_plot(fca, x=0.267, y=0, width=0.733, height=0.317) +
-  cowplot::draw_plot(legend, x=0.1, y=0.28, width=0.1, height=0.2)
+  cowplot::draw_plot(fcym, x=0.259, y=0.545, width=0.739, height=0.228) +
+  cowplot::draw_plot(fcam, x=0.259, y=0.317, width=0.739, height=0.228) +
+  cowplot::draw_plot(fca, x=0.259, y=0, width=0.739, height=0.317) +
+  cowplot::draw_plot(legend, x=0.1, y=0.28, width=0.1, height=0.2) +
+  cowplot::draw_label("Oct 2017", x=0.276, y=0.720, hjust=0, fontfamily="Times", size=12, angle=90)
 ggsave("results/figures/community_bar_plot.jpg", p, width=210, height=297, units="mm")

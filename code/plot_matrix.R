@@ -38,13 +38,19 @@ rarefied_metadata <- rarefied_metadata %>%
   select(-station)
 
 # Calculating matrices of similarity indices
-jaccard <- vegdist(rarefied_metadata, method="jaccard", binary=T)
-jaccard <- as_tibble(data.frame(t(combn(rownames(rarefied_metadata), 2)), as.numeric(jaccard)),
-                     .name_repair= ~c("V1", "V2", "jaccard"))
+jaccard <- as.matrix(vegdist(rarefied_metadata, method="jaccard", binary=T))
+jaccard[lower.tri(jaccard, diag=TRUE)] <- NA
+jaccard <- as_tibble(jaccard) %>%
+  add_column("V1"=rownames(jaccard), .before=TRUE) %>%
+  gather(key="V2", value="jaccard", 2:ncol(.)) %>%
+  filter(!is.na(jaccard))
 
-bray <- vegdist(rarefied_metadata, method="bray", binary=F)
-bray <- as_tibble(data.frame(t(combn(rownames(rarefied_metadata), 2)), as.numeric(bray)),
-                  .name_repair= ~c("V1", "V2", "bray"))
+bray <- as.matrix(vegdist(rarefied_metadata, method="bray", binary=F))
+bray[lower.tri(bray, diag=TRUE)] <- NA
+bray <- as_tibble(bray) %>%
+  add_column("V1"=rownames(bray), .before=TRUE) %>%
+  gather(key="V2", value="bray", 2:ncol(.)) %>%
+  filter(!is.na(bray))
 
 similarity <- inner_join(jaccard, bray, by=c("V1"="V1", "V2"="V2")) %>%
   mutate(jaccard=1-jaccard) %>%
