@@ -91,8 +91,8 @@ Macrophyte Surfaces}}
 \doublespacing
 \setlength{\parskip}{1em}
 
-%\usepackage{lineno}
-%\renewcommand{\linenumberfont}{\normalfont\tiny}
+\usepackage{lineno}
+\renewcommand{\linenumberfont}{\normalfont\tiny}
 
 \usepackage{pdfpages}
 
@@ -125,6 +125,8 @@ Macrophyte Surfaces}}
 \renewcommand{\figureautorefname}{Fig.}
 
 \usepackage{microtype}
+
+\usepackage{setspace}
 
 \begin{document}
 \maketitle
@@ -160,39 +162,36 @@ e-mail:
 Running title: Seasonal dynamics of epiphytic communities
 
 \newpage
-
+\linenumbers
 \sisetup{mode=text}
 \setlength\parindent{24pt}
+\doublespacing
 
 \hypertarget{summary}{%
 \subsection{Summary}\label{summary}}
 
-Surfaces of marine macrophytes (seagrasses and macroalgae) are inhabited
-by diverse microbial communities. Most studies focusing on epiphytic
-communities of macrophytes did not take into account temporal changes or
-applied low sampling frequency approaches. Illumina sequencing of the V4
-16S rRNA region was performed to determine the seasonal dynamics of
-epiphytic communities of the seagrass \emph{Cymodocea nodosa} and
-invasive macroalga \emph{Caulerpa cylindracea}. Leaves and thalli were
-sampled in a meadow of \emph{Cymodocea nodosa} invaded by the invasive
-\emph{Caulerpa cylindracea} and in a monospecific settlement of
-\emph{Caulerpa cylindracea} located in the proximity of the meadow at
-monthly intervals. For comparison the ambient prokaryotic plankton
-community was also characterized. At the OTU level, the microbial
-community composition differed between the ambient water and the
-epiphytic communities exhibiting host-specificity. Also, successional
-changes were observed connected to the macrophyte growth cycle.
-Taxonomic analysis, however, showed similar high rank groups in the
-ambient water and the epiphytic communities, with the exception of
-\emph{Desulfobacterota}, which were only found on \emph{Caulerpa
-cylindracea}. \emph{Cyanobacteria} showed seasonal changes while other
-high rank taxa were present throughout the year. Phylogenetic groups
-present throughout the year constituted most of the sequences, while
-less abundant taxa showed seasonal patterns connected to the macrophyte
-growth cycle. Taken together, epiphytic microbial communities of the
-seagrass \emph{Cymodocea nodosa} and the macroalgae \emph{Caulerpa
-cylindracea} appear to be host-specific and contain taxa that undergo
-successional changes.
+Surfaces of marine macrophytes are inhabited by diverse microbial
+communities. Most studies focusing on epiphytic communities of
+macrophytes did not take into account temporal changes or applied low
+sampling frequency approaches. The seasonal dynamics of epiphytic
+microbial communities was determined in a meadow of \emph{Cymodocea
+nodosa} invaded by \emph{Caulerpa cylindracea} and in a monospecific
+settlement of \emph{Caulerpa cylindracea} at monthly intervals. For
+comparison the ambient prokaryotic picoplankton community was also
+characterized. At the OTU level, the microbial community composition
+differed between the ambient water and the epiphytic communities
+exhibiting host-specificity. Also, successional changes were observed
+connected to the macrophyte growth cycle. Taxonomic analysis, however,
+showed similar high rank groups in the ambient water and the epiphytic
+communities, with the exception of \emph{Desulfobacterota}, which were
+only found on \emph{Caulerpa cylindracea}. \emph{Cyanobacteria} showed
+seasonal changes while other high rank taxa were present throughout the
+year. Phylogenetic groups present throughout the year constituted most
+of the sequences, while less abundant taxa showed seasonal patterns
+connected to the macrophyte growth cycle. Taken together, epiphytic
+microbial communities of the seagrass \emph{Cymodocea nodosa} and the
+macroalga \emph{Caulerpa cylindracea} appear to be host-specific and
+contain taxa that undergo successional changes.
 
 \newpage
 
@@ -200,8 +199,8 @@ successional changes.
 \subsection{Introduction}\label{introduction}}
 
 Marine macrophytes (seagrasses and macroalgae) are important ecosystem
-engineers forming close associations with microorganism belonging to all
-three domains of life (Egan \emph{et al.}, 2013; Tarquinio \emph{et
+engineers forming close associations with microorganisms belonging to
+all three domains of life (Egan \emph{et al.}, 2013; Tarquinio \emph{et
 al.}, 2019). Microbes can live within macrophyte tissue as endophytes or
 can form epiphytic communities on surfaces of leaves and thalli (Egan
 \emph{et al.}, 2013; Hollants \emph{et al.}, 2013; Tarquinio \emph{et
@@ -266,7 +265,7 @@ communities did not include possible seasonal changes (Crump and Koch,
 2008; Lachnit \emph{et al.}, 2009; Burke and Thomas \emph{et al.}, 2011;
 Roth-Schulze \emph{et al.}, 2016; Ugarelli \emph{et al.}, 2019). If
 seasonal changes were taken into account, low temporal frequency,
-applied methodologies and/or limited number of analyzed host species did
+applied methodologies and/or limited number of analysed host species did
 not allow a high taxonomic resolution (Tujula \emph{et al.}, 2010;
 Lachnit \emph{et al.}, 2011; Miranda \emph{et al.}, 2013; Michelou
 \emph{et al.}, 2013; Mancuso \emph{et al.}, 2016). In the present study
@@ -290,7 +289,7 @@ known relatives (no relative sequences) and eukaryotic, chloroplast and
 mitochondrial sequences (\autoref{supp-nseq_notus}). A total of 35
 samples originating from epiphytic archaeal and bacterial communities
 associated with surfaces of the seagrass \emph{C. nodosa} and the
-macroalga \emph{C. cylindracea} were analyzed. In addition, 18 samples
+macroalga \emph{C. cylindracea} were analysed. In addition, 18 samples
 (one of the samples was sequenced twice) originating from the ambient
 seawater were also processed for comparison. The number of reads per
 sample ranged between 8,408 and 77,463 sequences
@@ -301,18 +300,18 @@ high-throughput 16S rRNA amplicon sequencing approaches
 of sequences as mentioned above reads were clustered into 28,750
 different OTUs at a similarity level of 97 \si{\percent}. Read numbers
 were normalized to the minimum number of sequences (8,408,
-\autoref{supp-nseq_notus}) through rarefaction resulting in 17,082
-different OTUs with 379 to 2,017 OTUs per sample
+\autoref{supp-nseq_notus}) through rarefaction resulting in 17,142
+different OTUs with 365 to 2,038 OTUs per sample
 (\autoref{supp-calculators}). To determine seasonal changes in richness
 and diversity the observed number of OTUs, Chao1, ACE, Exponential
 Shannon and Inverse Simpson (Jost, 2006) were calculated after
 normalization through rarefaction. Generally, richness estimators and
 diversity indices showed similar trends. On average, higher values were
-found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,698.7 ±
-139.6 OTUs{]} and monospecific {[}Number of OTUs, 1,735.2 ± 160.1
-OTUs{]}) than for \emph{C. nodosa} (Number of OTUs, 1,052.8 ± 216.1
-OTUs) and lowest values were obtained for the microbial community of the
-ambient seawater (Number of OTUs, 528.8 ± 145.4 OTUs)
+found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,694.5 ±
+135.8 OTUs{]} and monospecific {[}Number of OTUs, 1,729 ± 159.6 OTUs{]})
+than for \emph{C. nodosa} (Number of OTUs, 1,061.9 ± 209.5 OTUs) and
+lowest values were obtained for the microbial community of the ambient
+seawater (Number of OTUs, 527.8 ± 146.1 OTUs)
 (\autoref{supp-calculators}). Seasonal changes did not reveal such large
 dissimilarities. \emph{C. nodosa} communities showed a slow increase
 towards the end of the study, while \emph{C. cylindracea} (mixed and
@@ -340,7 +339,7 @@ seawater than for \emph{C. nodosa} and especially \emph{C. cylindracea}
 associated communities (\autoref{shared}). In addition, only 0.4 -- 1.0
 \si{\percent} of OTUs from each surface associated community were
 present at all seasons. These persistent OTUs constituted a high
-proportion of total sequences (37.8 -- 53.6 \si{\percent}). To further
+proportion of total sequences (41.8 -- 51.6 \si{\percent}). To further
 disentangle the environmental and seasonal community dissimilarity a
 Principal Coordinates Analysis (PCoA) based on Bray-Curtis distances and
 OTU abundances was applied. A clear separation between ambient seawater
@@ -350,10 +349,10 @@ based on host species was detected. This separation was further
 supported by ANOSIM (R = 0.96, \emph{p} \textless{} 0.001). Seasonal
 changes of \emph{C. nodosa} associated communities indicated a
 separation between spring, summer and autumn/winter samples (ANOSIM, R =
-0.54, \emph{p} \textless{} 0.01). For \emph{C. cylindracea} associated
+0.53, \emph{p} \textless{} 0.001). For \emph{C. cylindracea} associated
 communities a separation between summer and autumn/winter/spring samples
 was observed that was, however, not as strong as for \emph{C. nodosa}
-associated communities (ANOSIM, R = 0.31, \emph{p} \textless{} 0.01)
+associated communities (ANOSIM, R = 0.31, \emph{p} \textless{} 0.05)
 (\autoref{pcoa}).
 
 The taxonomic composition of both, macrophyte associated and ambient
@@ -536,21 +535,21 @@ contrast, Fahimipour \emph{et al.} (2017) report in a global study of
 developed on leaves and in the ambient seawater. The discrepancy between
 our data and the study of Fahimipour \emph{et al.} (2017) could be
 explained by different seagrass species, methodological variations or
-biogeographic trends as Fahimipour \emph{et al.} (2017) analyzed samples
+biogeographic trends as Fahimipour \emph{et al.} (2017) analysed samples
 from different locations throughout the northern hemisphere. It is
 possible that the microbial communities in ambient seawater and on
 leaves from the same location are differing but are still more similar
 to each other when compared to other sampling locations. Indeed, it was
 found that prokaryotic communities vary substantially between different
 sampling sites (Bengtsson \emph{et al.}, 2017). When the taxonomic
-composition at high ranks was analyzed no such strong differentiation
+composition at high ranks was analysed no such strong differentiation
 was noticed. Phyla and classes such as \emph{Actinobacteriota},
 \emph{Bacteroidota}, \emph{Cyanobacteria}, \emph{Alphaproteobacteria},
 \emph{Gammaproteobacteria} and \emph{Verrucomicrobiota} were found in
 both ambient seawater as well as macrophyte associated, in agreement
 with previous studies (Burke and Thomas \emph{et al.}, 2011; Egan
 \emph{et al.}, 2013; Michelou \emph{et al.}, 2013). In contrast, when
-low taxonomic ranks were analyzed (i.e., family and genus) a strong
+low taxonomic ranks were analysed (i.e., family and genus) a strong
 differentiation was observed (Figs. \ref{cyano} -- \ref{desulfo}). A
 similar differentiation at lower microbial taxonomic ranks between
 ambient seawater and macrophytes was described for other macrophyte
@@ -588,7 +587,7 @@ low taxonomic ranks a community specific to host species was identified
 Seasonal changes in richness in the epiphytic community were substantial
 as indicated by the proportion of OTUs (\(\leq\) 1.0 \si{\percent})
 present at every sampling date. These persistent OTUs, however, were
-accounting for a high proportion of sequences (\(\leq\) 53.6
+accounting for a high proportion of sequences (\(\geq\) 41.8
 \si{\percent}) (\autoref{shared}). A very similar proportion of
 persistent OTUs was reported in high-frequency sampling studies
 describing seasonal changes in picoplankton (Gilbert \emph{et al.},
@@ -629,14 +628,14 @@ Longford \emph{et al.}, 2007; Mobberley \emph{et al.}, 2012; Reisser
 \emph{et al.}, 2014). It is possible that during periods of low
 metabolic activity there is a reduced interaction and selection of the
 epiphytic community by the seagrass, causing leaves to become a suitable
-surface for nonspecific colonizers (Zavodnik \emph{et al.}, 1998).
+surface for non-specific colonizers (Zavodnik \emph{et al.}, 1998).
 \emph{Pleurocapsa} was replaced in spring and summer by
 \emph{Acrophormium}, \emph{Phormidesmis} and sequences without known
 relatives within the \emph{Nodosilineaceae}. A study of coastal
 microbial mats found also a higher proportion of \emph{Nodosilineaceae}
 sequences in summer, while \emph{Phormidesmis} sequences were at their
 peak in autumn (Cardoso \emph{et al.}, 2019). Other high rank taxa did
-not exhibit strong successional patterns. In every analyzed group, with
+not exhibit strong successional patterns. In every analysed group, with
 the exception of \emph{Desulfobacterota}, taxa present throughout the
 year in similar proportions and season specific taxa could be identified
 (Figs. \ref{bactero} and \ref{desulfo}). Within \emph{Bacteroidota}
@@ -676,13 +675,13 @@ this phylum showed seasonal patterns (\autoref{desulfo}). The presence
 of this phylum only on \emph{C. cylindracea} is to be expected as part
 of the epiphytic community is in direct contact with the sediment. The
 \emph{Desulfobacterota} community was dominated by \emph{Desulfatitalea}
-and no relative \emph{Desulfocapsaceae}, known sulfate sediment groups
+and no relative \emph{Desulfocapsaceae}, known sulphate sediment groups
 (Kuever, 2014; Higashioka \emph{et al.}, 2015).
 
 In temperate zones, marine macrophytes are exhibiting growth cycles, so
 it is not surprising that the associated epiphytic microbial community
 is undergoing partial seasonal changes. In the present study, we could
-identify in every analyzed high rank taxa phylogenetic groups present
+identify in every analysed high rank taxa phylogenetic groups present
 throughout the year, comprising most of the sequences and a lower
 proportion of taxa showing seasonal patterns connected to the macrophyte
 growth cycle (Figs. \ref{community} and \ref{desulfo}). Studies focusing
@@ -761,13 +760,14 @@ sequencing}\label{illumina-16s-rrna-sequencing}}
 Illumina MiSeq sequencing of the V4 region of the 16S rRNA gene was
 performed as described previously (Korlević \emph{et al.}, submitted).
 The V4 region of the 16S rRNA gene was amplified using a two-step PCR
-procedure. In the first PCR, the 515F (5'-GTGYCAGCMGCCGCGGTAA-3') and
-806R (5'-GGACTACNVGGGTWTCTAAT-3') primers from the Earth Microbiome
+procedure. In the first PCR, the 515F
+(\(5'\)-GTGYCAGCMGCCGCGGTAA-\(3'\)) and 806R
+(\(5'\)-GGACTACNVGGGTWTCTAAT-\(3'\)) primers from the Earth Microbiome
 Project
 (\url{http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/16s/})
 were used (Caporaso \emph{et al.}, 2012; Apprill \emph{et al.}, 2015;
-Parada \emph{et al.}, 2016). These primers contained on their 5' end a
-tagged sequence. Purified PCR products were sent for Illumina MiSeq
+Parada \emph{et al.}, 2016). These primers contained on their \(5'\) end
+a tagged sequence. Purified PCR products were sent for Illumina MiSeq
 sequencing at IMGM Laboratories, Martinsried, Germany. Prior to
 sequencing at IMGM, the second PCR amplification of the two-step PCR
 procedure was performed using primers targeting the tagged region
@@ -784,7 +784,7 @@ PRJEB37267.
 \hypertarget{sequence-analysis}{%
 \subsubsection{Sequence analysis}\label{sequence-analysis}}
 
-Obtained sequences were analyzed on the computer cluster Isabella
+Obtained sequences were analysed on the computer cluster Isabella
 (University Computing Center, University of Zagreb) using mothur
 (version 1.43.0) (Schloss \emph{et al.}, 2009) according to the MiSeq
 Standard Operating Procedure (MiSeq SOP;
