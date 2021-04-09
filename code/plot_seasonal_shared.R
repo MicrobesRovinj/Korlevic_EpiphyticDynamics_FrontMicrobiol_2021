@@ -2,38 +2,29 @@
 # code/plot_seasonal_shared.R
 # 
 # A script to plot the Bray-Curtis and Jaccard's Similarity Coefficients of subsequent sampling dates.
-# Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared
+# Dependencies: results/numerical/rarefied.Rdata
 #               data/raw/metadata.csv
 # Produces: results/figures/temporal_shared.jpg
 #
 #################################################################################################################
 
-# Loading OTU/sample data
-shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared")
-
-# Generation of random rarefied community data
-rarefied <- shared %>%
-  select(-label, -Group, -numOtus) %>%
-  rrarefy(., min(rowSums(.))) %>%
-  as_tibble(.name_repair="unique") %>%
-  add_column("Group"=shared$Group, .before=TRUE) %>%
-  select_if(list(~ !is.numeric(.) || sum(.)!=0))
+# Loading rarefied community data created during the generation of the richness and diversity calculators plot
+load(file="results/numerical/rarefied.Rdata")
 
 # Copying the sample labels to the rows (input for library vegan)
-row.names(rarefied) <- rarefied$Group
-
-# Removing column containing sample labels
 rarefied <- rarefied %>%
-  select(-Group)
+  column_to_rownames("Group")
 
 # Calculating dissimilarity indices
-jaccard <- vegdist(rarefied, method="jaccard", binary=T)
-jaccard <- as_tibble(data.frame(t(combn(rownames(rarefied), 2)), as.numeric(jaccard)),
-                     .name_repair= ~c("V1", "V2", "jaccard"))
+jaccard <- as.matrix(vegdist(rarefied, method="jaccard", binary=T))
+jaccard <- as_tibble(jaccard) %>%
+  add_column("V1"=rownames(jaccard), .before=TRUE) %>%
+  gather(key="V2", value="jaccard", 2:ncol(.))
 
-bray <- vegdist(rarefied, method="bray", binary=F)
-bray <- as_tibble(data.frame(t(combn(rownames(rarefied), 2)), as.numeric(bray)),
-                  .name_repair= ~c("V1", "V2", "bray"))
+bray <- as.matrix(vegdist(rarefied, method="bray", binary=F))
+bray <- as_tibble(bray) %>%
+  add_column("V1"=rownames(bray), .before=TRUE) %>%
+  gather(key="V2", value="bray", 2:ncol(.))
 
 distance <- inner_join(jaccard, bray, by=c("V1"="V1", "V2"="V2")) %>%
   mutate_at(c("V1", "V2"), list(~ as.character(.)))
@@ -41,9 +32,9 @@ distance <- inner_join(jaccard, bray, by=c("V1"="V1", "V2"="V2")) %>%
 # Loading metadata 
 metadata <- read_tsv("data/raw/metadata.csv")
 
-# Joining metadata with dissimilarity indices data
+# Joining metadata with dissimilarity index data
 Sys.setlocale(locale="en_GB.utf8")
-distance_metadata <- inner_join(distance, metadata, by=c("V1"="ID")) %>%
+distance_metadata <- inner_join(metadata, distance, by=c("ID"="V1")) %>%
   inner_join(., metadata, by=c("V2"="ID")) %>%
   mutate(date.x=as.Date(date.x, "%d.%m.%Y")) %>%
   mutate(date.y=as.Date(date.y, "%d.%m.%Y")) %>%
@@ -83,7 +74,7 @@ data <- filter(distance_metadata, station.x=="F" & station.y=="F") %>%
          (date.x=="2018-06-19" & date.y=="2018-07-10") |
          (date.x=="2018-07-10" & date.y=="2018-08-09") |
          (date.x=="2018-08-09" & date.y=="2018-09-04") |
-         (date.x=="2018-04-09" & date.y=="2018-10-05"))
+         (date.x=="2018-09-04" & date.y=="2018-10-05"))
 
 p1 <- filter(data, index=="bray") %>%
   ggplot(aes(x=date.y, y=value, linetype=index, shape=index, fill=index)) +
@@ -182,8 +173,7 @@ fcym <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align
 data <- filter(distance_metadata, station.x=="FCaM" & station.y=="FCaM") %>%
   filter((date.x=="2017-11-23" & date.y=="2017-12-04") |
          (date.x=="2017-12-04" & date.y=="2017-12-14") |
-         (date.x=="2017-12-14" & date.y=="2018-02-13") |
-         (date.x=="2018-02-13" & date.y=="2018-03-27") |
+         (date.x=="2017-12-14" & date.y=="2018-03-27") |
          (date.x=="2018-03-27" & date.y=="2018-04-24") |
          (date.x=="2018-04-24" & date.y=="2018-05-22") |
          (date.x=="2018-05-22" & date.y=="2018-06-19") |

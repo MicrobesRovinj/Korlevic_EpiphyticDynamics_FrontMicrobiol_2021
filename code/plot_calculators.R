@@ -11,20 +11,24 @@
 # Loading OTU/sample data
 shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared")
 
-# Generation of random rarefied community data
+# Adding sample labels to row names
+shared <- shared %>%
+  select(-label, -numOtus) %>%
+  column_to_rownames("Group")
+
+# Generating a random rarefied community data
 rarefied <- shared %>%
-  select(-label, -Group, -numOtus) %>%
   rrarefy(., min(rowSums(.))) %>%
-  as_tibble(.name_repair="unique") %>%
-  add_column("Group"=shared$Group, .before=TRUE) %>%
-  select_if(list(~!is.numeric(.) || sum(.)!=0))
+  as_tibble(.name_repair="unique", rownames=NA) %>%
+  rownames_to_column("Group") %>%
+  select(!where(is.numeric) | where(~ is.numeric(.x) && sum(.x)!=0))
+
+# Saving rarefied community data
+save(rarefied, file="results/numerical/rarefied.Rdata")
 
 # Copying the sample labels to the rows (input for library vegan)
-row.names(rarefied) <- rarefied$Group
-
-# Removing column containing sample labels
 rarefied <- rarefied %>%
-  select(-Group)
+  column_to_rownames("Group")
 
 # Calculating Chao1 and ACE species estimators
 estimators <- estimateR(rarefied)

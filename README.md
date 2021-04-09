@@ -7,7 +7,7 @@ This is the repository for the manuscript "Seasonal Dynamics of Epiphytic Microb
 	|- README                       # the top level description of content (this doc)
 	|- LICENSE                      # the license for this project
 	|
-	|- submission/                  # files necessary for manuscript or supplementary information rendering, e.g executable Rmarkdown
+	|- submission/                  # files necessary for manuscript or supplementary information rendering, e.g. executable Rmarkdown
 	| |- manuscript.Rmd             # executable Rmarkdown for the manuscript of this study
 	| |- manuscript.md              # Markdown (GitHub) version of the manuscript.Rmd file
 	| |- manuscript.tex             # TeX version of manuscript.Rmd file
@@ -31,7 +31,8 @@ This is the repository for the manuscript "Seasonal Dynamics of Epiphytic Microb
 	|- code/                        # any programmatic code
 	|
 	|- results                      # all output from workflows and analyses
-	| +- figures/                   # graphs designated for manuscript or supplementary information figures
+	| |- figures/                   # graphs designated for manuscript or supplementary information figures
+	| +- numerical/                 # results of the statistics or other numerical results for manuscript or supplementary information
 	|
 	|-.gitignore                    # gitinore file for this study
 	|-.Rprofile                     # Rprofile file containing information on which R libraries to load,

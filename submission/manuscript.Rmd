@@ -28,9 +28,9 @@ inline_hook <- function(x){
 
 	if(is.numeric(x)){
 		if(abs(x - round(x)) < .Machine$double.eps^0.5){
-			paste(format(x,big.mark=',', digits=0, scientific=FALSE))
+			paste(format(x, big.mark=',', digits=0, scientific=FALSE))
 		} else {
-			paste(format(x,big.mark=',', digits=1, nsmall=1, scientific=FALSE))
+			paste(format(x, big.mark=',', digits=1, nsmall=1, scientific=FALSE))
 		}
 	} else {
     	paste(x)      
@@ -107,7 +107,7 @@ nc <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.prec
   select(NC_1)
 ```
 
-Obtained sequences were analysed on the computer cluster Isabella (University Computing Center, University of Zagreb) using mothur (version 1.43.0) [@Schloss2009] according to the MiSeq Standard Operating Procedure (MiSeq SOP; https://mothur.org/wiki/MiSeq_SOP) [@Kozich2013] and recommendations provided by the Riffomonas project to enhance data reproducibility (http://www.riffomonas.org/). For alignment and classification of sequences the SILVA SSU Ref NR 99 database (release 138; http://www.arb-silva.de) was used [@Quast2013; @Yilmaz2014]. Pipeline data processing and visualization was done using R (version 3.6.0) [@RCoreTeam2019] combined with  packages  vegan (version 2.5-6) [@Oksanen2019], tidyverse (version 1.3.0) [@Wickham2019] and multiple other packages [@Xie2014; @Xie2015; @Xie2019a; @Xie2020; @Allaire2019; @Xie2018; @Zhu2019; @Neuwirth2014; @Wilke2018]. The detailed analysis procedure including the R Markdown file are available in the GitHub repository (https://github.com/MicrobesRovinj/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021). Based on the ATCC MSA-1002 mock community included in the analysis an average sequencing error rate of `r error` \si{\percent} was determined, which is in line with previously reported values for next-generation sequencing data [@Kozich2013; @Schloss2016]. In addition, the negative controls processed together with the samples yielded on average only `r nc` sequences after sequence quality curation.
+Obtained sequences were analysed on the computer cluster Isabella (University Computing Center, University of Zagreb) using mothur (version 1.43.0) [@Schloss2009] according to the MiSeq Standard Operating Procedure (MiSeq SOP; https://mothur.org/wiki/MiSeq_SOP) [@Kozich2013] and recommendations provided by the Riffomonas project to enhance data reproducibility (http://www.riffomonas.org/). For alignment and classification of sequences the SILVA SSU Ref NR 99 database (release 138; http://www.arb-silva.de) was used [@Quast2013; @Yilmaz2014]. Pipeline data processing and visualization was done using R (version 3.6.0) [@RCoreTeam2019] combined with  packages  vegan (version 2.5-6) [@Oksanen2019], tidyverse (version 1.3.0) [@Wickham2019] and multiple other packages [@Xie2014; @Xie2015; @Xie2019a; @Xie2019b; @Allaire2019; @Xie2018; @Zhu2019; @Neuwirth2014; @Wilke2018]. The detailed analysis procedure including the R Markdown file are available in the GitHub repository (https://github.com/MicrobesRovinj/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021). Based on the ATCC MSA-1002 mock community included in the analysis an average sequencing error rate of `r error` \si{\percent} was determined, which is in line with previously reported values for next-generation sequencing data [@Kozich2013; @Schloss2016]. In addition, the negative controls processed together with the samples yielded on average only `r nc` sequences after sequence quality curation.
 
 \newpage
 ## Results
@@ -140,7 +140,7 @@ community <- mutate_at(community, 5:ncol(community), list(~case_when(
 
 # Calculating the number of sequences in millions
 million_sequences <- filter(community, taxon=="Archaea" | taxon=="Bacteria") %>%
-  select(total) %>%
+  select(6:ncol(.)) %>%
   sum()/1e6
 
 # Loading metadata
@@ -160,7 +160,7 @@ min_max <- filter(community, taxon=="Archaea" | taxon=="Bacteria") %>%
 # Calculating the relative abundance of Archaea and Bacteria
 archaea_bacteria <- filter(community, taxon=="Archaea" | taxon=="Bacteria") %>%
   mutate_at(5:ncol(.), list(~. / sum(.) * 100)) %>%
-  gather(key="Group", value="abundance", 6:(ncol(.))) %>%
+  gather(key="Group", value="abundance", 6:ncol(.)) %>%
   group_by(taxon) %>%
   summarise(mean=mean(abundance), sd=sd(abundance))
 ```
@@ -174,13 +174,8 @@ no_otus <- select(shared, starts_with("Otu")) %>%
   colnames() %>%
   length()
 
-# Generation of random rarefied community data
-rarefied <- shared %>%
-  select(-label, -Group, -numOtus) %>%
-  rrarefy(., min(rowSums(.))) %>%
-  as_tibble(.name_repair="unique") %>%
-  add_column("Group"=shared$Group, .before=TRUE) %>%
-  select_if(list(~ !is.numeric(.) || sum(.)!=0))
+# Loading rarefied community data created during the generation of the richness and diversity calculators plot
+load(file="results/numerical/rarefied.Rdata")
 
 # Calculating the number of OTUs after rarefaction
 no_otus_rarefied <- select(rarefied, starts_with("Otu")) %>%
@@ -194,12 +189,12 @@ otu_min_max <- select(rarefied, starts_with("Otu")) %>%
 ```
 
 ```{r calculators}
-# Copying the sample labels to the rows (input for library vegan)
-row.names(rarefied) <- rarefied$Group
+# Loading rarefied community data created during the generation of the richness and diversity calculators plot
+load(file="results/numerical/rarefied.Rdata")
 
-# Removing column containing sample labels
+# Copying the sample labels to the rows (input for library vegan)
 rarefied <- rarefied %>%
-  select(-Group)
+  column_to_rownames("Group")
 
 # Calculating Chao1 and ACE species estimators
 estimators <- estimateR(rarefied)
@@ -269,16 +264,11 @@ S.obs_season_fca <- filter(estimators_indices_metadata, station=="FCa") %>%
             mean_invsimpson=mean(invsimpson), sd_invsimpson=sd(invsimpson))
 ```
 
-Sequencing of the 16S rRNA V4 region yielded a total of `r million_sequences` million sequences after quality curation and exclusion of sequences without known relatives (no relative sequences) and eukaryotic, chloroplast and mitochondrial sequences (\autoref{supp-nseq_notus}). A total of `r samples_epiphytes` samples originating from epiphytic archaeal and bacterial communities associated with surfaces of the seagrass *C. nodosa* and the macroalga *C. cylindracea* were analysed. In addition, `r samples_seawater` samples (one of the samples was sequenced twice) originating from the ambient seawater were also processed for comparison. The number of reads per sample ranged between `r min_max$min` and `r min_max$max` sequences (\autoref{supp-nseq_notus}). Even when the highest sequencing effort was applied the rarefaction curves did not level off as commonly observed in high-throughput 16S rRNA amplicon sequencing approaches (\autoref{supp-rarefaction}). Following quality curation and exclusion of sequences as mentioned above reads were clustered into `r no_otus` different OTUs at a similarity level of 97 \si{\percent}. Read numbers were normalized to the minimum number of sequences (`r min_max$min`, \autoref{supp-nseq_notus}) through rarefaction resulting in `r no_otus_rarefied` different OTUs with `r min(otu_min_max)` to `r max(otu_min_max)` OTUs per sample (\autoref{supp-calculators}). To determine seasonal changes in richness and diversity the observed number of OTUs, Chao1, ACE, Exponential Shannon and Inverse Simpson [@Jost2006] were calculated after normalization through rarefaction. Generally, richness estimators and diversity indices showed similar trends. On average, higher values were found for *C. cylindracea* (mixed [Number of OTUs, `r S.obs_fcam$mean` ± `r S.obs_fcam$sd` OTUs] and monospecific [Number of OTUs, `r S.obs_fca$mean` ± `r S.obs_fca$sd` OTUs]) than for *C. nodosa* (Number of OTUs, `r S.obs_fcym$mean` ± `r S.obs_fcym$sd` OTUs) and lowest values were obtained for the microbial community of the ambient seawater (Number of OTUs, `r S.obs_f$mean` ± `r S.obs_f$sd` OTUs) (\autoref{supp-calculators}). Seasonal changes did not reveal such large dissimilarities. *C. nodosa* communities showed a slow increase towards the end of the study, while *C. cylindracea* (mixed and monospecific) communities were characterized by slightly higher values in spring and summer than in autumn and winter (\autoref{supp-calculators}).
+Sequencing of the 16S rRNA V4 region yielded a total of `r million_sequences` million sequences after quality curation and exclusion of sequences without known relatives (no relative sequences) and eukaryotic, chloroplast and mitochondrial sequences (\autoref{supp-nseq_notus}). A total of `r samples_epiphytes` samples originating from epiphytic archaeal and bacterial communities associated with surfaces of the seagrass *C. nodosa* and the macroalga *C. cylindracea* were analysed. In addition, `r samples_seawater` samples (one of the samples was sequenced twice) originating from the ambient seawater were also processed for comparison. The number of reads per sample ranged between `r min_max$min` and `r min_max$max` sequences (\autoref{supp-nseq_notus}). Even when the highest sequencing effort was applied the rarefaction curves did not level off as commonly observed in high-throughput 16S rRNA amplicon sequencing approaches (\autoref{supp-rarefaction}). Following quality curation and exclusion of sequences as mentioned above reads were clustered into `r no_otus` different OTUs at a similarity level of 97 \si{\percent}. Read numbers were normalized to the minimum number of sequences (`r min_max$min`, \autoref{supp-nseq_notus}) through rarefaction resulting in `r no_otus_rarefied` different OTUs with `r min(otu_min_max)` to `r max(otu_min_max)` OTUs per sample (\autoref{supp-calculators}). To determine seasonal changes in richness and diversity the observed number of OTUs, Chao1, ACE, Exponential Shannon and Inverse Simpson [@Jost2006] were calculated after normalization through rarefaction. Generally, richness estimators and diversity indices showed similar trends. On average, higher values were found for *C. cylindracea* (mixed [Number of OTUs, `r S.obs_fcam$mean` ± `r S.obs_fcam$sd` OTUs] and monospecific [Number of OTUs, `r S.obs_fca$mean` ± `r S.obs_fca$sd` OTUs]) than for *C. nodosa* (Number of OTUs, `r S.obs_fcym$mean` ± `r S.obs_fcym$sd` OTUs) and lowest values were obtained for the microbial community of the ambient seawater (Number of OTUs, `r format(S.obs_f$mean, digits=1, nsmall=1)` ± `r S.obs_f$sd` OTUs) (\autoref{supp-calculators}). Seasonal changes did not reveal such large dissimilarities. *C. nodosa* communities showed a slow increase towards the end of the study, while *C. cylindracea* (mixed and monospecific) communities were characterized by slightly higher values in spring and summer than in autumn and winter (\autoref{supp-calculators}).
 
 ```{r seasonal_shared}
-# Generation of random rarefied community data
-rarefied <- shared %>%
-  select(-label, -Group, -numOtus) %>%
-  rrarefy(., min(rowSums(.))) %>%
-  as_tibble(.name_repair="unique") %>%
-  add_column("Group"=shared$Group, .before=TRUE) %>%
-  select_if(list(~ !is.numeric(.) || sum(.)!=0))
+# Loading rarefied community data created during the generation of the richness and diversity calculators plot
+load(file="results/numerical/rarefied.Rdata")
 
 # Loading metadata 
 metadata <- read_tsv("data/raw/metadata.csv")
@@ -287,16 +277,13 @@ metadata <- read_tsv("data/raw/metadata.csv")
 rarefied_metadata <- inner_join(rarefied, metadata, by=c("Group"="ID")) %>%
   mutate(date=as.Date(date, "%d.%m.%Y")) %>%
   filter(date >= "2017-11-01") %>%
-  select_if(list(~ !is.numeric(.) || sum(.)!=0)) %>%
+  select(!where(is.numeric) | where(~is.numeric(.x) && sum(.x)!=0)) %>%
   group_by(station) %>%
-  summarise_at(vars(starts_with("Otu")), sum)
+  summarise(across(starts_with("Otu"), sum), .groups="drop")
 
 # Copying the sample labels to the rows (input for library vegan)
-row.names(rarefied_metadata) <- rarefied_metadata$station
-
-# Removing column containing sample labels
 rarefied_metadata <- rarefied_metadata %>%
-  select(-station)
+  column_to_rownames("station")
 
 # Calculating matrices of similarity indices
 jaccard <- as.matrix(vegdist(rarefied_metadata, method="jaccard", binary=T))
@@ -319,8 +306,12 @@ similarity <- inner_join(jaccard, bray, by=c("V1"="V1", "V2"="V2")) %>%
 ```
 
 ```{r core_otus}
+# Loading rarefied community data created during the generation of the richness and diversity calculators plot
+load(file="results/numerical/rarefied.Rdata")
+
 # Joining metadata with OTU/sample data
-metadata_rarefied <- inner_join(metadata, rarefied, by=c("ID"="Group")) %>%
+metadata_rarefied <- read_tsv("data/raw/metadata.csv") %>%
+  inner_join(., rarefied, by=c("ID"="Group")) %>%
   mutate(date=as.Date(date, "%d.%m.%Y"))
 
 # Finding the core OTUs for each environment
@@ -365,15 +356,8 @@ core <- tibble(core_otus=c(core_otus_fcym, core_otus_fcam, core_otus_fca),
 ```
 
 ```{r anosim}
-# Generation of random rarefied community data and preserving sample names as row names
-rarefied <- shared %>%
-  select(-label, -Group, -numOtus) %>%
-  rrarefy(., min(rowSums(.))) %>%
-  as_tibble(.name_repair="unique") %>%
-  select_if(list(~!is.numeric(.) || sum(.)!=0))
-rownames(rarefied) <- shared$Group
-rarefied <- rarefied %>%
-  add_column("Group"=shared$Group, .before=TRUE)
+# Loading rarefied community data created during the generation of the richness and diversity calculators plot
+load(file="results/numerical/rarefied.Rdata")
 
 # Loading metadata 
 metadata_rarefied <- read_tsv("data/raw/metadata.csv") %>%
@@ -600,7 +584,7 @@ bactero_all_whole <- inner_join(metadata, whole, by=c("ID"="Group")) %>%
   summarise(mean=mean(abundance), sd=sd(abundance))
 ```
 
-Sequences classified as *Bacteroidota* comprised, on average, `r bactero_all_whole$mean` ± `r bactero_all_whole$sd` \si{\percent} of all sequences (\autoref{bactero}). Similarly to *Cyanobacteria*, large differences in the taxonomic composition between ambient seawater and surface associated communities were found (\autoref{bactero}). The ambient seawater community was characterized by the NS4 and NS5 marine groups, uncultured *Cryomorphaceae*, uncultured *Flavobacteriaceae*, NS11-12 marine group, *Balneola*, uncultured *Balneolaceae* and *Formosa*. In contrast, in surface associated communities *Lewinella*, *Portibacter*, *Rubidimonas*, sequences without known relatives within the *Saprospiraceae* (no relative *Saprospiraceae*), uncultured *Saprospiraceae*, (sequences without known relatives within the *Flavobacteriaceae* (no relative *Flavobacteriaceae*)and uncultured *Rhodothermaceae* were found. Some groups showed minor seasonal changes such as no relative *Flavobacteriaceae* whose sequences were more abundant from November 2017 until June 2018. In contrast, uncultured *Rhodothermaceae* showed higher proportions from June 2018 until the end of the study period. Surface associated *Bacteroidota* communities were very diverse as observed in the high proportion of taxa clustering as other *Bacteroidota* (\autoref{bactero}).
+Sequences classified as *Bacteroidota* comprised, on average, `r bactero_all_whole$mean` ± `r bactero_all_whole$sd` \si{\percent} of all sequences (\autoref{bactero}). Similarly to *Cyanobacteria*, large differences in the taxonomic composition between ambient seawater and surface associated communities were found (\autoref{bactero}). The ambient seawater community was characterized by the NS4 and NS5 marine groups, uncultured *Cryomorphaceae*, uncultured *Flavobacteriaceae*, NS11-12 marine group, *Balneola*, uncultured *Balneolaceae* and *Formosa*. In contrast, in surface associated communities *Lewinella*, *Portibacter*, *Rubidimonas*, sequences without known relatives within the *Saprospiraceae* (no relative *Saprospiraceae*), uncultured *Saprospiraceae*, (sequences without known relatives within the *Flavobacteriaceae* (no relative *Flavobacteriaceae*) and uncultured *Rhodothermaceae* were found. Some groups showed minor seasonal changes such as no relative *Flavobacteriaceae* whose sequences were more abundant from November 2017 until June 2018. In contrast, uncultured *Rhodothermaceae* showed higher proportions from June 2018 until the end of the study period. Surface associated *Bacteroidota* communities were very diverse as observed in the high proportion of taxa clustering as other *Bacteroidota* (\autoref{bactero}).
 
 ```{r alpha}
 # Selection of groups for plotting
@@ -727,7 +711,7 @@ Chloroplast sequence abundances were higher in autumn/winter than in spring/summ
 In temperate zones, marine macrophytes are exhibiting growth cycles, so it  is not surprising that the associated epiphytic microbial community is undergoing partial seasonal changes. In the present study, we could identify in every analysed high rank taxa phylogenetic groups present throughout the year, comprising most of the sequences and a lower proportion of taxa showing seasonal patterns connected to the macrophyte growth cycle (Figs. \ref{community} and \ref{desulfo}). Studies focusing on functional comparisons between communities associated with different hosts showed that the majority of functions could be found in every community, indicating functional redundancy [@Roth-Schulze2016]. This difference between phylogenetic varaibility and functional stability was explained by the lottery hypothesis assuming an initial random colonization step performed by a set of functionally equivalent taxonomic groups [@Burke2011; @Roth-Schulze2016]. It is possible that functional redundancy is a characteristic of high abundance taxa detected to be present throughout the year, while seasonal and/or host-specific functions are an attribute of taxa displaying successional patterns. Further studies connecting taxonomy with functional properties will be required to elucidate the degree of functional redundancy or specificity in epiphytic microbial communities.
 
 ## Acknowledgments
-This work was founded by the Croatian Science Foundation through the MICRO-SEAGRASS project (project number IP-2016-06-7118). ZZ and GJH were supported by the Austrian Science Fund (FWF) project ARTEMIS (project number P28781-B21). We would like to thank Margareta Buterer for technical support, Paolo Paliaga for help during sampling and the University Computing Center of the University of Zagreb for access to the computer cluster Isabella.
+This work was funded by the Croatian Science Foundation through the MICRO-SEAGRASS project (project number IP-2016-06-7118). ZZ and GJH were supported by the Austrian Science Fund (FWF) project ARTEMIS (project number P28781-B21). We would like to thank Margareta Buterer for technical support, Paolo Paliaga for help during sampling and the University Computing Center of the University of Zagreb for access to the computer cluster Isabella.
 
 \newpage
 ## References
@@ -759,38 +743,38 @@ This work was founded by the Croatian Science Foundation through the MICRO-SEAGR
 
 ## Figures
 ```{r out.width="70%", fig.align="center", fig.cap="Proportion of shared bacterial and archaeal OTUs (Jaccard's similarity coefficient) and shared bacterial and archaeal communities (Bray-Curtis similarity coefficient) between assemblages associated with the surfaces of the macrophytes \\textit{C. nodosa} (mixed settlement) and \\textit{C. cylindracea} (mixed and monospecific settlement) and communities in the ambient seawater.\\label{matrix}", fig.pos="H"}
-include_graphics("../results/figures/matrix.jpg")
+include_graphics(normalizePath("results/figures/matrix.jpg"))
 ```
 
 ```{r out.width="85%", fig.align="center", fig.cap="Proportion of shared bacterial and archaeal communities (Bray-Curtis similarity coefficient) and shared bacterial and archaeal OTUs (Jaccard's similarity coefficient) between consecutive sampling dates and from the surfaces of the macrophytes \\textit{C. nodosa} (mixed settlement) and \\textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater.\\label{shared}", fig.pos="H"}
-include_graphics("../results/figures/seasonal_shared.jpg")
+include_graphics(normalizePath("results/figures/seasonal_shared.jpg"))
 ```
 
 ```{r out.width="55%", fig.align="center", fig.cap="Principal Coordinates Analysis (PCoA) of Bray-Curtis distances based on OTU abundances of bacterial and archaeal communities from the surfaces of the macrophytes \\textit{C. nodosa} (mixed settlement) and \\textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. Samples from the same environment or same season are labeled in different colors. The proportion of explained variation by each axis is shown on the corresponding axis in parentheses.\\label{pcoa}", fig.pos="H"}
-include_graphics("../results/figures/pcoa_figure.jpg")
+include_graphics(normalizePath("results/figures/pcoa_figure.jpg"))
 ```
 
 ```{r out.width="85%", fig.align="center", fig.cap="Taxonomic classification and relative contribution of the most abundant ($\\geq$ 1 \\si{\\percent}) bacterial and archaeal sequences on the surfaces of the macrophytes \\textit{C. nodosa} (mixed settlement) and \\textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. NR -- No Relative (sequences without known relatives within the corresponding group)\\label{community}", fig.pos="H"}
-include_graphics("../results/figures/community_bar_plot.jpg")
+include_graphics(normalizePath("results/figures/community_bar_plot.jpg"))
 ```
 
 ```{r out.width="85%", fig.align="center", fig.cap="Taxonomic classification and relative contribution of the most abundant ($\\geq$ 1 \\si{\\percent}) cyanobacterial sequences on the surfaces of the macrophytes \\textit{C. nodosa} (mixed settlement) and \\textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of cyanobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\\label{cyano}", fig.pos="H"}
-include_graphics("../results/figures/cyanobacteria_bar_plot.jpg")
+include_graphics(normalizePath("results/figures/cyanobacteria_bar_plot.jpg"))
 ```
 
 ```{r out.width="85%", fig.align="center", fig.cap="Taxonomic classification and relative contribution of the most abundant ($\\geq$ 2 \\si{\\percent}) sequences within the \\textit{Bacteroidota} on the surfaces of the macrophytes \\textit{C. nodosa} (mixed settlement) and \\textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of sequences classified as \\textit{Bacteroidota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\\label{bactero}", fig.pos="H"}
-include_graphics("../results/figures/bacteroidota_bar_plot.jpg")
+include_graphics(normalizePath("results/figures/bacteroidota_bar_plot.jpg"))
 ```
 
 ```{r out.width="85%", fig.align="center", fig.cap="Taxonomic classification and relative contribution of the most abundant ($\\geq$ 2 \\si{\\percent}) alphaproteobacterial sequences on the surfaces of the macrophytes \\textit{C. nodosa} (mixed settlement) and \\textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of alphaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\\label{alpha}", fig.pos="H"}
-include_graphics("../results/figures/alphaproteobacteria_bar_plot.jpg")
+include_graphics(normalizePath("results/figures/alphaproteobacteria_bar_plot.jpg"))
 ```
 
 ```{r out.width="85%", fig.align="center", fig.cap="Taxonomic classification and relative contribution of the most abundant ($\\geq$ 1 \\si{\\percent}) gammaproteobacterial sequences on the surfaces of the macrophytes \\textit{C. nodosa} (mixed settlement) and \\textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of gammaproteobacterial sequences in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\\label{gamma}", fig.pos="H"}
-include_graphics("../results/figures/gammaproteobacteria_bar_plot.jpg")
+include_graphics(normalizePath("results/figures/gammaproteobacteria_bar_plot.jpg"))
 
 ```
 
 ```{r out.width="85%", fig.align="center", fig.cap="Taxonomic classification and relative contribution of the most abundant ($\\geq$ 1 \\si{\\percent}) sequences within the \\textit{Desulfobacterota} on the surfaces of the macrophytes \\textit{C. nodosa} (mixed settlement) and \\textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of sequences classified as \\textit{Desulfobacterota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\\label{desulfo}", fig.pos="H"}
-include_graphics("../results/figures/desulfobacterota_bar_plot.jpg")
+include_graphics(normalizePath("results/figures/desulfobacterota_bar_plot.jpg"))
 ```
