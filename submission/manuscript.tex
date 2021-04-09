@@ -1,33 +1,47 @@
-\documentclass[12pt,]{article}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-\else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Seasonal Dynamics of Epiphytic Microbial Communities on Marine Macrophyte Surfaces},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1.0in]{geometry}
-\usepackage{hyperref}
-\hypersetup{unicode=true,
-            pdftitle={Seasonal Dynamics of Epiphytic Microbial Communities on Marine Macrophyte Surfaces},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -37,51 +51,14 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-%%% Use protect on footnotes to avoid problems with footnotes in titles
-\let\rmarkdownfootnote\footnote%
-\def\footnote{\protect\rmarkdownfootnote}
-
-%%% Change title format to be more compact
-\usepackage{titling}
-
-% Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
-  \posttitle{
-    \begin{center}\large#1\end{center}
-    }
-}
-
-\setlength{\droptitle}{-2em}
-
-  \title{\textbf{Seasonal Dynamics of Epiphytic Microbial Communities on Marine
-Macrophyte Surfaces}}
-    \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
-    \author{}
-    \preauthor{}\postauthor{}
-    \date{}
-    \predate{}\postdate{}
-  
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{times} % Times New Roman font
 \usepackage[T1]{fontenc}
 
@@ -127,6 +104,11 @@ Macrophyte Surfaces}}
 \usepackage{microtype}
 
 \usepackage{setspace}
+
+\title{\textbf{Seasonal Dynamics of Epiphytic Microbial Communities on Marine
+Macrophyte Surfaces}}
+\author{}
+\date{\vspace{-2.5em}}
 
 \begin{document}
 \maketitle
@@ -367,10 +349,10 @@ sequences the SILVA SSU Ref NR 99 database (release 138;
 al., 2014). Pipeline data processing and visualization was done using R
 (version 3.6.0) (R Core Team, 2019) combined with packages vegan
 (version 2.5-6) (Oksanen et al., 2019), tidyverse (version 1.3.0)
-(Wickham et al., 2019) and multiple other packages ({\textbf{???}};
-Neuwirth, 2014; Xie, 2014, 2015, 2019; Wilke, 2018; Xie et al., 2018;
-Allaire et al., 2019; Zhu, 2019). The detailed analysis procedure
-including the R Markdown file are available in the GitHub repository
+(Wickham et al., 2019) and multiple other packages (Neuwirth, 2014; Xie,
+2014, 2015, 2019a, 2019b; Wilke, 2018; Xie et al., 2018; Allaire et al.,
+2019; Zhu, 2019). The detailed analysis procedure including the R
+Markdown file are available in the GitHub repository
 (\url{https://github.com/MicrobesRovinj/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021}).
 Based on the ATCC MSA-1002 mock community included in the analysis an
 average sequencing error rate of 0.01 \si{\percent} was determined,
@@ -384,7 +366,7 @@ yielded on average only 2 sequences after sequence quality curation.
 \hypertarget{results}{%
 \subsection{Results}\label{results}}
 
-Sequencing of the 16S rRNA V4 region yielded a total of 1.8 million
+Sequencing of the 16S rRNA V4 region yielded a total of 1.7 million
 sequences after quality curation and exclusion of sequences without
 known relatives (no relative sequences) and eukaryotic, chloroplast and
 mitochondrial sequences (\autoref{supp-nseq_notus}). A total of 35
@@ -401,18 +383,18 @@ high-throughput 16S rRNA amplicon sequencing approaches
 of sequences as mentioned above reads were clustered into 28,750
 different OTUs at a similarity level of 97 \si{\percent}. Read numbers
 were normalized to the minimum number of sequences (8,408,
-\autoref{supp-nseq_notus}) through rarefaction resulting in 17,025
-different OTUs with 347 to 1,977 OTUs per sample
+\autoref{supp-nseq_notus}) through rarefaction resulting in 17,201
+different OTUs with 352 to 2,062 OTUs per sample
 (\autoref{supp-calculators}). To determine seasonal changes in richness
 and diversity the observed number of OTUs, Chao1, ACE, Exponential
 Shannon and Inverse Simpson (Jost, 2006) were calculated after
 normalization through rarefaction. Generally, richness estimators and
 diversity indices showed similar trends. On average, higher values were
-found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,683.5 ±
-128.5 OTUs{]} and monospecific {[}Number of OTUs, 1,729.9 ± 145.8
-OTUs{]}) than for \emph{C. nodosa} (Number of OTUs, 1,052.2 ± 211.4
+found for \emph{C. cylindracea} (mixed {[}Number of OTUs, 1,688.4 ±
+136.6 OTUs{]} and monospecific {[}Number of OTUs, 1,750.4 ± 165.7
+OTUs{]}) than for \emph{C. nodosa} (Number of OTUs, 1,063.7 ± 210.6
 OTUs) and lowest values were obtained for the microbial community of the
-ambient seawater (Number of OTUs, 529.2 ± 146.8 OTUs)
+ambient seawater (Number of OTUs, 531.0 ± 143.9 OTUs)
 (\autoref{supp-calculators}). Seasonal changes did not reveal such large
 dissimilarities. \emph{C. nodosa} communities showed a slow increase
 towards the end of the study, while \emph{C. cylindracea} (mixed and
@@ -440,7 +422,7 @@ seawater than for \emph{C. nodosa} and especially \emph{C. cylindracea}
 associated communities (\autoref{shared}). In addition, only 0.4 -- 1.0
 \si{\percent} of OTUs from each surface associated community were
 present at all seasons. These persistent OTUs constituted a high
-proportion of total sequences (40.2 -- 52.1 \si{\percent}). To further
+proportion of total sequences (40.2 -- 53.2 \si{\percent}). To further
 disentangle the environmental and seasonal community dissimilarity a
 Principal Coordinates Analysis (PCoA) based on Bray-Curtis distances and
 OTU abundances was applied. A clear separation between ambient seawater
@@ -450,10 +432,10 @@ based on host species was detected. This separation was further
 supported by ANOSIM (R = 0.96, \emph{p} \textless{} 0.001). Seasonal
 changes of \emph{C. nodosa} associated communities indicated a
 separation between spring, summer and autumn/winter samples (ANOSIM, R =
-0.54, \emph{p} \textless{} 0.01). For \emph{C. cylindracea} associated
+0.56, \emph{p} \textless{} 0.01). For \emph{C. cylindracea} associated
 communities a separation between summer and autumn/winter/spring samples
 was observed that was, however, not as strong as for \emph{C. nodosa}
-associated communities (ANOSIM, R = 0.30, \emph{p} \textless{} 0.05)
+associated communities (ANOSIM, R = 0.30, \emph{p} \textless{} 0.01)
 (\autoref{pcoa}).
 
 The taxonomic composition of both, macrophyte associated and ambient
@@ -509,7 +491,7 @@ contrast, in surface associated communities \emph{Lewinella},
 relatives within the \emph{Saprospiraceae} (no relative
 \emph{Saprospiraceae}), uncultured \emph{Saprospiraceae}, (sequences
 without known relatives within the \emph{Flavobacteriaceae} (no relative
-\emph{Flavobacteriaceae})and uncultured \emph{Rhodothermaceae} were
+\emph{Flavobacteriaceae}) and uncultured \emph{Rhodothermaceae} were
 found. Some groups showed minor seasonal changes such as no relative
 \emph{Flavobacteriaceae} whose sequences were more abundant from
 November 2017 until June 2018. In contrast, uncultured
@@ -735,7 +717,7 @@ analysed group, with the exception of \emph{Desulfobacterota}, taxa
 present throughout the year in similar proportions and season specific
 taxa could be identified (Figs. \ref{bactero} and \ref{desulfo}). Within
 \emph{Bacteroidota} different groups within the family
-\emph{Saprospiraceae} (e.g. \emph{Lewinella}, \emph{Portibacter} and
+\emph{Saprospiraceae} (e.g.~\emph{Lewinella}, \emph{Portibacter} and
 \emph{Rubidimonas}) were detected across all seasons. Members of this
 family are often found in association with macrophytes and it is
 suggested that they are involved in the hydrolysis and utilization of
@@ -796,7 +778,7 @@ functional redundancy or specificity in epiphytic microbial communities.
 \hypertarget{acknowledgments}{%
 \subsection{Acknowledgments}\label{acknowledgments}}
 
-This work was founded by the Croatian Science Foundation through the
+This work was funded by the Croatian Science Foundation through the
 MICRO-SEAGRASS project (project number IP-2016-06-7118). ZZ and GJH were
 supported by the Austrian Science Fund (FWF) project ARTEMIS (project
 number P28781-B21). We would like to thank Margareta Buterer for
@@ -831,7 +813,7 @@ detection of SAR11 bacterioplankton. \emph{Aquat. Microb. Ecol.} 75,
 129--137. doi:\href{https://doi.org/10.3354/ame01753}{10.3354/ame01753}.
 
 \leavevmode\hypertarget{ref-Armstrong2000}{}%
-Armstrong, E., Rogerson, A., and Leftley, J. (2000). The abundance of
+Armstrong, E., Rogerson, A., and Leftley, J. W. (2000). The abundance of
 heterotrophic protists associated with intertidal seaweeds.
 \emph{Estuar. Coast. Shelf Sci.} 50, 415--424.
 doi:\href{https://doi.org/10.1006/ECSS.1999.0577}{10.1006/ECSS.1999.0577}.
@@ -1206,9 +1188,13 @@ Xie, Y. (2015). \emph{Dynamic Documents with R and knitr}. 2nd ed. Boca
 Raton, Florida: Chapman and Hall/CRC.
 
 \leavevmode\hypertarget{ref-Xie2019a}{}%
-Xie, Y. (2019). TinyTeX: A lightweight, cross-platform, and
+Xie, Y. (2019a). TinyTeX: A lightweight, cross-platform, and
 easy-to-maintain LaTeX distribution based on TeX Live. \emph{TUGboat}
 40, 30--32.
+
+\leavevmode\hypertarget{ref-Xie2019b}{}%
+Xie, Y. (2019b). \emph{tinytex: Helper functions to install and maintain
+'TeX Live', and compile 'LaTeX' documents}.
 
 \leavevmode\hypertarget{ref-Xie2018}{}%
 Xie, Y., Allaire, J. J., and Grolemund, G. (2018). \emph{R Markdown: The
@@ -1266,7 +1252,7 @@ and pipe syntax}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.7\linewidth]{../results/figures/matrix} 
+{\centering \includegraphics[width=0.7\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/matrix} 
 
 }
 
@@ -1275,7 +1261,7 @@ and pipe syntax}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.85\linewidth]{../results/figures/seasonal_shared} 
+{\centering \includegraphics[width=0.85\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/seasonal_shared} 
 
 }
 
@@ -1284,7 +1270,7 @@ and pipe syntax}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.55\linewidth]{../results/figures/pcoa_figure} 
+{\centering \includegraphics[width=0.55\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/pcoa_figure} 
 
 }
 
@@ -1293,7 +1279,7 @@ and pipe syntax}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.85\linewidth]{../results/figures/community_bar_plot} 
+{\centering \includegraphics[width=0.85\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/community_bar_plot} 
 
 }
 
@@ -1302,7 +1288,7 @@ and pipe syntax}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.85\linewidth]{../results/figures/cyanobacteria_bar_plot} 
+{\centering \includegraphics[width=0.85\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/cyanobacteria_bar_plot} 
 
 }
 
@@ -1311,7 +1297,7 @@ and pipe syntax}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.85\linewidth]{../results/figures/bacteroidota_bar_plot} 
+{\centering \includegraphics[width=0.85\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/bacteroidota_bar_plot} 
 
 }
 
@@ -1320,7 +1306,7 @@ and pipe syntax}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.85\linewidth]{../results/figures/alphaproteobacteria_bar_plot} 
+{\centering \includegraphics[width=0.85\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/alphaproteobacteria_bar_plot} 
 
 }
 
@@ -1329,7 +1315,7 @@ and pipe syntax}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.85\linewidth]{../results/figures/gammaproteobacteria_bar_plot} 
+{\centering \includegraphics[width=0.85\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/gammaproteobacteria_bar_plot} 
 
 }
 
@@ -1338,12 +1324,11 @@ and pipe syntax}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.85\linewidth]{../results/figures/desulfobacterota_bar_plot} 
+{\centering \includegraphics[width=0.85\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/desulfobacterota_bar_plot} 
 
 }
 
 \caption{Taxonomic classification and relative contribution of the most abundant ($\geq$ 1 \si{\percent}) sequences within the \textit{Desulfobacterota} on the surfaces of the macrophytes \textit{C. nodosa} (mixed settlement) and \textit{C. cylindracea} (mixed and monospecific settlement) and in the ambient seawater. The proportion of sequences classified as \textit{Desulfobacterota} in the total bacterial and archaeal community is given above the corresponding bar. NR -- No Relative (sequences without known relatives within the corresponding group)\label{desulfo}}\label{fig:unnamed-chunk-9}
 \end{figure}
-
 
 \end{document}

@@ -2,22 +2,14 @@
 # plot_pcoa.R
 # 
 # A script to generate the PCoA figure.
-# Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared
+# Dependencies: results/numerical/rarefied.Rdata
 #               data/raw/metadata.csv
 # Produces: results/figures/pcoa_figure.jpg
 #
 #################################################################################################################
 
-# Loading OTU/sample data
-shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared")
-
-# Generation of random rarefied community data
-rarefied <- shared %>%
-  select(-label, -Group, -numOtus) %>%
-  rrarefy(., min(rowSums(.))) %>%
-  as_tibble(.name_repair="unique") %>%
-  add_column("Group"=shared$Group, .before=TRUE) %>%
-  select_if(list(~!is.numeric(.) || sum(.)!=0))
+# Loading rarefied community data created during the generation of the richness and diversity calculators plot
+load(file="results/numerical/rarefied.Rdata")
 
 # Loading metadata 
 metadata <- read_tsv("data/raw/metadata.csv")
@@ -56,7 +48,7 @@ coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 p1 <- ggplot() +
   geom_point(data=coordinates, aes(x=A1, y=A2, fill=station), shape=21, size=3, stroke=0.5) +
   scale_fill_manual(name=NULL,
-                      values=c("#66A61E", "#E6AB02", "#A6761D", "#666666"),
+                      values=c("#66A61E", "#666666", "#A6761D", "#E6AB02"),
                       breaks=c("F", "FCyM", "FCaM", "FCa"),
                       labels=c("Seawater",
                                parse(text="italic('Cymodocea nodosa')~'(Mixed)'"),
@@ -71,7 +63,7 @@ p1 <- ggplot() +
 
 # Cymodocea nodosa samples
 rarefied_metadata_select <- filter(rarefied_metadata, station=="FCyM") %>%
-  select_if(list(~!is.numeric(.) || sum(.)!=0))
+  select(!where(is.numeric) | where(~ is.numeric(.x) && sum(.x)!=0))
 
 # Generation of PCoA data
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
@@ -86,7 +78,8 @@ p2 <- ggplot() +
   geom_point(data=coordinates, aes(x=A1, y=A2, fill=season), shape=21, size=3, stroke=0.5) +
   scale_fill_manual(name=NULL,
                     breaks=c("Spring", "Summer", "Autumn", "Winter"),
-                    values=brewer.pal(n=4, name="Set1")) +
+                    values=c("Spring"="#377EB8", "Summer"="#4DAF4A",
+                             "Autumn"="#E41A1C", "Winter"="#984EA3")) +
   labs(x=paste0("PCoA I (",format(round(spe.b.pcoa$eig[1]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)"), 
        y=paste0("PCoA II (",format(round(spe.b.pcoa$eig[2]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)")) +
   ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Mixed)')")) +
@@ -96,7 +89,7 @@ p2 <- ggplot() +
 
 # Caulerpa cylindracea samples
 rarefied_metadata_select <- filter(rarefied_metadata, str_detect(station, "^FCa")) %>%
-  select_if(list(~!is.numeric(.) || sum(.)!=0))
+  select(!where(is.numeric) | where(~ is.numeric(.x) && sum(.x)!=0))
 
 # Generation of PCoA data
 spe.bray <- vegdist(select(rarefied_metadata_select, starts_with("Otu")))
@@ -111,9 +104,10 @@ p3 <- ggplot() +
   geom_point(data=coordinates, aes(x=A1, y=A2, fill=season, shape=station), size=3, stroke=0.5) +
   scale_fill_manual(name=NULL,
                     breaks=c("Spring", "Summer", "Autumn", "Winter"),
-                    values=brewer.pal(n=4, name="Set1")) +
+                    values=c("Spring"="#377EB8", "Summer"="#4DAF4A",
+                             "Autumn"="#E41A1C", "Winter"="#984EA3")) +
   scale_shape_manual(name=NULL,
-                     values=c(21, 23),
+                     values=c("FCa"=21, "FCaM"=23),
                      breaks=c("FCaM", "FCa"),
                      labels=c(parse(text="italic('Caulerpa cylindracea')~'(Mixed)'"),
                               parse(text="italic('Caulerpa cylindracea')~'(Monospecific)'"))) +

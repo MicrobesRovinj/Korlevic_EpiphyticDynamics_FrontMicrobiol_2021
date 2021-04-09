@@ -2,22 +2,14 @@
 # code/plot_matrix.R
 # 
 # A script to plot a matrix of similarity indices.
-# Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared
+# Dependencies: results/numerical/rarefied.Rdata
 #               data/raw/metadata.csv
 # Produces: results/figures/matrix.jpg
 #
 #################################################################################################################
 
-# Loading OTU/sample data
-shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared")
-
-# Generation of random rarefied community data
-rarefied <- shared %>%
-  select(-label, -Group, -numOtus) %>%
-  rrarefy(., min(rowSums(.))) %>%
-  as_tibble(.name_repair="unique") %>%
-  add_column("Group"=shared$Group, .before=TRUE) %>%
-  select_if(list(~ !is.numeric(.) || sum(.)!=0))
+# Loading rarefied community data created during the generation of the richness and diversity calculators plot
+load(file="results/numerical/rarefied.Rdata")
 
 # Loading metadata 
 metadata <- read_tsv("data/raw/metadata.csv")
@@ -26,16 +18,13 @@ metadata <- read_tsv("data/raw/metadata.csv")
 rarefied_metadata <- inner_join(rarefied, metadata, by=c("Group"="ID")) %>%
   mutate(date=as.Date(date, "%d.%m.%Y")) %>%
   filter(date >= "2017-11-01") %>%
-  select_if(funs(!is.numeric(.) || sum(.)!=0)) %>%
+  select(!where(is.numeric) | where(~is.numeric(.x) && sum(.x)!=0)) %>%
   group_by(station) %>%
-  summarise_at(vars(starts_with("Otu")), sum)
+  summarise(across(starts_with("Otu"), sum), .groups="drop")
 
 # Copying the sample labels to the rows (input for library vegan)
-row.names(rarefied_metadata) <- rarefied_metadata$station
-
-# Removing column containing sample labels
 rarefied_metadata <- rarefied_metadata %>%
-  select(-station)
+  column_to_rownames("station")
 
 # Calculating matrices of similarity indices
 jaccard <- as.matrix(vegdist(rarefied_metadata, method="jaccard", binary=T))

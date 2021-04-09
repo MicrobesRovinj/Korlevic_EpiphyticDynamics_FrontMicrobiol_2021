@@ -4,6 +4,7 @@ MOTH = data/mothur/
 REFS = data/references/
 BASIC_STEM = data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster
 FIGS = results/figures/
+NUM = results/numerical/
 FINAL = submission/
 
 # Obtain the Linux version of mothur (v.1.43.0) from the mothur GitHub repository
@@ -219,13 +220,13 @@ $(FIGS)seasonal_shared%jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
 	R -e "source('code/plot_seasonal_shared.R')"
 
 # Construct PCoA plots
-$(FIGS)pcoa_figure.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+$(FIGS)pcoa_figure.jpg : $(NUM)rarefied.Rdata\
                          code/plot_pcoa.R\
                          $(RAW)metadata.csv
 	R -e "source('code/plot_pcoa.R')"
 
-# Construct a matrix plot of similarity indices
-$(FIGS)matrix.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+# Construct a matrix plot of similarity coefficients
+$(FIGS)matrix.jpg : $(NUM)rarefied.Rdata\
                     code/plot_matrix.R\
                     $(RAW)metadata.csv
 	R -e "source('code/plot_matrix.R')"
@@ -250,6 +251,7 @@ $(FINAL)supplementary.pdf : $(MOTH)summary.txt\
                             $(FIGS)desulfobacterota_bar_plot.jpg\
                             $(FIGS)rarefaction.jpg\
                             $(FIGS)calculators.jpg\
+                            $(NUM)rarefied.Rdata\
                             $(FIGS)seasonal_shared.jpg\
                             $(FIGS)pcoa_figure.jpg\
                             $(FIGS)matrix.jpg\

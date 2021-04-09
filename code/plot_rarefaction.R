@@ -22,7 +22,8 @@ metadata <- read_tsv("data/raw/metadata.csv") %>%
   arrange(date) %>%
   mutate(date=format(date, "%d %B %Y")) %>%
   mutate(date=str_replace(date, "^0", "")) %>%
-  mutate(date=if_else(label=="24/4-18 F-2", paste0(date, "a"), date))
+  mutate(date=if_else(label=="24/4-18 F-1", paste0(date, "a"), date)) %>%
+  mutate(date=if_else(label=="24/4-18 F-2", paste0(date, "b"), date))
 
 # Joining metadata and input data
 metadata_rarefaction <- inner_join(metadata, rarefaction, by=c("ID"="sample"))
@@ -42,12 +43,13 @@ color_type <- tribble(~date, ~color, ~line_type,
                       "27 March 2018", "#A6CEE3", "dotted",
                       "24 April 2018", "#1F78B4", "dotted",
                       "24 April 2018a", "#B2DF8A", "dotted",
-                      "22 May 2018", "#33A02C", "dotted",
-                      "19 June 2018", "#FB9A99", "dotted",
-                      "10 July 2018", "#E31A1C", "dotted",
-                      "9 August 2018", "#FDBF6F", "dotted",
-                      "4 September 2018", "#FF7F00", "dotted",
-                      "5 October 2018", "#CAB2D6", "dotted")
+                      "24 April 2018b", "#33A02C", "dotted",
+                      "22 May 2018", "#FB9A99", "dotted",
+                      "19 June 2018", "#E31A1C", "dotted",
+                      "10 July 2018", "#FDBF6F", "dotted",
+                      "9 August 2018", "#FF7F00", "dotted",
+                      "4 September 2018", "#CAB2D6", "dotted",
+                      "5 October 2018", "#6A3D9A", "dotted")
 
 # Generating a common theme for plots
 theme <- theme(text=element_text(family="Times"), line=element_line(color="black"),
@@ -102,7 +104,7 @@ p4 <- filter(metadata_rarefaction, str_detect(label, "FCa$")) %>%
 
 # Generating a plot with all samples to extract a common legend
 p <- ggplot(metadata_rarefaction, aes(x=numsampled, y=sobs, group=ID,
-            color=factor(date, levels=unique(date)), linetype=factor(date, levels=unique(date)))) +
+            color=factor(date, levels=color_type$date), linetype=factor(date, levels=color_type$date))) +
   geom_line(size=1.5) +
   scale_colour_manual(values=set_names(color_type$color, color_type$date)) +
   scale_linetype_manual(values=set_names(color_type$line_type, color_type$date)) +
