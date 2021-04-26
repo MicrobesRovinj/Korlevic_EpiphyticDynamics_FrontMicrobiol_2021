@@ -88,9 +88,7 @@ $(RAW)raw.files : $(RAW)metadata.csv
 	cut -f 1,2,3 data/raw/metadata.csv | tail -n +2 > $(RAW)raw.files
 
 # Download project fastq.gz files from the European Nucleotide Archive (ENA)
-$(RAW)18118-*.fastq : ~/raw/together/*.fastq\
-                      $(RAW)NC_*.fastq\
-                      $(RAW)raw.files
+$(RAW)18118-*.fastq : $(RAW)NC_*.fastq
 	wget "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJEB37267&result=read_run&fields=study_accession,sample_accession,experiment_accession,run_accession,tax_id,scientific_name,fastq_ftp,submitted_ftp,sra_ftp&format=tsv&download=true" -O $(RAW)deposited_list.txt
 	cut -f $$(head -1 $(RAW)deposited_list.txt | tr "\t" "\n" | cat -n | grep "submitted_ftp" | cut -f 1) $(RAW)deposited_list.txt > $(RAW)fastq.gz.txt
 	tail -n +2 $(RAW)fastq.gz.txt | tr ";" "\n" > $(RAW)fastq.gz_list.txt
