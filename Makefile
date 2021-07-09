@@ -83,7 +83,7 @@ $(REFS)silva.nr_v138.pcr.unique%align : $(REFS)silva.nr_v138.align\
 #
 #########################################################################################
 
-# Generate raw.files for mothur make.contigs 
+# Generate raw.files for mothur make.contigs
 $(RAW)raw.files : $(RAW)metadata.csv
 	cut -f 1,2,3 data/raw/metadata.csv | tail -n +2 > $(RAW)raw.files
 
@@ -222,12 +222,6 @@ $(FIGS)pcoa_figure.jpg : $(NUM)rarefied.Rdata\
                          $(RAW)metadata.csv
 	R -e "source('code/plot_pcoa.R')"
 
-# Construct a matrix plot of similarity coefficients
-$(FIGS)matrix.jpg : $(NUM)rarefied.Rdata\
-                    code/plot_matrix.R\
-                    $(RAW)metadata.csv
-	R -e "source('code/plot_matrix.R')"
-
 #########################################################################################
 #
 # Part 4: Combaine all together
@@ -251,7 +245,8 @@ $(FINAL)supplementary.pdf : $(MOTH)summary.txt\
                             $(NUM)rarefied.Rdata\
                             $(FIGS)seasonal_shared.jpg\
                             $(FIGS)pcoa_figure.jpg\
-                            $(FIGS)matrix.jpg\
+                            $(FIGS)map.jpg\
+                            $(BASIC_STEM).pick.pick.pick.opti_mcc.0.03.cons.taxonomy\
                             $(FINAL)manuscript.Rmd\
                             $(FINAL)header.tex\
                             $(FINAL)supplementary.Rmd\

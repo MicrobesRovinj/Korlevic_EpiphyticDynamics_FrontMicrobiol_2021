@@ -46,253 +46,90 @@ distance_metadata <- inner_join(metadata, distance, by=c("ID"="V1")) %>%
 theme <- theme(text=element_text(family="Times"), line=element_line(color="black"),
                panel.border=element_rect(fill=NA), panel.background=element_blank(),
                panel.grid=element_blank(), axis.line=element_blank(),
-               axis.text=element_text(size=12, color="black"), axis.text.x=element_text(angle=90, hjust=0.95, vjust=1.75),
-               axis.title=element_text(size=14, color="black"),
+               axis.text=element_text(size=16, color="black"), axis.text.x=element_text(angle=90, hjust=0.95, vjust=1.75),
+               axis.title=element_text(size=18, color="black"),
                plot.margin=unit(c(5.5, 5.5, 5.5, 5.5), "pt"), legend.position="none",
-               plot.title=element_text(size=16, hjust=0.5))
+               plot.title=element_text(face="bold", size=20, hjust=0.5))
 
-# Defining line types, dot shapes and fill dot colors
-lines <- c("jaccard"="dotted", "bray"="solid")
-shapes <- c("jaccard"=21, "bray"=23)
-fills <- c("jaccard"="white", "bray"="black")
+# Formatting group names and defining line types, dot shapes and fill dot colours
+group_name <- c("F"=expression("Seawater"),
+                "FCyM"=expression(paste(italic("Cymodocea nodosa"), plain(" (Mixed)"))),
+                "FCaM"=expression(paste(italic("Caulerpa cylindracea"), plain(" (Mixed)"))),
+                "FCa"=expression(paste(italic("Caulerpa cylindracea"), plain(" (Monospecific)"))))
+lines <- c("F"="dotted", "FCyM"="solid", "FCaM"="solid", "FCa"="solid")
+shapes <- c("F"=21, "FCyM"=21, "FCaM"=23, "FCa"=25)
+fills <- c("F"="white", "FCyM"="black", "FCaM"="black", "FCa"="black")
 
 # Plots generation
-# Seawater samples
-data <- filter(distance_metadata, station.x=="F" & station.y=="F") %>%
+data <- distance_metadata %>%
   filter((date.x=="2017-07-13" & date.y=="2017-07-27") |
          (date.x=="2017-07-27" & date.y=="2017-08-10") |
          (date.x=="2017-08-10" & date.y=="2017-08-24") |
          (date.x=="2017-08-24" & date.y=="2017-09-19") |
          (date.x=="2017-09-19" & date.y=="2017-10-12") |
          (date.x=="2017-10-12" & date.y=="2017-11-23") |
-         (date.x=="2017-11-23" & date.y=="2017-12-14") |
+         (date.x=="2017-11-23" & date.y=="2017-12-04") |
+         (date.x=="2017-12-04" & date.y=="2017-12-14") |
+         (date.x=="2017-11-23" & date.y=="2017-12-14" & (station.x=="F" & station.y=="F")) |
          (date.x=="2017-12-14" & date.y=="2018-02-13") |
          (date.x=="2018-02-13" & date.y=="2018-03-27") |
+         (date.x=="2017-12-14" & date.y=="2018-03-27" & (station.x=="FCaM" & station.y=="FCaM")) |
          (date.x=="2018-03-27" & date.y=="2018-04-24") |
          (date.x=="2018-04-24" & date.y=="2018-05-22") |
          (date.x=="2018-05-22" & date.y=="2018-06-19") |
          (date.x=="2018-06-19" & date.y=="2018-07-10") |
          (date.x=="2018-07-10" & date.y=="2018-08-09") |
          (date.x=="2018-08-09" & date.y=="2018-09-04") |
-         (date.x=="2018-09-04" & date.y=="2018-10-05"))
+         (date.x=="2018-09-04" & date.y=="2018-10-05")) %>%
+  filter((station.x=="F" & station.y=="F") |
+         (station.x=="FCyM" & station.y=="FCyM") |
+         (station.x=="FCaM" & station.y=="FCaM") |
+         (station.x=="FCa" & station.y=="FCa"))
 
 p1 <- filter(data, index=="bray") %>%
-  ggplot(aes(x=date.y, y=value, linetype=index, shape=index, fill=index)) +
+  ggplot(aes(x=date.y, y=value, linetype=station.x, shape=station.x, fill=station.x)) +
   geom_line() +
-  geom_point(size=3) +
-  scale_linetype_manual(values=lines) +
-  scale_shape_manual(values=shapes) +
-  scale_fill_manual(values=fills) +
+  geom_point(size=4) +
+  scale_linetype_manual(values=lines, breaks=c("F", "FCyM", "FCaM", "FCa")) +
+  scale_shape_manual(values=shapes, breaks=c("F", "FCyM", "FCaM", "FCa")) +
+  scale_fill_manual(values=fills, breaks=c("F", "FCyM", "FCaM", "FCa")) +
   scale_x_date(breaks=seq(as.Date("2017-07-01"), as.Date("2018-11-01"), "months"),
                labels=c("Jul 2017", "Aug 2017", "Sep 2017", "Oct 2017", "Nov 2017", "Dec 2017",
                         "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
                         "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
                limits=as.Date(c("2017-07-01", "2018-11-01")),
                expand=c(0, 0)) +
-  scale_y_continuous(limits=c(0, 100)) +
+  scale_y_continuous(limits=c(20, 80)) +
   labs(x="", y="%") +
-  ggtitle(parse(text="bold('Seawater')")) +
+  ggtitle("Bray-Curtis Similarity Coefficient") +
   theme +
   theme(axis.ticks.x=element_blank(), axis.text.x=element_blank())
 
 p2 <- filter(data, index=="jaccard") %>%
-  ggplot(aes(x=date.y, y=value, linetype=index, shape=index, fill=index)) +
+  ggplot(aes(x=date.y, y=value, linetype=station.x, shape=station.x, fill=station.x)) +
   geom_line() +
-  geom_point(size=3) +
-  scale_linetype_manual(values=lines) +
-  scale_shape_manual(values=shapes) +
-  scale_fill_manual(values=fills) +
+  geom_point(size=4) +
+  scale_linetype_manual(values=lines, labels=group_name, breaks=c("F", "FCyM", "FCaM", "FCa")) +
+  scale_shape_manual(values=shapes, labels=group_name, breaks=c("F", "FCyM", "FCaM", "FCa")) +
+  scale_fill_manual(values=fills, labels=group_name, breaks=c("F", "FCyM", "FCaM", "FCa")) +
   scale_x_date(breaks=seq(as.Date("2017-07-01"), as.Date("2018-11-01"), "months"),
                labels=c("Jul 2017", "Aug 2017", "Sep 2017", "Oct 2017", "Nov 2017", "Dec 2017",
                         "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
                         "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
                limits=as.Date(c("2017-07-01", "2018-11-01")),
-               expand=c(0, 0)) +
-  scale_y_continuous(limits=c(10, 30)) +
-  labs(x="", y="%") +
-  theme +
-  theme(axis.text.x=element_text(angle=90, hjust=0.95, vjust=1.45))
-
-f <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align="v")
-
-# Plots generation
-# Cymodocea nodosa samples
-data <- filter(distance_metadata, station.x=="FCyM" & station.y=="FCyM") %>%
-  filter((date.x=="2017-11-23" & date.y=="2017-12-04") |
-         (date.x=="2017-12-04" & date.y=="2017-12-14") |
-         (date.x=="2017-12-14" & date.y=="2018-02-13") |
-         (date.x=="2018-02-13" & date.y=="2018-03-27") |
-         (date.x=="2018-03-27" & date.y=="2018-04-24") |
-         (date.x=="2018-04-24" & date.y=="2018-05-22") |
-         (date.x=="2018-05-22" & date.y=="2018-06-19") |
-         (date.x=="2018-06-19" & date.y=="2018-07-10") |
-         (date.x=="2018-07-10" & date.y=="2018-08-09") |
-         (date.x=="2018-08-09" & date.y=="2018-09-04") |
-         (date.x=="2018-09-04" & date.y=="2018-10-05"))
-
-p1 <- filter(data, index=="bray") %>%
-  ggplot(aes(x=date.y, y=value, linetype=index, shape=index, fill=index)) +
-  geom_line() +
-  geom_point(size=3) +
-  scale_linetype_manual(values=lines) +
-  scale_shape_manual(values=shapes) +
-  scale_fill_manual(values=fills) +
-  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
-               labels=c("Nov 2017", "Dec 2017",
-                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
-                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
-               limits=as.Date(c("2017-11-01", "2018-11-01")),
-               expand=c(0, 0)) +
-  scale_y_continuous(limits=c(0, 100)) +
-  labs(x="", y="") +
-  ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Mixed)')")) +
-  theme +
-  theme(axis.ticks.x=element_blank(), axis.text.x=element_blank())
-
-p2 <- filter(data, index=="jaccard") %>%
-  ggplot(aes(x=date.y, y=value, linetype=index, shape=index, fill=index)) +
-  geom_line() +
-  geom_point(size=3) +
-  scale_linetype_manual(values=lines) +
-  scale_shape_manual(values=shapes) +
-  scale_fill_manual(values=fills) +
-  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
-               labels=c("Nov 2017", "Dec 2017",
-                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
-                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
-               limits=as.Date(c("2017-11-01", "2018-11-01")),
-               expand=c(0, 0)) +
-  scale_y_continuous(limits=c(20, 50)) +
-  labs(x="", y="") +
-  theme
-
-fcym <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align="v")
-
-# Plots generation
-# Caulerpa cylindracea (Mixed) samples
-data <- filter(distance_metadata, station.x=="FCaM" & station.y=="FCaM") %>%
-  filter((date.x=="2017-11-23" & date.y=="2017-12-04") |
-         (date.x=="2017-12-04" & date.y=="2017-12-14") |
-         (date.x=="2017-12-14" & date.y=="2018-03-27") |
-         (date.x=="2018-03-27" & date.y=="2018-04-24") |
-         (date.x=="2018-04-24" & date.y=="2018-05-22") |
-         (date.x=="2018-05-22" & date.y=="2018-06-19") |
-         (date.x=="2018-06-19" & date.y=="2018-07-10") |
-         (date.x=="2018-07-10" & date.y=="2018-08-09") |
-         (date.x=="2018-08-09" & date.y=="2018-09-04") |
-         (date.x=="2018-09-04" & date.y=="2018-10-05"))
-
-p1 <- filter(data, index=="bray") %>%
-  ggplot(aes(x=date.y, y=value, linetype=index, shape=index, fill=index)) +
-  geom_line() +
-  geom_point(size=3) +
-  scale_linetype_manual(values=lines) +
-  scale_shape_manual(values=shapes) +
-  scale_fill_manual(values=fills) +
-  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
-               labels=c("Nov 2017", "Dec 2017",
-                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
-                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
-               limits=as.Date(c("2017-11-01", "2018-11-01")),
-               expand=c(0, 0)) +
-  scale_y_continuous(limits=c(0, 100)) +
-  labs(x="", y="%") +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Mixed)')")) +
-  theme +
-  theme(axis.ticks.x=element_blank(), axis.text.x=element_blank())
-
-p2 <- filter(data, index=="jaccard") %>%
-  ggplot(aes(x=date.y, y=value, linetype=index, shape=index, fill=index)) +
-  geom_line() +
-  geom_point(size=3) +
-  scale_linetype_manual(values=lines) +
-  scale_shape_manual(values=shapes) +
-  scale_fill_manual(values=fills) +
-  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
-               labels=c("Nov 2017", "Dec 2017",
-                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
-                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
-               limits=as.Date(c("2017-11-01", "2018-11-01")),
-               expand=c(0, 0)) +
-  scale_y_continuous(limits=c(20, 40)) +
+  expand=c(0, 0)) +
+  scale_y_continuous(limits=c(10, 40)) +
   labs(x="Date", y="%") +
-  theme
-
-fcam <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align="v")
-
-# Plots generation
-# Caulerpa cylindracea (Monospecific) samples
-data <- filter(distance_metadata, station.x=="FCa" & station.y=="FCa") %>%
-  filter((date.x=="2017-11-23" & date.y=="2017-12-04") |
-         (date.x=="2017-12-04" & date.y=="2017-12-14") |
-         (date.x=="2017-12-14" & date.y=="2018-02-13") |
-         (date.x=="2018-02-13" & date.y=="2018-03-27") |
-         (date.x=="2018-03-27" & date.y=="2018-04-24") |
-         (date.x=="2018-04-24" & date.y=="2018-05-22") |
-         (date.x=="2018-05-22" & date.y=="2018-06-19") |
-         (date.x=="2018-06-19" & date.y=="2018-07-10") |
-         (date.x=="2018-07-10" & date.y=="2018-08-09") |
-         (date.x=="2018-08-09" & date.y=="2018-09-04") |
-         (date.x=="2018-09-04" & date.y=="2018-10-05"))
-
-p1 <- filter(data, index=="bray") %>%
-  ggplot(aes(x=date.y, y=value, linetype=index, shape=index, fill=index)) +
-  geom_line() +
-  geom_point(size=3) +
-  scale_linetype_manual(values=lines) +
-  scale_shape_manual(values=shapes) +
-  scale_fill_manual(values=fills) +
-  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
-               labels=c("Nov 2017", "Dec 2017",
-                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
-                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
-               limits=as.Date(c("2017-11-01", "2018-11-01")),
-               expand=c(0, 0)) +
-  scale_y_continuous(limits=c(0, 100)) +
-  labs(x="", y="") +
-  ggtitle(parse(text="bolditalic('Caulerpa cylindracea')~bold('(Monospecific)')")) +
+  ggtitle("Jaccard's Similarity Coefficient") +
   theme +
-  theme(axis.ticks.x=element_blank(), axis.text.x=element_blank())
-
-p2 <- filter(data, index=="jaccard") %>%
-  ggplot(aes(x=date.y, y=value, linetype=index, shape=index, fill=index)) +
-  geom_line() +
-  geom_point(size=3) +
-  scale_linetype_manual(values=lines) +
-  scale_shape_manual(values=shapes) +
-  scale_fill_manual(values=fills) +
-  scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
-               labels=c("Nov 2017", "Dec 2017",
-                        "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",
-                        "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", ""),
-               limits=as.Date(c("2017-11-01", "2018-11-01")),
-               expand=c(0, 0)) +
-  scale_y_continuous(limits=c(20, 40)) +
-  labs(x="Date", y="") +
-  theme
-
-fca <- cowplot::plot_grid(p1, p2, nrow=2, ncol=1, rel_heights=c(1, 0.75), align="v")
-
-# Generating a plot to extract a common legend
-labels <- c("Bray-Curtis Similarity Coefficient", "Jaccard's Similarity Coefficient")
-p1 <- distance_metadata %>%
-  ggplot(aes(x=date.y, y=value, linetype=index, shape=index, fill=index)) +
-  geom_line() +
-  geom_point(size=3) +
-  scale_linetype_manual(values=lines, labels=labels) +
-  scale_shape_manual(values=shapes, labels=labels) +
-  scale_fill_manual(values=fills, labels=labels) +
-  labs(x="", y="") +
-  theme +
-  theme(legend.position="bottom", legend.title=element_blank(),
-        legend.text=element_text(size=10, margin=margin(r=0.2, unit="cm")),
+  theme(axis.text.x=element_text(angle=90, hjust=0.95, vjust=2.75),
+        legend.position="bottom", legend.title=element_blank(),
+        legend.text=element_text(size=16, margin=margin(r=0.2, unit="cm")),
         legend.key.width=unit(1.4, "cm"), legend.key.height=unit(0.5, "cm"),
         legend.key=element_rect(fill="white"), legend.justification=c("top"),
         legend.text.align=0) +
-  guides(linetype=guide_legend(ncol=1))
-legend <- cowplot::get_legend(p1)
+  guides(linetype=guide_legend(ncol=2))
 
 # Combining plots together and saving
-plots <- cowplot::plot_grid(f, fcym, fcam, fca, ncol=2, nrow=2)
-p <- cowplot::plot_grid(plots, legend, ncol=1, nrow=2, rel_heights=c(4.6, 0.4))
-ggsave("results/figures/seasonal_shared.jpg", p, width=210, height=297, units="mm")
+p <- cowplot::plot_grid(p1, p2, ncol=1, nrow=2)
+ggsave("results/figures/seasonal_shared.jpg", p, width=297, height=210, units="mm")

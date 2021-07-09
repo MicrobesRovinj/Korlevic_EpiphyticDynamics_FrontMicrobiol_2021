@@ -12,3 +12,4 @@ data/*/*
 !data/raw/NC_1_18118-0070_S59_L001_R2_001.fastq
 !data/raw/NC_5_18118-0423_R1_all.fastq
 !data/raw/NC_5_18118-0423_R2_all.fastq
+submission/*_cache

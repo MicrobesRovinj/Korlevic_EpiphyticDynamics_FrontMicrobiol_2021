@@ -48,7 +48,7 @@ coordinates <- inner_join(metadata, coordinates, by=c("label"="Group"))
 p1 <- ggplot() +
   geom_point(data=coordinates, aes(x=A1, y=A2, fill=station), shape=21, size=3, stroke=0.5) +
   scale_fill_manual(name=NULL,
-                      values=c("#66A61E", "#666666", "#A6761D", "#E6AB02"),
+                      values=c("F"="#1F78B4", "FCyM"="#666666", "FCaM"="#FDBF6F", "FCa"="#FF7F00"),
                       breaks=c("F", "FCyM", "FCaM", "FCa"),
                       labels=c("Seawater",
                                parse(text="italic('Cymodocea nodosa')~'(Mixed)'"),
@@ -78,8 +78,7 @@ p2 <- ggplot() +
   geom_point(data=coordinates, aes(x=A1, y=A2, fill=season), shape=21, size=3, stroke=0.5) +
   scale_fill_manual(name=NULL,
                     breaks=c("Spring", "Summer", "Autumn", "Winter"),
-                    values=c("Spring"="#377EB8", "Summer"="#4DAF4A",
-                             "Autumn"="#E41A1C", "Winter"="#984EA3")) +
+                    values=c("Spring"="#1F78B4", "Summer"="#666666", "Autumn"="#FDBF6F", "Winter"="#FF7F00")) +
   labs(x=paste0("PCoA I (",format(round(spe.b.pcoa$eig[1]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)"), 
        y=paste0("PCoA II (",format(round(spe.b.pcoa$eig[2]/sum(spe.b.pcoa$eig)*100, digits=2), nsmall=2)," %)")) +
   ggtitle(parse(text="bolditalic('Cymodocea nodosa')~bold('(Mixed)')")) +
@@ -104,8 +103,7 @@ p3 <- ggplot() +
   geom_point(data=coordinates, aes(x=A1, y=A2, fill=season, shape=station), size=3, stroke=0.5) +
   scale_fill_manual(name=NULL,
                     breaks=c("Spring", "Summer", "Autumn", "Winter"),
-                    values=c("Spring"="#377EB8", "Summer"="#4DAF4A",
-                             "Autumn"="#E41A1C", "Winter"="#984EA3")) +
+                    values=c("Spring"="#1F78B4", "Summer"="#666666", "Autumn"="#FDBF6F", "Winter"="#FF7F00")) +
   scale_shape_manual(name=NULL,
                      values=c("FCa"=21, "FCaM"=23),
                      breaks=c("FCaM", "FCa"),

@@ -1,5 +1,5 @@
 ---
-title: "**Supplementary Information**"
+title: "**Supplementary Material**"
 subtitle: "**Seasonal Dynamics of Epiphytic Microbial Communities on Marine Macrophyte Surfaces**"
 output:
   pdf_document:
@@ -42,14 +42,14 @@ knitr::knit_hooks$set(inline=inline_hook)
 library("kableExtra")
 ```
 
-\vspace{20mm}
+\vspace{10mm}
 Marino Korlević^1$*$^, Marsej Markovski^1^, Zihao Zhao^2^, Gerhard J. Herndl^2,3^, Mirjana Najdek^1^
 
 1\. Center for Marine Research, Ruđer Bošković Institute, Croatia
 
 2\. Department of Functional and Evolutionary Ecology, University of Vienna, Austria
 
-3\. NIOZ, Department of Marine Microbiology and Biogeochemistry, Royal Netherlands Institute for Sea Research, Utrecht University, The Netherlands
+3\. Department of Marine Microbiology and Biogeochemistry, Royal Netherlands Institute for Sea Research (NIOZ), Utrecht University, The Netherlands
 
 ^$*$^To whom correspondence should be addressed:
 
@@ -120,3 +120,309 @@ kable(metadata_nseq_notus, format="latex", booktabs=TRUE, linesep="", longtable=
   row_spec(0, bold=TRUE) %>%
   column_spec(1, width="6em")
 ```
+
+```{r calculators}
+# Loading rarefied community data created during the generation of the richness and diversity calculators plot
+load(file="results/numerical/rarefied.Rdata")
+
+# Copying the sample labels to the rows (input for library vegan)
+rarefied <- rarefied %>%
+  column_to_rownames("Group")
+
+# Calculating Chao1 and ACE species estimators
+estimators <- estimateR(rarefied)
+estimators <- as_tibble(t(estimators), .name_repair="unique") %>%
+  add_column("Group"=colnames(estimators), .before=TRUE)
+
+# Calculating diversity indices
+shannon <- diversity(rarefied, index="shannon")
+shannon <- tibble(Group=names(shannon), shannon)
+invsimpson <- diversity(rarefied, index="invsimpson")
+invsimpson <- tibble(Group=names(invsimpson), invsimpson)
+
+# Transforming the Shannon entropy to the effective number of species
+# (http://www.loujost.com/Statistics%20and%20Physics/Diversity%20and%20Similarity/EffectiveNumberOfSpecies.htm)
+shannon <- mutate(shannon, shannon=exp(shannon)) %>%
+  rename(eshannon=shannon)
+
+# Joining together estimators and indices
+estimators_indices <- inner_join(estimators, shannon, by="Group") %>%
+  inner_join(., invsimpson, by="Group")
+
+# Loading metadata 
+metadata <- read_tsv("data/raw/metadata.csv")
+
+# Joining metadata with estimators and indices
+estimators_indices_metadata <- inner_join(metadata, estimators_indices, by=c("ID"="Group")) %>%
+  mutate(date=as.Date(date, "%d.%m.%Y"))
+
+# Calculating the mean and standard deviation for each environment
+calculators_environemnt <- estimators_indices_metadata %>%
+  group_by(station) %>%
+  summarise(S.obs_mean=mean(S.obs), S.obs_sd=sd(S.obs),
+            S.chao1_mean=mean(S.chao1), S.chao1_sd=sd(S.chao1),
+            S.ACE_mean=mean(S.ACE), S.ACE_sd=sd(S.ACE),
+            eshannon_mean=mean(eshannon), eshannon_sd=sd(eshannon),
+            invsimpson_mean=mean(invsimpson), invsimpson_sd=sd(invsimpson)) %>%
+  arrange(match(station, c("F", "FCyM", "FCaM", "FCa"))) %>%
+  mutate(station=str_replace(station, "^F$", "Seawater")) %>%
+  mutate(station=str_replace(station, "^FCyM$", "\\\\textit{Cymodocea nodosa} (Mixed)")) %>%
+  mutate(station=str_replace(station, "^FCaM$", "\\\\textit{Caulerpa cylindracea} (Mixed)")) %>%
+  mutate(station=str_replace(station, "^FCa$", "\\\\textit{Caulerpa cylindracea} (Monospecific)")) %>%
+  mutate_at(vars(2:ncol(.)), ~ format(., big.mark=",", digits=1, nsmall=1, scientific=FALSE)) %>%
+  mutate(S.obs=paste(S.obs_mean, " ± ", S.obs_sd),
+         S.chao1=paste(S.chao1_mean, " ± ", S.chao1_sd),
+         S.ACE=paste(S.ACE_mean, " ± ", S.ACE_sd),
+         eshannon=paste(eshannon_mean, " ± ", eshannon_sd),
+         invsimpson=paste(invsimpson_mean, " ± ", invsimpson_sd)) %>%
+  select(!contains("_"))
+
+# Generating the table
+kable(calculators_environemnt, format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=c("Community Type", "Observed No. of OTUs", "Chao1", "ACE", "Exponential Shannon", "Inverse Simpson"), caption="Richness estimators and diversity indices of each community type. Calculations were done after normalization to the minimum number of reads per sample.\\label{calculators_community_type}", align="c") %>%
+  kable_styling(latex_options=c("hold_position", "repeat_header"), font_size=9) %>%
+  row_spec(0, bold=TRUE) %>%
+  column_spec(1, width="10em", latex_valign="m") %>%
+  column_spec(2, width="10em", latex_valign="m") %>%
+  column_spec(5:6, width="6em", latex_valign="m")
+```
+
+\newpage
+```{r calculator_statistics}
+# Performing the Kruskal-Wallis H test
+# Observed No. of OTUs
+kruskal <- kruskal.test(formula=S.obs ~ station, data=estimators_indices_metadata)
+pairwise.wilcox <- pairwise.wilcox.test(estimators_indices_metadata$S.obs, estimators_indices_metadata$station,
+                                              p.adjust.method="bonferroni", exact=FALSE)
+pairwise <- pairwise.wilcox$p.value %>%
+  as_tibble() %>%
+  add_column("V"=rownames(pairwise.wilcox$p.value), .before=TRUE)
+calculators_environemnt_test <-  tribble(~parameter, ~KW_H, ~KW_df, ~KW_p, ~pairwise, ~MW_p,
+                                         "S.obs", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCyM", filter(pairwise, V=="FCyM")$F,
+                                         "S.obs", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCaM", filter(pairwise, V=="FCaM")$F,
+                                         "S.obs", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCa", filter(pairwise, V=="FCa")$F,
+                                         "S.obs", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCyM – FCaM", filter(pairwise, V=="FCyM")$FCaM,
+                                         "S.obs", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCyM – FCa", filter(pairwise, V=="FCyM")$FCa,
+                                         "S.obs", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCaM – FCa", filter(pairwise, V=="FCaM")$FCa)
+
+
+# Chao1
+kruskal <- kruskal.test(formula=S.chao1 ~ station, data=estimators_indices_metadata)
+pairwise.wilcox <- pairwise.wilcox.test(estimators_indices_metadata$S.chao1, estimators_indices_metadata$station,
+                                              p.adjust.method="bonferroni")
+pairwise <- pairwise.wilcox$p.value %>%
+  as_tibble() %>%
+  add_column("V"=rownames(pairwise.wilcox$p.value), .before=TRUE)
+test_data <- tribble(~parameter, ~KW_H, ~KW_df, ~KW_p, ~pairwise, ~MW_p,
+                     "S.chao1", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCyM", filter(pairwise, V=="FCyM")$F,
+                     "S.chao1", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCaM", filter(pairwise, V=="FCaM")$F,
+                     "S.chao1", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCa", filter(pairwise, V=="FCa")$F,
+                     "S.chao1", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCyM – FCaM", filter(pairwise, V=="FCyM")$FCaM,
+                     "S.chao1", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCyM – FCa", filter(pairwise, V=="FCyM")$FCa,
+                     "S.chao1", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCaM – FCa", filter(pairwise, V=="FCaM")$FCa)
+calculators_environemnt_test <- rbind(calculators_environemnt_test, test_data)
+
+# ACE
+kruskal <- kruskal.test(formula=S.ACE ~ station, data=estimators_indices_metadata)
+pairwise.wilcox <- pairwise.wilcox.test(estimators_indices_metadata$S.ACE, estimators_indices_metadata$station,
+                                              p.adjust.method="bonferroni")
+pairwise <- pairwise.wilcox$p.value %>%
+  as_tibble() %>%
+  add_column("V"=rownames(pairwise.wilcox$p.value), .before=TRUE)
+test_data <- tribble(~parameter, ~KW_H, ~KW_df, ~KW_p, ~pairwise, ~MW_p,
+                     "S.ACE", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCyM", filter(pairwise, V=="FCyM")$F,
+                     "S.ACE", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCaM", filter(pairwise, V=="FCaM")$F,
+                     "S.ACE", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCa", filter(pairwise, V=="FCa")$F,
+                     "S.ACE", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCyM – FCaM", filter(pairwise, V=="FCyM")$FCaM,
+                     "S.ACE", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCyM – FCa", filter(pairwise, V=="FCyM")$FCa,
+                     "S.ACE", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCaM – FCa", filter(pairwise, V=="FCaM")$FCa)
+calculators_environemnt_test <- rbind(calculators_environemnt_test, test_data)
+
+# Exponential Shannon
+kruskal <- kruskal.test(formula=eshannon ~ station, data=estimators_indices_metadata)
+pairwise.wilcox <- pairwise.wilcox.test(estimators_indices_metadata$eshannon, estimators_indices_metadata$station,
+                                              p.adjust.method="bonferroni")
+pairwise <- pairwise.wilcox$p.value %>%
+  as_tibble() %>%
+  add_column("V"=rownames(pairwise.wilcox$p.value), .before=TRUE)
+test_data <- tribble(~parameter, ~KW_H, ~KW_df, ~KW_p, ~pairwise, ~MW_p,
+                     "eshannon", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCyM", filter(pairwise, V=="FCyM")$F,
+                     "eshannon", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCaM", filter(pairwise, V=="FCaM")$F,
+                     "eshannon", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCa", filter(pairwise, V=="FCa")$F,
+                     "eshannon", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCyM – FCaM", filter(pairwise, V=="FCyM")$FCaM,
+                     "eshannon", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCyM – FCa", filter(pairwise, V=="FCyM")$FCa,
+                     "eshannon", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCaM – FCa", filter(pairwise, V=="FCaM")$FCa)
+calculators_environemnt_test <- rbind(calculators_environemnt_test, test_data)
+
+# Inverse Simpson
+kruskal <- kruskal.test(formula=invsimpson ~ station, data=estimators_indices_metadata)
+pairwise.wilcox <- pairwise.wilcox.test(estimators_indices_metadata$invsimpson, estimators_indices_metadata$station,
+                                              p.adjust.method="bonferroni")
+pairwise <- pairwise.wilcox$p.value %>%
+  as_tibble() %>%
+  add_column("V"=rownames(pairwise.wilcox$p.value), .before=TRUE)
+test_data <- tribble(~parameter, ~KW_H, ~KW_df, ~KW_p, ~pairwise, ~MW_p,
+                     "invsimpson", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCyM", filter(pairwise, V=="FCyM")$F,
+                     "invsimpson", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCaM", filter(pairwise, V=="FCaM")$F,
+                     "invsimpson", kruskal$statistic, kruskal$parameter, kruskal$p.value, "F – FCa", filter(pairwise, V=="FCa")$F,
+                     "invsimpson", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCyM – FCaM", filter(pairwise, V=="FCyM")$FCaM,
+                     "invsimpson", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCyM – FCa", filter(pairwise, V=="FCyM")$FCa,
+                     "invsimpson", kruskal$statistic, kruskal$parameter, kruskal$p.value, "FCaM – FCa", filter(pairwise, V=="FCaM")$FCa)
+calculators_environemnt_test <- rbind(calculators_environemnt_test, test_data)
+
+# Formatting the statistics table
+calculators_environemnt_test <- calculators_environemnt_test %>%
+  mutate(pairwise=str_replace(pairwise, "F – FCyM", "Seawater – \\\\textit{Cymodocea nodosa} (Mixed)")) %>%
+  mutate(pairwise=str_replace(pairwise, "F – FCaM", "Seawater – \\\\textit{Caulerpa cylindracea} (Mixed)")) %>%
+  mutate(pairwise=str_replace(pairwise, "F – FCa", "Seawater – \\\\textit{Caulerpa cylindracea} (Monospecific)")) %>%
+  mutate(pairwise=str_replace(pairwise, "FCyM – FCaM", "\\\\textit{Cymodocea nodosa} (Mixed) – \\\\textit{Caulerpa cylindracea} (Mixed)")) %>%
+  mutate(pairwise=str_replace(pairwise, "FCyM – FCa", "\\\\textit{Cymodocea nodosa} (Mixed) – \\\\textit{Caulerpa cylindracea} (Monospecific)")) %>%
+  mutate(pairwise=str_replace(pairwise, "FCaM – FCa", "\\\\textit{Caulerpa cylindracea} (Mixed) – \\\\textit{Caulerpa cylindracea} (Monospecific)")) %>%
+  mutate(KW_p=case_when(KW_p < 0.05 & KW_p >= 0.01 ~ "< 0.05",
+                        KW_p < 0.01 & KW_p >= 0.001 ~ "< 0.01",
+                        KW_p < 0.001 & KW_p >= 0.0001 ~ "< 0.001",
+                        KW_p < 0.0001 ~ "< 0.0001",
+                        TRUE ~ as.character(format(round(KW_p, 2), nsmall=2, scientific=FALSE)))) %>%
+  mutate(MW_p=case_when(MW_p < 0.05 & MW_p >= 0.01 ~ "< 0.05",
+                        MW_p < 0.01 & MW_p >= 0.001 ~ "< 0.01",
+                        MW_p < 0.001 & MW_p >= 0.0001 ~ "< 0.001",
+                        MW_p < 0.0001 ~ "< 0.0001",
+                        TRUE ~ as.character(format(round(MW_p, 2), nsmall=2, scientific=FALSE)))) %>%
+  mutate(parameter=str_replace(parameter, "S.obs", "Observed No. of OTUs")) %>%
+  mutate(parameter=str_replace(parameter, "S.chao1", "Chao1")) %>%
+  mutate(parameter=str_replace(parameter, "S.ACE", "ACE")) %>%
+  mutate(parameter=str_replace(parameter, "eshannon", "Exponential Shannon")) %>%
+  mutate(parameter=str_replace(parameter, "invsimpson", "Inverse Simpson")) %>%
+  mutate(KW_H=format(KW_H, digits=1, nsmall=1))
+
+# Generating the table
+calculator_statistics <- kable(calculators_environemnt_test, format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=c("Parameter", "\\textit{H}", "\\textit{df}", "\\textit{p}", "Comparisons Between Community Types", "\\textit{p}"), caption="Statistic of richness estimator and diversity index parameters for different community types. Parameters were tested by applying the Kruskal-Wallis \\textit{H} test followed by a pairwise comparison using the Mann-Whitney \\textit{U} test. Bonferroni correction was used to address the problem of multiple comparisons.\\label{calculator_statistics}", align="c") %>%
+  add_header_above(c(" ", "Kruskal-Wallis \\\\textit{H} test"=3, "Mann-Whitney \\\\textit{U} test"=2), bold=TRUE, escape=FALSE) %>%
+  kable_styling(latex_options=c("hold_position", "repeat_header"), font_size=9) %>%
+  row_spec(0, bold=TRUE) %>%
+  column_spec(1, width="6em", latex_valign="m") %>%
+  collapse_rows(columns=1:2, valign="middle", latex_hline="major")
+
+# Saving the table
+cat(calculator_statistics, file="results/numerical/calculator_statistics.tex")
+
+# Merging rows in column H, df and p by parameter
+system("sed -i 's/ &  & 3 & < 0.0001 / \\&  \\&  \\&  /' results/numerical/calculator_statistics.tex")
+system("sed -i 's/& 3 & < 0.0001 &/\\& \\\\multirow{-6}{*}{\\\\centering\\\\arraybackslash 3} \\& \\\\multirow{-6}{*}{\\\\centering\\\\arraybackslash < 0.0001} \\&/' results/numerical/calculator_statistics.tex")
+```
+\input{../results/numerical/calculator_statistics.tex}
+
+```{r core_otus_taxonomy}
+# Loading rarefied community data created during the generation of the richness and diversity calculators plot
+load(file="results/numerical/rarefied.Rdata")
+
+# Joining metadata with OTU/sample data
+metadata_rarefied <- read_tsv("data/raw/metadata.csv") %>%
+  inner_join(., rarefied, by=c("ID"="Group")) %>%
+  mutate(date=as.Date(date, "%d.%m.%Y"))
+
+# Finding the core OTUs of each environment and their taxonomy
+# Cymodocea nodosa (mixed)
+core <- metadata_rarefied %>%
+  filter(station=="FCyM") %>%
+  select_if(~ all(. != 0)) %>%
+  select(starts_with("Otu"))
+  
+total <- metadata_rarefied %>%
+  filter(station=="FCyM") %>%
+  select(starts_with("Otu"))
+
+core_otus_fcym <- length(core)/length(total) * 100
+core_seq_fcym <- sum(core)/sum(total) * 100
+
+core_otu_sum <- as.list(colSums(core)) %>%
+  as_tibble() %>%
+  gather(key="OTU", value="size_normalized", 1:ncol(.))
+
+otu_taxonomy_fcym <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.0.03.cons.taxonomy") %>%
+  inner_join(core_otu_sum, ., by=c("OTU"="OTU")) %>%
+  select(-Size)
+
+# Caulerpa cylindracea (mixed)
+core <- metadata_rarefied %>%
+  filter(station=="FCaM") %>%
+  select_if(~ all(. != 0)) %>%
+  select(starts_with("Otu"))
+  
+total <- metadata_rarefied %>%
+  filter(station=="FCaM") %>%
+  select(starts_with("Otu"))
+
+core_otus_fcam <- length(core)/length(total) * 100
+core_seq_fcam <- sum(core)/sum(total) * 100
+
+core_otu_sum <- as.list(colSums(core)) %>%
+  as_tibble() %>%
+  gather(key="OTU", value="size_normalized", 1:ncol(.))
+
+otu_taxonomy_fcam <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.0.03.cons.taxonomy") %>%
+  inner_join(core_otu_sum, ., by=c("OTU"="OTU")) %>%
+  select(-Size)
+
+# Caulerpa cylindracea (monospecific)
+core <- metadata_rarefied %>%
+  filter(station=="FCa") %>%
+  select_if(~ all(. != 0)) %>%
+  select(starts_with("Otu"))
+  
+total <- metadata_rarefied %>%
+  filter(station=="FCa") %>%
+  select(starts_with("Otu"))
+
+core_otus_fca <- length(core)/length(total) * 100
+core_seq_fca <- sum(core)/sum(total) * 100
+
+core_otu_sum <- as.list(colSums(core)) %>%
+  as_tibble() %>%
+  gather(key="OTU", value="size_normalized", 1:ncol(.))
+
+otu_taxonomy_fca <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.0.03.cons.taxonomy") %>%
+  inner_join(core_otu_sum, ., by=c("OTU"="OTU")) %>%
+  select(-Size)
+```
+
+\newpage
+\blandscape
+```{r core_otus_taxonomy_table}
+otu_taxonomy_fcym <- otu_taxonomy_fcym %>%
+  mutate(environment="\\textit{Cymodocea nodosa} (Mixed)", .before=OTU) %>%
+  arrange(desc(size_normalized)) %>%
+  slice(1:10)
+
+otu_taxonomy_fcam <- otu_taxonomy_fcam %>%
+  mutate(environment="\\textit{Caulerpa cylindracea} (Mixed)", .before=OTU) %>%
+  arrange(desc(size_normalized)) %>%
+  slice(1:10)
+
+otu_taxonomy_fca <- otu_taxonomy_fca %>%
+  mutate(environment="\\textit{Caulerpa cylindracea} (Monospecific)", .before=OTU) %>%
+  arrange(desc(size_normalized)) %>%
+  slice(1:10)
+
+otu_taxonomy <- rbind(otu_taxonomy_fcym,
+                      otu_taxonomy_fcam,
+                      otu_taxonomy_fca) %>%
+  mutate(Taxonomy=str_replace_all(Taxonomy, ";", "; ")) %>%
+  mutate(Taxonomy=str_replace_all(Taxonomy, "\\([^\\)]+\\)", "")) %>%
+  mutate(Taxonomy=str_replace_all(Taxonomy, "_", " ")) %>%
+  mutate(Taxonomy=str_replace(Taxonomy, "; $", "}")) %>%
+  mutate(Taxonomy=str_replace_all(Taxonomy, "^", "\\\\textit{")) %>%
+  mutate(Taxonomy=str_replace_all(Taxonomy, "; ", "}; \\\\textit{")) %>%
+  mutate(Taxonomy=str_replace(Taxonomy, "\\\\textit\\{Rhodobacteraceae unclassified\\}", "\\\\textit{Rhodobacteraceae} (NR)")) %>%
+  mutate(Taxonomy=str_replace(Taxonomy, "\\\\textit\\{Pleurocapsa PCC-7319\\}", "\\\\textit{Pleurocapsa}")) %>%
+  mutate(Taxonomy=str_replace(Taxonomy, "\\\\textit\\{SEEP-SRB4\\}", "SEEP-SRB4")) %>%
+  mutate(Taxonomy=str_replace(Taxonomy, "\\\\textit\\{Desulfocapsaceae unclassified\\}", "\\\\textit{Desulfocapsaceae} (NR)")) %>%
+  mutate(Taxonomy=str_replace(Taxonomy, "\\\\textit\\{Desulfobacteraceae unclassified\\}", "\\\\textit{Desulfobacteraceae} (NR)"))
+
+# Generating the table
+kable(otu_taxonomy, format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=c("Community Type", "OTU Number", "No. of Sequences", "OTU Taxonomy"), caption="Taxonomic classification of OTUs present at every sampling date in the each community type. Only ten OTUs with the highest number of sequences after normalization to the minimum number of reads per sample are shown. NR -- No Relative (sequences without known relatives within the corresponding group)\\label{core_otus_taxonomy_table}", align=c("c", "c", "c", "l")) %>%
+  kable_styling(latex_options=c("hold_position", "repeat_header"), font_size=9) %>%
+  row_spec(0, bold=TRUE) %>%
+  column_spec(1, width="8em", latex_valign="m") %>%
+  collapse_rows(columns=1, valign="middle", latex_hline="major")
+```
+\elandscape

@@ -138,7 +138,7 @@ p1 <- filter(estimators_indices_metadata, station=="FCyM") %>%
   scale_linetype_manual(values=lines_p1) +
   scale_shape_manual(values=shapes_p1) +
   scale_fill_manual(values=fills_p1) +
-  scale_y_continuous(limits=c(300, 2500)) +
+  scale_y_continuous(limits=c(200, 2600), breaks=c(500, 1000, 1500, 2000, 2500)) +
   scale_x_date(breaks=seq(as.Date("2017-11-01"), as.Date("2018-11-01"), "months"),
                labels=c("Nov 2017", "Dec 2017",
                         "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018",

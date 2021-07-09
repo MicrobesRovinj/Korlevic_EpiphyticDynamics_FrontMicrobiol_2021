@@ -52,7 +52,7 @@ This is the repository for the manuscript "Seasonal Dynamics of Epiphytic Microb
   * `rmarkdown (v. 1.16)`
   * `tinytex (v. 0.16)`
   * `tidyverse (v. 1.2.1)`
-  * `vegan (v. 2.5.6)`
+  * `vegan (v. 2.5-6)`
   * `RColorBrewer (v. 1.1.2)`
   * `kableExtra (v. 1.1.0)`
   * `cowplot (v. 1.0.0)`
