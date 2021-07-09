@@ -5,8 +5,8 @@
 \documentclass[
   12pt,
 ]{article}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
@@ -37,12 +37,12 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={Supplementary Information},
+  pdftitle={Supplementary Material},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1.0in]{geometry}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -77,7 +77,7 @@
 
 \usepackage[labelsep=period, labelfont=bf]{caption}
 \renewcommand{\thefigure}{S\arabic{figure}}
-\renewcommand{\figurename}{Fig.}
+\renewcommand{\figurename}{Figure}
 \renewcommand{\thetable}{S\arabic{table}}
 \captionsetup{justification=raggedright,singlelinecheck=false}
 
@@ -97,7 +97,7 @@
 
 \usepackage{txfonts}
 
-\renewcommand{\figureautorefname}{Fig.}
+\renewcommand{\figureautorefname}{Figure}
 
 \usepackage{microtype}
 \usepackage{booktabs}
@@ -114,23 +114,26 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
 
-\title{\textbf{Supplementary Information}}
+\title{\textbf{Supplementary Material}}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
   \apptocmd{\@title}{\par {\large #1 \par}}{}{}
 }
 \makeatother
-\subtitle{\textbf{Seasonal Dynamics of Epiphytic Microbial Communities on Marine
-Macrophyte Surfaces}}
+\subtitle{\textbf{Seasonal Dynamics of Epiphytic Microbial Communities
+on Marine Macrophyte Surfaces}}
 \author{}
 \date{\vspace{-2.5em}}
 
 \begin{document}
 \maketitle
 
-\vspace{20mm}
+\vspace{10mm}
 
 Marino Korlević\textsuperscript{1\(*\)}, Marsej
 Markovski\textsuperscript{1}, Zihao Zhao\textsuperscript{2}, Gerhard J.
@@ -141,8 +144,8 @@ Herndl\textsuperscript{2,3}, Mirjana Najdek\textsuperscript{1}
 2. Department of Functional and Evolutionary Ecology, University of
 Vienna, Austria
 
-3. NIOZ, Department of Marine Microbiology and Biogeochemistry, Royal
-Netherlands Institute for Sea Research, Utrecht University, The
+3. Department of Marine Microbiology and Biogeochemistry, Royal
+Netherlands Institute for Sea Research (NIOZ), Utrecht University, The
 Netherlands
 
 \textsuperscript{\(*\)}To whom correspondence should be addressed:
@@ -168,7 +171,7 @@ Running title: Seasonal dynamics of epiphytic communities
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.85\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/rarefaction} 
+{\centering \includegraphics[width=0.85\linewidth]{/home/marino/Desktop/repositories/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/rarefaction} 
 
 }
 
@@ -177,7 +180,7 @@ Running title: Seasonal dynamics of epiphytic communities
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.85\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/calculators} 
+{\centering \includegraphics[width=0.85\linewidth]{/home/marino/Desktop/repositories/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/calculators} 
 
 }
 
@@ -186,7 +189,7 @@ Running title: Seasonal dynamics of epiphytic communities
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.85\linewidth]{/mydisk/POSAO2/isabella/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/chloroplast_bar_plot} 
+{\centering \includegraphics[width=0.85\linewidth]{/home/marino/Desktop/repositories/Korlevic_EpiphyticDynamics_FrontMicrobiol_2021/results/figures/chloroplast_bar_plot} 
 
 }
 
@@ -268,5 +271,115 @@ Running title: Seasonal dynamics of epiphytic communities
 75 & \textit{Caulerpa cylindracea} (Monospecific) & 5 October 2018 & Autumn & 33,086 & 3,076\\*
 \end{longtable}
 \endgroup{}
+
+\begingroup\fontsize{9}{11}\selectfont
+
+\begin{longtable}[t]{>{\centering\arraybackslash}m{10em}>{\centering\arraybackslash}m{10em}cc>{\centering\arraybackslash}m{6em}>{\centering\arraybackslash}m{6em}}
+\caption{\label{tab:calculators}Richness estimators and diversity indices of each community type. Calculations were done after normalization to the minimum number of reads per sample.\label{calculators_community_type}}\\
+\toprule
+\textbf{Community Type} & \textbf{Observed No. of OTUs} & \textbf{Chao1} & \textbf{ACE} & \textbf{Exponential Shannon} & \textbf{Inverse Simpson}\\
+\midrule
+\endfirsthead
+\caption[]{Richness estimators and diversity indices of each community type. Calculations were done after normalization to the minimum number of reads per sample.\label{calculators_community_type} \textit{(continued)}}\\
+\toprule
+\textbf{Community Type} & \textbf{Observed No. of OTUs} & \textbf{Chao1} & \textbf{ACE} & \textbf{Exponential Shannon} & \textbf{Inverse Simpson}\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Seawater & 531.0  ±  143.9 & 1,244.5  ±  392.7 & 1,441.1  ±  458.7 & 62.2  ±   20.5 & 26.7  ±   8.0\\
+\textit{Cymodocea nodosa} (Mixed) & 1,063.7  ±  210.6 & 1,703.2  ±  409.9 & 1,838.8  ±  437.3 & 237.8  ±  100.4 & 76.9  ±  46.6\\
+\textit{Caulerpa cylindracea} (Mixed) & 1,688.4  ±  136.6 & 2,936.9  ±  460.2 & 3,220.7  ±  497.2 & 410.4  ±   92.5 & 102.2  ±  47.2\\
+\textit{Caulerpa cylindracea} (Monospecific) & 1,750.4  ±  165.7 & 2,911.0  ±  575.0 & 3,171.7  ±  622.1 & 496.4  ±   87.1 & 144.4  ±  42.6\\*
+\end{longtable}
+\endgroup{}
+
+\newpage
+
+\input{../results/numerical/calculator_statistics.tex}
+
+\newpage
+\blandscape
+\begingroup\fontsize{9}{11}\selectfont
+
+\begin{longtable}[t]{>{\centering\arraybackslash}m{8em}ccl}
+\caption{\label{tab:core_otus_taxonomy_table}Taxonomic classification of OTUs present at every sampling date in the each community type. Only ten OTUs with the highest number of sequences after normalization to the minimum number of reads per sample are shown. NR -- No Relative (sequences without known relatives within the corresponding group)\label{core_otus_taxonomy_table}}\\
+\toprule
+\textbf{Community Type} & \textbf{OTU Number} & \textbf{No. of Sequences} & \textbf{OTU Taxonomy}\\
+\midrule
+\endfirsthead
+\caption[]{Taxonomic classification of OTUs present at every sampling date in the each community type. Only ten OTUs with the highest number of sequences after normalization to the minimum number of reads per sample are shown. NR -- No Relative (sequences without known relatives within the corresponding group)\label{core_otus_taxonomy_table} \textit{(continued)}}\\
+\toprule
+\textbf{Community Type} & \textbf{OTU Number} & \textbf{No. of Sequences} & \textbf{OTU Taxonomy}\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+ & Otu00014 & 5092 & \textit{Bacteria}; \textit{Proteobacteria}; \textit{Alphaproteobacteria}; \textit{Rhodobacterales}; \textit{Rhodobacteraceae}; \textit{Rhodobacteraceae} (NR)\\
+\nopagebreak
+ & Otu00020 & 3188 & \textit{Bacteria}; \textit{Proteobacteria}; \textit{Alphaproteobacteria}; \textit{Rhodobacterales}; \textit{Rhodobacteraceae}; \textit{Rhodobacteraceae} (NR)\\
+\nopagebreak
+ & Otu00019 & 3026 & \textit{Bacteria}; \textit{Cyanobacteria}; \textit{Cyanobacteriia}; \textit{Cyanobacteriales}; \textit{Xenococcaceae}; \textit{Pleurocapsa}\\
+\nopagebreak
+ & Otu00030 & 2014 & \textit{Bacteria}; \textit{Proteobacteria}; \textit{Alphaproteobacteria}; \textit{Rhodobacterales}; \textit{Rhodobacteraceae}; \textit{Rhodobacteraceae} (NR)\\
+\nopagebreak
+ & Otu00013 & 1884 & \textit{Bacteria}; \textit{Proteobacteria}; \textit{Alphaproteobacteria}; \textit{Rhodobacterales}; \textit{Rhodobacteraceae}; \textit{Rhodobacteraceae} (NR)\\
+\nopagebreak
+ & Otu00032 & 1586 & \textit{Bacteria}; \textit{Verrucomicrobiota}; \textit{Verrucomicrobiae}; \textit{Opitutales}; \textit{Puniceicoccaceae}; \textit{Lentimonas}\\
+\nopagebreak
+ & Otu00059 & 1469 & \textit{Bacteria}; \textit{Proteobacteria}; \textit{Gammaproteobacteria}; \textit{Burkholderiales}; \textit{Methylophilaceae}; \textit{Methylotenera}\\
+\nopagebreak
+ & Otu00005 & 1337 & \textit{Bacteria}; \textit{Proteobacteria}; \textit{Alphaproteobacteria}; \textit{Rhodobacterales}; \textit{Rhodobacteraceae}; \textit{Rhodobacteraceae} (NR)\\
+\nopagebreak
+ & Otu00050 & 1264 & \textit{Bacteria}; \textit{Proteobacteria}; \textit{Alphaproteobacteria}; \textit{Rhodobacterales}; \textit{Rhodobacteraceae}; \textit{Rhodobacteraceae} (NR)\\
+\nopagebreak
+\multirow{-10}{8em}{\centering\arraybackslash \textit{Cymodocea nodosa} (Mixed)} & Otu00029 & 1162 & \textit{Bacteria}; \textit{Proteobacteria}; \textit{Alphaproteobacteria}; \textit{Rhodobacterales}; \textit{Rhodobacteraceae}; \textit{Rhodobacteraceae} (NR)\\
+\cmidrule{1-4}\pagebreak[0]
+ & Otu00011 & 4051 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobacteria}; \textit{Desulfobacterales}; \textit{Desulfosarcinaceae}; \textit{Desulfatitalea}\\
+\nopagebreak
+ & Otu00010 & 3436 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfocapsaceae}; \textit{Desulfocapsaceae} (NR)\\
+\nopagebreak
+ & Otu00013 & 2531 & \textit{Bacteria}; \textit{Proteobacteria}; \textit{Alphaproteobacteria}; \textit{Rhodobacterales}; \textit{Rhodobacteraceae}; \textit{Rhodobacteraceae} (NR)\\
+\nopagebreak
+ & Otu00021 & 1859 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfocapsaceae}; \textit{Desulfocapsaceae} (NR)\\
+\nopagebreak
+ & Otu00025 & 1481 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfocapsaceae}; SEEP-SRB4\\
+\nopagebreak
+ & Otu00037 & 1209 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfobulbaceae}; \textit{Desulfobulbus}\\
+\nopagebreak
+ & Otu00033 & 1189 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfocapsaceae}; \textit{Desulfocapsaceae} (NR)\\
+\nopagebreak
+ & Otu00044 & 1042 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfocapsaceae}; \textit{Desulfocapsaceae} (NR)\\
+\nopagebreak
+ & Otu00019 & 1012 & \textit{Bacteria}; \textit{Cyanobacteria}; \textit{Cyanobacteriia}; \textit{Cyanobacteriales}; \textit{Xenococcaceae}; \textit{Pleurocapsa}\\
+\nopagebreak
+\multirow{-10}{8em}{\centering\arraybackslash \textit{Caulerpa cylindracea} (Mixed)} & Otu00046 & 982 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfocapsaceae}; \textit{Desulfotalea}\\
+\cmidrule{1-4}\pagebreak[0]
+ & Otu00010 & 3572 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfocapsaceae}; \textit{Desulfocapsaceae} (NR)\\
+\nopagebreak
+ & Otu00011 & 2977 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobacteria}; \textit{Desulfobacterales}; \textit{Desulfosarcinaceae}; \textit{Desulfatitalea}\\
+\nopagebreak
+ & Otu00013 & 2109 & \textit{Bacteria}; \textit{Proteobacteria}; \textit{Alphaproteobacteria}; \textit{Rhodobacterales}; \textit{Rhodobacteraceae}; \textit{Rhodobacteraceae} (NR)\\
+\nopagebreak
+ & Otu00021 & 1931 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfocapsaceae}; \textit{Desulfocapsaceae} (NR)\\
+\nopagebreak
+ & Otu00025 & 1912 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfocapsaceae}; SEEP-SRB4\\
+\nopagebreak
+ & Otu00033 & 1613 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfocapsaceae}; \textit{Desulfocapsaceae} (NR)\\
+\nopagebreak
+ & Otu00040 & 1289 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobacteria}; \textit{Desulfobacterales}; \textit{Desulfobacteraceae}; \textit{Desulfobacteraceae} (NR)\\
+\nopagebreak
+ & Otu00046 & 1089 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfocapsaceae}; \textit{Desulfotalea}\\
+\nopagebreak
+ & Otu00037 & 1058 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobulbia}; \textit{Desulfobulbales}; \textit{Desulfobulbaceae}; \textit{Desulfobulbus}\\
+\nopagebreak
+\multirow{-10}{8em}{\centering\arraybackslash \textit{Caulerpa cylindracea} (Monospecific)} & Otu00058 & 950 & \textit{Bacteria}; \textit{Desulfobacterota}; \textit{Desulfobacteria}; \textit{Desulfobacterales}; \textit{Desulfosarcinaceae}; \textit{Desulfatitalea}\\*
+\end{longtable}
+\endgroup{}
+\elandscape
 
 \end{document}
