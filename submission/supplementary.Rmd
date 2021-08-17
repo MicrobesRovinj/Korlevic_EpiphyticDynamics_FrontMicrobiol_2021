@@ -419,7 +419,7 @@ otu_taxonomy <- rbind(otu_taxonomy_fcym,
   mutate(Taxonomy=str_replace(Taxonomy, "\\\\textit\\{Desulfobacteraceae unclassified\\}", "\\\\textit{Desulfobacteraceae} (NR)"))
 
 # Generating the table
-kable(otu_taxonomy, format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=c("Community Type", "OTU Number", "No. of Sequences", "OTU Taxonomy"), caption="Taxonomic classification of OTUs present at every sampling date in the each community type. Only ten OTUs with the highest number of sequences after normalization to the minimum number of reads per sample are shown. NR -- No Relative (sequences without known relatives within the corresponding group)\\label{core_otus_taxonomy_table}", align=c("c", "c", "c", "l")) %>%
+kable(otu_taxonomy, format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=c("Community Type", "OTU Number", "No. of Sequences", "OTU Taxonomy"), caption="Taxonomic classification of OTUs present at every sampling date in each community type. Only ten OTUs with the highest number of sequences after normalization to the minimum number of reads per sample are shown. NR -- No Relative (sequences without known relatives within the corresponding group)\\label{core_otus_taxonomy_table}", align=c("c", "c", "c", "l")) %>%
   kable_styling(latex_options=c("hold_position", "repeat_header"), font_size=9) %>%
   row_spec(0, bold=TRUE) %>%
   column_spec(1, width="8em", latex_valign="m") %>%
